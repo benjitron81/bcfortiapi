@@ -96,6 +96,11 @@ response_variable = init_variable.dvmdb_device(adom="ADOM name", method="get")
 init_variable.logout()
 ```
 
+## Change Log 0.9
+
+- 06-02-2026: Fixed bug where JSON response containing boolean values could not be read by Python JSON module due to capitalised True/False values in response
+- 06-02-2026: Initial release
+
 ## Change Log 0.8
 
-- 04-02-2026: Beta Release
+- 04-02-2026: Initial release

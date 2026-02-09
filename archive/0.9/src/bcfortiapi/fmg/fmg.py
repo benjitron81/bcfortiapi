@@ -1,7 +1,7 @@
 #bcfortiapi.fmg
 #API library for Fortinet FortiManager
 #Created by Benjamin Court 06-01-2026
-#Last Updated: 09-02-2026
+#Last Updated: 06-02-2026
 
 """
 bcfortiapi.fmg\n
@@ -39,7 +39,7 @@ class fmgapi:
         *Login and return login state (bool)*
     >>> response_variable = init_variable.login(username="Username", password="Password")
 
-        *Example GET (response returned as string, can be read using json.loads)*
+        *Example GET (response returned as JSON-formatted string, can be read using json.loads)*
     >>> response_variable = init_variable.dvmdb_device(adom="ADOM name", method="get")
 
         *Logout*
@@ -117,8 +117,8 @@ class fmgapi:
     
     def _request(self):
         response = self.session.post(url=self.base_url, json=self.payload)
-        resp_req = str(response.content)
-        response = resp_req
+        resp_req = json.dumps(str(response.json()))
+        response = str(json.loads(resp_req)).replace("'", '"').replace('None', '"None"').replace('False', 'false').replace('True','true')
         if self.debug == True:
             self._debugger(fnct=self._request.__name__, mode=["std", "resp"])
         return response

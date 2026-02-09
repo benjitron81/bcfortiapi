@@ -1,25 +1,3 @@
-Metadata-Version: 2.4
-Name: bcfortiapi
-Version: 0.9.1
-Summary: A Python library for interacting with the Fortinet FortiGate and FortiManager APIs
-Author-email: Benjamin Court <bmcitconsulting@gmail.com>
-Maintainer-email: Benjamin Court <bmcitconsulting@gmail.com>
-License-Expression: MIT
-Project-URL: Homepage, https://github.com/benjitron81/bcfortiapi
-Project-URL: Issues, https://github.com/benjitron81/bcfortiapi/issues
-Keywords: fortinet,fortigate,fgt,fortimanager,fmg,api
-Classifier: Development Status :: 4 - Beta
-Classifier: Intended Audience :: Developers
-Classifier: Operating System :: OS Independent
-Classifier: Programming Language :: Python :: 3
-Classifier: Topic :: Software Development :: Libraries :: Python Modules
-Requires-Python: >=3.11
-Description-Content-Type: text/markdown
-License-File: LICENSE.txt
-Requires-Dist: urllib3>=2.2.1
-Requires-Dist: requests>=2.32.3
-Dynamic: license-file
-
 # bcfortiapi
 
 A Python library for interacting with the Fortinet FortiGate and FortiManager APIs
@@ -27,8 +5,8 @@ A Python library for interacting with the Fortinet FortiGate and FortiManager AP
 ## Current Status
 
 - Status: Beta
-- Latest Release: 0.9.1
-- Release Date: 09-02-2026
+- Latest Release: 0.9
+- Release Date: 06-02-2026
 
 ## Dependencies
 
@@ -81,7 +59,7 @@ init_variable.login(username="Username", password="Password")
 response_variable = init_variable.login(username="Username", password="Password")
 ```
 
-*Example GET (response returned as string, can be read using json.loads)*
+*Example GET (response returned as JSON-formatted string, can be read using json.loads)*
 ```
 response_variable = init_variable.dvmdb_device(adom="ADOM name", method="get")
 ```
@@ -108,7 +86,7 @@ init_variable.login(username="Username", password="Password")
 response_variable = init_variable.login(username="Username", password="Password")
 ```
 
-*Example GET (response returned as string, can be read using json.loads)*
+*Example GET (response returned as JSON-formatted string, can be read using json.loads)*
 ```
 response_variable = init_variable.dvmdb_device(adom="ADOM name", method="get")
 ```
@@ -118,15 +96,11 @@ response_variable = init_variable.dvmdb_device(adom="ADOM name", method="get")
 init_variable.logout()
 ```
 
-## Change Log 0.9.1
-
-- 09-02-2026: Removed some pre-processing of API responses, library now returns raw response content as string for external processing as required (can still be processed with json.loads).
-
 ## Change Log 0.9
 
 - 06-02-2026: Fixed bug where JSON response containing boolean values could not be read by Python JSON module due to capitalised True/False values in response
-- 06-02-2026: 0.9 Initial release
+- 06-02-2026: Initial release
 
 ## Change Log 0.8
 
-- 04-02-2026: 0.8 Initial release
+- 04-02-2026: Initial release

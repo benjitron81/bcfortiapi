@@ -141,7 +141,7 @@ class fgtapi:
                 response = self.session.delete(url=apiurl)
             else:
                 response = self.session.get(url=apiurl)
-        resp_req = str(response.content)
+        resp_req = response.content
         response = resp_req
         if self.debug == True:
             self._debugger(fnct=self._request.__name__, mode=["std", "resp"])

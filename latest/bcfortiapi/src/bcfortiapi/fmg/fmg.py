@@ -117,7 +117,7 @@ class fmgapi:
     
     def _request(self):
         response = self.session.post(url=self.base_url, json=self.payload)
-        resp_req = str(response.content)
+        resp_req = response.content
         response = resp_req
         if self.debug == True:
             self._debugger(fnct=self._request.__name__, mode=["std", "resp"])

@@ -5,8 +5,8 @@ A Python library for interacting with the Fortinet FortiGate and FortiManager AP
 ## Current Status
 
 - Status: Beta
-- Latest Release: 0.9
-- Release Date: 06-02-2026
+- Latest Release: 0.9.1
+- Release Date: 09-02-2026
 
 ## Dependencies
 
@@ -59,7 +59,7 @@ init_variable.login(username="Username", password="Password")
 response_variable = init_variable.login(username="Username", password="Password")
 ```
 
-*Example GET (response returned as JSON-formatted string, can be read using json.loads)*
+*Example GET (response returned as string, can be read using json.loads)*
 ```
 response_variable = init_variable.dvmdb_device(adom="ADOM name", method="get")
 ```
@@ -86,7 +86,7 @@ init_variable.login(username="Username", password="Password")
 response_variable = init_variable.login(username="Username", password="Password")
 ```
 
-*Example GET (response returned as JSON-formatted string, can be read using json.loads)*
+*Example GET (response returned as string, can be read using json.loads)*
 ```
 response_variable = init_variable.dvmdb_device(adom="ADOM name", method="get")
 ```
@@ -96,11 +96,15 @@ response_variable = init_variable.dvmdb_device(adom="ADOM name", method="get")
 init_variable.logout()
 ```
 
+## Change Log 0.9.1
+
+- 09-02-2026: Removed some pre-processing of API responses, library now returns raw response content as string for external processing as required (can still be processed with json.loads).
+
 ## Change Log 0.9
 
 - 06-02-2026: Fixed bug where JSON response containing boolean values could not be read by Python JSON module due to capitalised True/False values in response
-- 06-02-2026: Initial release
+- 06-02-2026: 0.9 Initial release
 
 ## Change Log 0.8
 
-- 04-02-2026: Initial release
+- 04-02-2026: 0.8 Initial release

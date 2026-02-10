@@ -1,7 +1,7 @@
 #bcfortiapi.fgt
 #API library for Fortinet FortiGate
 #Created by Benjamin Court 14-01-2026
-#Last Updated: 10-02-2026
+#Last Updated: 09-02-2026
 
 """
 bcfortiapi.fgt\n
@@ -63,6 +63,13 @@ class fgtapi:
         self.session.verify = False
         self.base_url = f"https://{fortigate}:{port}/"
         self.db_ver = version
+        if (len(version) == 3) and (version[1]) == ".":
+            splitversion = version.split(".")
+            self.db_maj_ver = int(splitversion[0])
+            self.db_min_ver = int(splitversion[1])
+        else:
+            self.db_maj_ver = 7
+            self.db_min_ver = 4
         if authtoken is not None:
             self.loginstate = True
         else:
@@ -86,6 +93,8 @@ class fgtapi:
                 print(f"Session Verification: {str(self.session.verify)}")
                 print(f"FGT Base URL: {str(self.base_url)}")
                 print(f"Specified FGT OS Version: {str(self.db_ver)}")
+                print(f"Calculated Major Version Integer Value: {str(self.db_maj_ver)}")
+                print(f"Calculated Minor Version Integer Value: {str(self.db_min_ver)}")
                 print(f"Login State: {str(self.loginstate)}")
                 print(f"Payload: {str(self.payload)}")
                 print("")
@@ -22278,7 +22287,6 @@ class fgtapi:
     def conf_vpn_sslweb_hostchecksoftware(self, method:str="get", name:str=None, data:dict=None, urloptions:str=None):
         """
         bcfortiapi.fgt.fgtapi.conf_vpn_sslweb_hostchecksoftware\n
-        *(Removed in FortiOS 7.6)*\n
 
         API Endpoints:
         --------------\n
@@ -22309,8 +22317,7 @@ class fgtapi:
 
         """
         self.payload = data
-        compatible_versions = ["7.4"]
-        if self.db_ver in compatible_versions:
+        if (self.db_maj_ver < 7) or ((self.db_maj_ver == 7) and (self.db_min_ver < 6)):
             if self.loginstate == True:
                 if name is not None:
                     response = self._request(method=method, endpoint=f"api/v2/cmdb/vpn.ssl.web/host-check-software/{name}", urloptions=urloptions)    
@@ -22321,13 +22328,12 @@ class fgtapi:
             else:
                 response = self._json_error(fnct=self.conf_vpn_sslweb_hostchecksoftware.__name__, msg=f"Login state is {self.loginstate}")
         else:
-            response = self._json_error(fnct=self.conf_vpn_sslweb_hostchecksoftware.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_ver)}")
+            response = self._json_error(fnct=self.conf_vpn_sslweb_hostchecksoftware.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_maj_ver)}.{str(self.db_min_ver)}")
         return response
     
     def conf_vpn_sslweb_portal(self, method:str="get", name:str=None, data:dict=None, urloptions:str=None):
         """
         bcfortiapi.fgt.fgtapi.conf_vpn_sslweb_portal\n
-        *(Removed in FortiOS 7.6)*\n
 
         API Endpoints:
         --------------\n
@@ -22459,8 +22465,7 @@ class fgtapi:
 
         """
         self.payload = data
-        compatible_versions = ["7.4"]
-        if self.db_ver in compatible_versions:
+        if (self.db_maj_ver < 7) or ((self.db_maj_ver == 7) and (self.db_min_ver < 6)):
             if self.loginstate == True:
                 if name is not None:
                     response = self._request(method=method, endpoint=f"api/v2/cmdb/vpn.ssl.web/portal/{name}", urloptions=urloptions)    
@@ -22471,13 +22476,12 @@ class fgtapi:
             else:
                 response = self._json_error(fnct=self.conf_vpn_sslweb_portal.__name__, msg=f"Login state is {self.loginstate}")
         else:
-            response = self._json_error(fnct=self.conf_vpn_sslweb_portal.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_ver)}")
+            response = self._json_error(fnct=self.conf_vpn_sslweb_portal.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_maj_ver)}.{str(self.db_min_ver)}")
         return response
     
     def conf_vpn_sslweb_realm(self, method:str="get", name:str=None, data:dict=None, urloptions:str=None):
         """
         bcfortiapi.fgt.fgtapi.conf_vpn_sslweb_realm\n
-        *(Removed in FortiOS 7.6)*\n
 
         API Endpoints:
         --------------\n
@@ -22504,8 +22508,7 @@ class fgtapi:
 
         """
         self.payload = data
-        compatible_versions = ["7.4"]
-        if self.db_ver in compatible_versions:
+        if (self.db_maj_ver < 7) or ((self.db_maj_ver == 7) and (self.db_min_ver < 6)):
             if self.loginstate == True:
                 if name is not None:
                     response = self._request(method=method, endpoint=f"api/v2/cmdb/vpn.ssl.web/realm/{name}", urloptions=urloptions)    
@@ -22516,13 +22519,12 @@ class fgtapi:
             else:
                 response = self._json_error(fnct=self.conf_vpn_sslweb_realm.__name__, msg=f"Login state is {self.loginstate}")
         else:
-            response = self._json_error(fnct=self.conf_vpn_sslweb_realm.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_ver)}")
+            response = self._json_error(fnct=self.conf_vpn_sslweb_realm.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_maj_ver)}.{str(self.db_min_ver)}")
         return response
     
     def conf_vpn_sslweb_userbookmark(self, method:str="get", name:str=None, data:dict=None, urloptions:str=None):
         """
         bcfortiapi.fgt.fgtapi.conf_vpn_sslweb_userbookmark\n
-        *(Removed in FortiOS 7.6)*\n
 
         API Endpoints:
         --------------\n
@@ -22573,8 +22575,7 @@ class fgtapi:
 
         """
         self.payload = data
-        compatible_versions = ["7.4"]
-        if self.db_ver in compatible_versions:
+        if (self.db_maj_ver < 7) or ((self.db_maj_ver == 7) and (self.db_min_ver < 6)):
             if self.loginstate == True:
                 if name is not None:
                     response = self._request(method=method, endpoint=f"api/v2/cmdb/vpn.ssl.web/user-bookmark/{name}", urloptions=urloptions)    
@@ -22585,13 +22586,12 @@ class fgtapi:
             else:
                 response = self._json_error(fnct=self.conf_vpn_sslweb_userbookmark.__name__, msg=f"Login state is {self.loginstate}")
         else:
-            response = self._json_error(fnct=self.conf_vpn_sslweb_userbookmark.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_ver)}")
+            response = self._json_error(fnct=self.conf_vpn_sslweb_userbookmark.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_maj_ver)}.{str(self.db_min_ver)}")
         return response
     
     def conf_vpn_sslweb_usergroupbookmark(self, method:str="get", name:str=None, data:dict=None, urloptions:str=None):
         """
         bcfortiapi.fgt.fgtapi.conf_vpn_sslweb_usergroupbookmark\n
-        *(Removed in FortiOS 7.6)*\n
 
         API Endpoints:
         --------------\n
@@ -22640,8 +22640,7 @@ class fgtapi:
 
         """
         self.payload = data
-        compatible_versions = ["7.4"]
-        if self.db_ver in compatible_versions:
+        if (self.db_maj_ver < 7) or ((self.db_maj_ver == 7) and (self.db_min_ver < 6)):
             if self.loginstate == True:
                 if name is not None:
                     response = self._request(method=method, endpoint=f"api/v2/cmdb/vpn.ssl.web/user-group-bookmark/{name}", urloptions=urloptions)    
@@ -22652,13 +22651,12 @@ class fgtapi:
             else:
                 response = self._json_error(fnct=self.conf_vpn_sslweb_usergroupbookmark.__name__, msg=f"Login state is {self.loginstate}")
         else:
-            response = self._json_error(fnct=self.conf_vpn_sslweb_usergroupbookmark.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_ver)}")
+            response = self._json_error(fnct=self.conf_vpn_sslweb_usergroupbookmark.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_maj_ver)}.{str(self.db_min_ver)}")
         return response
     
     def conf_vpn_ssl_client(self, method:str="get", name:str=None, data:dict=None, urloptions:str=None):
         """
         bcfortiapi.fgt.fgtapi.conf_vpn_ssl_client\n
-        *(Removed in FortiOS 7.6)*\n
 
         API Endpoints:
         --------------\n
@@ -22693,8 +22691,7 @@ class fgtapi:
 
         """
         self.payload = data
-        compatible_versions = ["7.4"]
-        if self.db_ver in compatible_versions:
+        if (self.db_maj_ver < 7) or ((self.db_maj_ver == 7) and (self.db_min_ver < 6)):
             if self.loginstate == True:
                 if name is not None:
                     response = self._request(method=method, endpoint=f"api/v2/cmdb/vpn.ssl/client/{name}", urloptions=urloptions)    
@@ -22705,13 +22702,12 @@ class fgtapi:
             else:
                 response = self._json_error(fnct=self.conf_vpn_ssl_client.__name__, msg=f"Login state is {self.loginstate}")
         else:
-            response = self._json_error(fnct=self.conf_vpn_ssl_client.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_ver)}")
+            response = self._json_error(fnct=self.conf_vpn_ssl_client.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_maj_ver)}.{str(self.db_min_ver)}")
         return response
     
     def conf_vpn_ssl_settings(self, method:str="get", data:dict=None, urloptions:str=None):
         """
         bcfortiapi.fgt.fgtapi.conf_vpn_ssl_settings\n
-        *(Removed in FortiOS 7.6)*\n
 
         API Endpoints:
         --------------\n
@@ -22824,8 +22820,7 @@ class fgtapi:
 
         """
         self.payload = data
-        compatible_versions = ["7.6"]
-        if self.db_ver in compatible_versions:
+        if (self.db_maj_ver < 7) or ((self.db_maj_ver == 7) and (self.db_min_ver < 6)):
             if self.loginstate == True:
                 response = self._request(method=method, endpoint=f"api/v2/cmdb/vpn.ssl/settings", urloptions=urloptions)
                 if self.debug == True:
@@ -22833,7 +22828,7 @@ class fgtapi:
             else:
                 response = self._json_error(fnct=self.conf_vpn_ssl_settings.__name__, msg=f"Login state is {self.loginstate}")
         else:
-            response = self._json_error(fnct=self.conf_vpn_ssl_settings.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_ver)}")
+            response = self._json_error(fnct=self.conf_vpn_ssl_settings.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_maj_ver)}.{str(self.db_min_ver)}")
         return response
     
     def conf_vpn_kmipserver(self, method:str="get", name:str=None, data:dict=None, urloptions:str=None):
@@ -30904,18 +30899,8 @@ class fgtapi:
         ---------\n
         >>> init_variable.mntr_registration_forticare_transfer(data={Dictionary Object})
 
-        Data Structure (7.6):
-        ---------------------\n
-        >>> data = {
-                email	[...]
-                password	[...]
-                old_email	[...]
-                old_password	[...]
-                is_government	[...]
-            }
-
-        Data Structure (7.4):
-        ---------------------\n
+        Data Structure:
+        ---------------\n
         >>> data = {
                 email	[...]
                 password	[...]
@@ -31554,43 +31539,6 @@ class fgtapi:
                 response = self._json_error(fnct=self.mntr_router_lookup.__name__, msg=f"Destination address is {dest}")
         else:
             response = self._json_error(fnct=self.mntr_router_lookup.__name__, msg=f"Login state is {self.loginstate}")
-        return response
-    
-    def mntr_router_lookup_hapeer(self, dest:str=None, serial:str=None):
-        """
-        bcfortiapi.fgt.fgtapi.mntr_router_lookup_hapeer\n
-
-        API Endpoints:
-        --------------\n
-            */router/lookup/ha-peer [GET]*
-        
-        Mandatory Parameters:
-        ---------------------\n
-            *dest, serial*
-        
-        Examples:
-        ---------\n
-        >>> init_variable.mntr_router_lookup_hapeer(dest="Destination IP Address or FQDN", serial="HA Peer Serial Number")
-
-        """
-        self.payload = None
-        method = "get"
-        compatible_versions = ["7.6"]
-        if self.db_ver in compatible_versions:
-            if self.loginstate == True:
-                if dest is not None:
-                    if serial is not None:
-                        response = self._request(method=method, endpoint=f"api/v2/monitor/router/lookup/ha-peer?destination={dest}&serial={serial}")
-                        if self.debug == True:
-                            self._debugger(fnct=self.mntr_router_lookup_hapeer.__name__, resp=response, mode=["std", "resp"])
-                    else:
-                        response = self._json_error(fnct=self.mntr_router_lookup_hapeer.__name__, msg=f"Peer serial is {serial}")
-                else:
-                    response = self._json_error(fnct=self.mntr_router_lookup_hapeer.__name__, msg=f"Destination address is {dest}")
-            else:
-                response = self._json_error(fnct=self.mntr_router_lookup_hapeer.__name__, msg=f"Login state is {self.loginstate}")
-        else:
-            response = self._json_error(fnct=self.mntr_router_lookup_hapeer.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_ver)}")
         return response
     
     def mntr_router_policy(self, urloptions:str=None):
@@ -32830,15 +32778,8 @@ class fgtapi:
         ---------\n
         >>> init_variable.mntr_system_apiuser_generatekey(data={Dictionary Object})
 
-        Data Structure (7.6):
-        ---------------------\n
-        >>> data = {
-                api-user	[...]
-                expiry	[...]
-            }
-
-        Data Structure (7.4):
-        ---------------------\n
+        Data Structure:
+        ---------------\n
         >>> data = {
                 api-user	[...]
             }
@@ -33448,23 +33389,8 @@ class fgtapi:
         ---------\n
         >>> init_variable.mntr_system_firmware_upgrade(data={Dictionary Object})
 
-        Data Structure (7.6):
-        ---------------------\n
-        >>> data = {
-                source	[...]
-                url	[...]
-                passphrase	[...]
-                force	[...]
-                filename	[...]
-                format_partition	[...]
-                ignore_invalid_signature	[...]
-                file_id	[...]
-                ignore_admin_lockout_upon_downgrade	[...]
-                file_content	[...]
-            }
-
-        Data Structure (7.4):
-        ---------------------\n
+        Data Structure:
+        ---------------\n
         >>> data = {
                 source	[...]
                 filename	[...]
@@ -37254,7 +37180,6 @@ class fgtapi:
     def mntr_user_device_remove(self, data:dict=None, urloptions:str=None):
         """
         bcfortiapi.fgt.fgtapi.mntr_user_device_remove\n
-        *(Removed in FortiOS 7.6)*\n
 
         API Endpoints:
         --------------\n
@@ -37273,19 +37198,15 @@ class fgtapi:
         """
         self.payload = data
         method = "post"
-        compatible_versions = ["7.4"]
-        if self.db_ver in compatible_versions:
-            if self.loginstate == True:
-                if data is not None:
-                    response = self._request(method=method, endpoint=f"api/v2/monitor/user/device/remove", urloptions=urloptions)
-                    if self.debug == True:
-                        self._debugger(fnct=self.mntr_user_device_remove.__name__, resp=response, mode=["std", "resp"])
-                else:
-                    response = self._json_error(fnct=self.mntr_user_device_remove.__name__, msg=f"Data is {data}")
+        if self.loginstate == True:
+            if data is not None:
+                response = self._request(method=method, endpoint=f"api/v2/monitor/user/device/remove", urloptions=urloptions)
+                if self.debug == True:
+                    self._debugger(fnct=self.mntr_user_device_remove.__name__, resp=response, mode=["std", "resp"])
             else:
-                response = self._json_error(fnct=self.mntr_user_device_remove.__name__, msg=f"Login state is {self.loginstate}")
+                response = self._json_error(fnct=self.mntr_user_device_remove.__name__, msg=f"Data is {data}")
         else:
-            response = self._json_error(fnct=self.mntr_user_device_remove.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_ver)}")
+            response = self._json_error(fnct=self.mntr_user_device_remove.__name__, msg=f"Login state is {self.loginstate}")
         return response
     
     def mntr_user_device_iotquery(self, mac:str=None, ipaddr:str=None):
@@ -38272,7 +38193,6 @@ class fgtapi:
     def mntr_vpn_ssl(self, urloptions:str=None):
         """
         bcfortiapi.fgt.fgtapi.mntr_vpn_ssl\n
-        *(Removed in FortiOS 7.6)*\n
 
         API Endpoints:
         --------------\n
@@ -38285,8 +38205,7 @@ class fgtapi:
         """
         self.payload = None
         method = "get"
-        compatible_versions = ["7.4"]
-        if self.db_ver in compatible_versions:
+        if (self.db_maj_ver < 7) or ((self.db_maj_ver == 7) and (self.db_min_ver < 6)):
             if self.loginstate == True:
                 response = self._request(method=method, endpoint=f"api/v2/monitor/vpn/ssl", urloptions=urloptions)
                 if self.debug == True:
@@ -38294,13 +38213,12 @@ class fgtapi:
             else:
                 response = self._json_error(fnct=self.mntr_vpn_ssl.__name__, msg=f"Login state is {self.loginstate}")
         else:
-            response = self._json_error(fnct=self.mntr_vpn_ssl.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_ver)}")
+            response = self._json_error(fnct=self.mntr_vpn_ssl.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_maj_ver)}.{str(self.db_min_ver)}")
         return response
     
     def mntr_vpn_ssl_cleartunnel(self, urloptions:str=None):
         """
         bcfortiapi.fgt.fgtapi.mntr_vpn_ssl_cleartunnel\n
-        *(Removed in FortiOS 7.6)*\n
 
         API Endpoints:
         --------------\n
@@ -38313,8 +38231,7 @@ class fgtapi:
         """
         self.payload = None
         method = "post"
-        compatible_versions = ["7.4"]
-        if self.db_ver in compatible_versions:
+        if (self.db_maj_ver < 7) or ((self.db_maj_ver == 7) and (self.db_min_ver < 6)):
             if self.loginstate == True:
                 response = self._request(method=method, endpoint=f"api/v2/monitor/vpn/ssl/clear_tunnel", urloptions=urloptions)
                 if self.debug == True:
@@ -38322,13 +38239,12 @@ class fgtapi:
             else:
                 response = self._json_error(fnct=self.mntr_vpn_ssl_cleartunnel.__name__, msg=f"Login state is {self.loginstate}")
         else:
-            response = self._json_error(fnct=self.mntr_vpn_ssl_cleartunnel.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_ver)}")
+            response = self._json_error(fnct=self.mntr_vpn_ssl_cleartunnel.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_maj_ver)}.{str(self.db_min_ver)}")
         return response
     
     def mntr_vpn_ssl_deletesession(self, data:dict=None, urloptions:str=None):
         """
         bcfortiapi.fgt.fgtapi.mntr_vpn_ssl_deletesession\n
-        *(Removed in FortiOS 7.6)*\n
 
         API Endpoints:
         --------------\n
@@ -38348,8 +38264,7 @@ class fgtapi:
         """
         self.payload = data
         method = "post"
-        compatible_versions = ["7.4"]
-        if self.db_ver in compatible_versions:
+        if (self.db_maj_ver < 7) or ((self.db_maj_ver == 7) and (self.db_min_ver < 6)):
             if self.loginstate == True:
                 if data is not None:
                     response = self._request(method=method, endpoint=f"api/v2/monitor/vpn/ssl/delete", urloptions=urloptions)
@@ -38360,13 +38275,12 @@ class fgtapi:
             else:
                 response = self._json_error(fnct=self.mntr_vpn_ssl_deletesession.__name__, msg=f"Login state is {self.loginstate}")
         else:
-            response = self._json_error(fnct=self.mntr_vpn_ssl_deletesession.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_ver)}")
+            response = self._json_error(fnct=self.mntr_vpn_ssl_deletesession.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_maj_ver)}.{str(self.db_min_ver)}")
         return response
     
     def mntr_vpn_ssl_stats(self, urloptions:str=None):
         """
         bcfortiapi.fgt.fgtapi.mntr_vpn_ssl_stats\n
-        *(Removed in FortiOS 7.6)*\n
 
         API Endpoints:
         --------------\n
@@ -38379,8 +38293,7 @@ class fgtapi:
         """
         self.payload = None
         method = "get"
-        compatible_versions = ["7.4"]
-        if self.db_ver in compatible_versions:
+        if (self.db_maj_ver < 7) or ((self.db_maj_ver == 7) and (self.db_min_ver < 6)):
             if self.loginstate == True:
                 response = self._request(method=method, endpoint=f"api/v2/monitor/vpn/ssl/stats", urloptions=urloptions)
                 if self.debug == True:
@@ -38388,13 +38301,12 @@ class fgtapi:
             else:
                 response = self._json_error(fnct=self.mntr_vpn_ssl_stats.__name__, msg=f"Login state is {self.loginstate}")
         else:
-            response = self._json_error(fnct=self.mntr_vpn_ssl_stats.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_ver)}")
+            response = self._json_error(fnct=self.mntr_vpn_ssl_stats.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_maj_ver)}.{str(self.db_min_ver)}")
         return response
     
     def mntr_vpn_ssl_provisionuser(self, data:dict=None, urloptions:str=None):
         """
         bcfortiapi.fgt.fgtapi.mntr_vpn_ssl_provisionuser\n
-        *(Removed in FortiOS 7.6)*\n
 
         API Endpoints:
         --------------\n
@@ -38421,8 +38333,7 @@ class fgtapi:
         """
         self.payload = data
         method = "post"
-        compatible_versions = ["7.4"]
-        if self.db_ver in compatible_versions:
+        if (self.db_maj_ver < 7) or ((self.db_maj_ver == 7) and (self.db_min_ver < 6)):
             if self.loginstate == True:
                 if data is not None:
                     response = self._request(method=method, endpoint=f"api/v2/monitor/vpn/ssl/provision-user", urloptions=urloptions)
@@ -38433,7 +38344,7 @@ class fgtapi:
             else:
                 response = self._json_error(fnct=self.mntr_vpn_ssl_provisionuser.__name__, msg=f"Login state is {self.loginstate}")
         else:
-            response = self._json_error(fnct=self.mntr_vpn_ssl_provisionuser.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_ver)}")
+            response = self._json_error(fnct=self.mntr_vpn_ssl_provisionuser.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_maj_ver)}.{str(self.db_min_ver)}")
         return response
     
     def mntr_vpncertificate_caimport(self, data:dict=None, urloptions:str=None):
@@ -40423,571 +40334,4 @@ class fgtapi:
                 self._debugger(fnct=self.mntr_wifi_station_capability.__name__, resp=response, mode=["std", "resp"])
         else:
             response = self._json_error(fnct=self.mntr_wifi_station_capability.__name__, msg=f"Login state is {self.loginstate}")
-        return response
-    
-    def mntr_firmware_extensiondevice(self, type:str=None):
-        """
-        bcfortiapi.fgt.fgtapi.mntr_firmware_extensiondevice
-
-        API Endpoints:
-        --------------\n
-            */firmware/extension-device [GET]*
-        
-        Mandatory Parameters:
-        ---------------------\n
-            *type*
-        
-        Type Options:
-        -------------\n
-            *fortiswitch, fortiap, fortiextender*
-        
-        Examples:
-        ---------\n
-        >>> init_variable.mntr_firmware_extensiondevice(type="Device Type")
-
-        """
-        self.payload = None
-        method = "get"
-        compatible_versions = ["7.6"]
-        if self.db_ver in compatible_versions:
-            if self.loginstate == True:
-                if type is not None:
-                    response = self._request(method=method, endpoint=f"api/v2/monitor/firmware/extension-device?type={type}")
-                    if self.debug == True:
-                        self._debugger(fnct=self.mntr_firmware_extensiondevice.__name__, resp=response, mode=["std", "resp"]) 
-                else:
-                    response = self._json_error(fnct=self.mntr_firmware_extensiondevice.__name__, msg=f"Device type is {type}")
-            else:
-                response = self._json_error(fnct=self.mntr_firmware_extensiondevice.__name__, msg=f"Login state is {self.loginstate}")
-        else:
-            response = self._json_error(fnct=self.mntr_firmware_extensiondevice.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_ver)}")
-        return response
-    
-    def mntr_sdwan_linkmonitormetrics_report(self, data:dict=None, urloptions:str=None):
-        """
-        bcfortiapi.fgt.fgtapi.mntr_sdwan_linkmonitormetrics_report\n
-
-        API Endpoints:
-        --------------\n
-            */sdwan/link-monitor-metrics/report [POST]*
-        
-        Examples:
-        ---------\n
-        >>> init_variable.mntr_sdwan_linkmonitormetrics_report(data={Dictionary Object})
-
-        Data Structure:
-        ---------------\n
-        >>> data = {
-                agent_ip	[...]
-                application_name	[...]
-                application_id	[...]
-                latency	[...]
-                jitter	[...]
-                packet_loss	[...]
-                ntt	[...]
-                srt	[...]
-                application_error	[...]
-            }
-
-        """
-        self.payload = data
-        method = "post"
-        compatible_versions = ["7.6"]
-        if self.db_ver in compatible_versions:
-            if self.loginstate == True:
-                if data is not None:
-                    response = self._request(method=method, endpoint=f"api/v2/monitor/sdwan/link-monitor-metrics/report", urloptions=urloptions)
-                    if self.debug == True:
-                        self._debugger(fnct=self.mntr_sdwan_linkmonitormetrics_report.__name__, resp=response, mode=["std", "resp"])
-                else:
-                    response = self._json_error(fnct=self.mntr_sdwan_linkmonitormetrics_report.__name__, msg=f"Data is {data}")
-            else:
-                response = self._json_error(fnct=self.mntr_sdwan_linkmonitormetrics_report.__name__, msg=f"Login state is {self.loginstate}")
-        else:
-            response = self._json_error(fnct=self.mntr_sdwan_linkmonitormetrics_report.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_ver)}")
-        return response
-    
-    def mntr_service_ldap_query(self, urloptions:str=None):
-        """
-        bcfortiapi.fgt.fgtapi.mntr_service_ldap_query\n
-
-        API Endpoints:
-        --------------\n
-            */service/ldap/query [GET]*
-        
-        Examples:
-        ---------\n
-        >>> init_variable.mntr_service_ldap_query()
-
-        """
-        self.payload = None
-        method = "get"
-        compatible_versions = ["7.6"]
-        if self.db_ver in compatible_versions:
-            if self.loginstate == True:
-                response = self._request(method=method, endpoint=f"api/v2/monitor/service/ldap/query", urloptions=urloptions)
-                if self.debug == True:
-                    self._debugger(fnct=self.mntr_service_ldap_query.__name__, resp=response, mode=["std", "resp"])
-            else:
-                response = self._json_error(fnct=self.mntr_service_ldap_query.__name__, msg=f"Login state is {self.loginstate}")
-        else:
-            response = self._json_error(fnct=self.mntr_service_ldap_query.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_ver)}")
-        return response
-
-    def mntr_system_upgradereport(self, mode:str="current", urloptions:str=None):
-        """
-        bcfortiapi.fgt.fgtapi.mntr_system_upgradereport\n
-
-        API Endpoints:
-        --------------\n
-            */system/upgrade-report/exists [GET]*
-            */system/upgrade-report/saved [GET]*
-            */system/upgrade-report/current [GET]*
-
-        Mode Options:
-        -------------\n
-            *exists, saved, current*
-        
-        Examples:
-        ---------\n
-        >>> init_variable.mntr_system_upgradereport(mode="Lookup Type")
-
-        """
-        self.payload = None
-        method = "get"
-        compatible_versions = ["7.6"]
-        if self.db_ver in compatible_versions:
-            if self.loginstate == True:
-                if mode == "exists":
-                    response = self._request(method=method, endpoint=f"api/v2/monitor/system/upgrade-report/exists", urloptions=urloptions)
-                elif mode == "saved":
-                    response = self._request(method=method, endpoint=f"api/v2/monitor/system/upgrade-report/saved", urloptions=urloptions)
-                else:
-                    response = self._request(method=method, endpoint=f"api/v2/monitor/system/upgrade-report/current", urloptions=urloptions)
-                if self.debug == True:
-                    self._debugger(fnct=self.mntr_system_upgradereport.__name__, resp=response, mode=["std", "resp"])
-            else:
-                response = self._json_error(fnct=self.mntr_system_upgradereport.__name__, msg=f"Login state is {self.loginstate}")
-        else:
-            response = self._json_error(fnct=self.mntr_system_upgradereport.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_ver)}")
-        return response
-    
-    def mntr_system_habackup_hbused(self, urloptions:str=None):
-        """
-        bcfortiapi.fgt.fgtapi.mntr_system_habackup_hbused\n
-
-        API Endpoints:
-        --------------\n
-            */system/ha-backup-hb-used [GET]*
-        
-        Examples:
-        ---------\n
-        >>> init_variable.mntr_system_habackup_hbused()
-
-        """
-        self.payload = None
-        method = "get"
-        compatible_versions = ["7.6"]
-        if self.db_ver in compatible_versions:
-            if self.loginstate == True:
-                response = self._request(method=method, endpoint=f"api/v2/monitor/system/ha-backup-hb-used", urloptions=urloptions)
-                if self.debug == True:
-                    self._debugger(fnct=self.mntr_system_habackup_hbused.__name__, resp=response, mode=["std", "resp"])
-            else:
-                response = self._json_error(fnct=self.mntr_system_habackup_hbused.__name__, msg=f"Login state is {self.loginstate}")
-        else:
-            response = self._json_error(fnct=self.mntr_system_habackup_hbused.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_ver)}")
-        return response
-    
-    def mntr_system_externalresource_genericaddress(self, data:dict=None, urloptions:str=None):
-        """
-        bcfortiapi.fgt.fgtapi.mntr_system_externalresource_genericaddress\n
-
-        API Endpoints:
-        --------------\n
-            */system/external-resource/generic-address [POST]*
-        
-        Examples:
-        ---------\n
-        >>> init_variable.mntr_system_externalresource_genericaddress(data={Dictionary Object})
-
-        Data Structure:
-        ---------------\n
-        >>> data = {
-                mkey	[...]
-                data	[...]
-            }
-
-        """
-        self.payload = data
-        method = "post"
-        compatible_versions = ["7.6"]
-        if self.db_ver in compatible_versions:
-            if self.loginstate == True:
-                if data is not None:
-                    response = self._request(method=method, endpoint=f"api/v2/monitor/system/external-resource/generic-address", urloptions=urloptions)
-                    if self.debug == True:
-                        self._debugger(fnct=self.mntr_system_externalresource_genericaddress.__name__, resp=response, mode=["std", "resp"])
-                else:
-                    response = self._json_error(fnct=self.mntr_system_externalresource_genericaddress.__name__, msg=f"Data is {data}")
-            else:
-                response = self._json_error(fnct=self.mntr_system_externalresource_genericaddress.__name__, msg=f"Login state is {self.loginstate}")
-        else:
-            response = self._json_error(fnct=self.mntr_system_externalresource_genericaddress.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_ver)}")
-        return response
-    
-    def mntr_system_externalresource_validatejsonpath(self, name:str=None):
-        """
-        bcfortiapi.fgt.fgtapi.mntr_system_externalresource_validatejsonpath
-
-        API Endpoints:
-        --------------\n
-            */system/external-resource/validate-jsonpath [GET]*
-        
-        Mandatory Parameters:
-        ---------------------\n
-            *name*
-        
-        Examples:
-        ---------\n
-        >>> init_variable.mntr_system_externalresource_validatejsonpath(name="JSON Path Name")
-
-        """
-        self.payload = None
-        method = "get"
-        compatible_versions = ["7.6"]
-        if self.db_ver in compatible_versions:
-            if self.loginstate == True:
-                if name is not None:
-                    response = self._request(method=method, endpoint=f"api/v2/monitor/system/external-resource/validate-jsonpath?path_name={name}")
-                    if self.debug == True:
-                        self._debugger(fnct=self.mntr_system_externalresource_validatejsonpath.__name__, resp=response, mode=["std", "resp"]) 
-                else:
-                    response = self._json_error(fnct=self.mntr_system_externalresource_validatejsonpath.__name__, msg=f"Path name is {name}")
-            else:
-                response = self._json_error(fnct=self.mntr_system_externalresource_validatejsonpath.__name__, msg=f"Login state is {self.loginstate}")
-        else:
-            response = self._json_error(fnct=self.mntr_system_externalresource_validatejsonpath.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_ver)}")
-        return response
-    
-    def mntr_user_scim(self, name:str=None, mode:str="users"):
-        """
-        bcfortiapi.fgt.fgtapi.mntr_user_scim
-
-        API Endpoints:
-        --------------\n
-            */user/scim/users [GET]*
-            */user/scim/groups [GET]*
-        
-        Mandatory Parameters:
-        ---------------------\n
-            *name*
-
-        Mode Options:
-        -------------\n
-            *users, groups*
-        
-        Examples:
-        ---------\n
-        >>> init_variable.mntr_user_scim(name="SCIM Client Name", mode="groups")
-
-        """
-        self.payload = None
-        method = "get"
-        compatible_versions = ["7.6"]
-        if self.db_ver in compatible_versions:
-            if self.loginstate == True:
-                if name is not None:
-                    if mode == "groups":
-                        response = self._request(method=method, endpoint=f"api/v2/monitor/user/scim/groups?client_name={name}")
-                    else:
-                        response = self._request(method=method, endpoint=f"api/v2/monitor/user/scim/users?client_name={name}")
-                    if self.debug == True:
-                        self._debugger(fnct=self.mntr_user_scim.__name__, resp=response, mode=["std", "resp"]) 
-                else:
-                    response = self._json_error(fnct=self.mntr_user_scim.__name__, msg=f"Client name is {name}")
-            else:
-                response = self._json_error(fnct=self.mntr_user_scim.__name__, msg=f"Login state is {self.loginstate}")
-        else:
-            response = self._json_error(fnct=self.mntr_user_scim.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_ver)}")
-        return response
-    
-    def mntr_virtualwan_sladb(self, urloptions:str=None):
-        """
-        bcfortiapi.fgt.fgtapi.mntr_virtualwan_sladb\n
-
-        API Endpoints:
-        --------------\n
-            */virtual-wan/sladb [GET]*
-        
-        Examples:
-        ---------\n
-        >>> init_variable.mntr_virtualwan_sladb()
-
-        """
-        self.payload = None
-        method = "get"
-        compatible_versions = ["7.6"]
-        if self.db_ver in compatible_versions:
-            if self.loginstate == True:
-                response = self._request(method=method, endpoint=f"api/v2/monitor/virtual-wan/sladb", urloptions=urloptions)
-                if self.debug == True:
-                    self._debugger(fnct=self.mntr_virtualwan_sladb.__name__, resp=response, mode=["std", "resp"])
-            else:
-                response = self._json_error(fnct=self.mntr_virtualwan_sladb.__name__, msg=f"Login state is {self.loginstate}")
-        else:
-            response = self._json_error(fnct=self.mntr_virtualwan_sladb.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_ver)}")
-        return response
-    
-    def mntr_router_charts(self, urloptions:str=None):
-        """
-        bcfortiapi.fgt.fgtapi.mntr_router_charts\n
-
-        API Endpoints:
-        --------------\n
-            */router/charts [GET]*
-        
-        Examples:
-        ---------\n
-        >>> init_variable.mntr_router_charts()
-
-        """
-        self.payload = None
-        method = "get"
-        compatible_versions = ["7.6"]
-        if self.db_ver in compatible_versions:
-            if self.loginstate == True:
-                response = self._request(method=method, endpoint=f"api/v2/monitor/router/charts", urloptions=urloptions)
-                if self.debug == True:
-                    self._debugger(fnct=self.mntr_router_charts.__name__, resp=response, mode=["std", "resp"])
-            else:
-                response = self._json_error(fnct=self.mntr_router_charts.__name__, msg=f"Login state is {self.loginstate}")
-        else:
-            response = self._json_error(fnct=self.mntr_router_charts.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_ver)}")
-        return response
-    
-    def mntr_system_privatedataencryption_set(self, data:dict=None, urloptions:str=None):
-        """
-        bcfortiapi.fgt.fgtapi.mntr_system_privatedataencryption_set\n
-
-        API Endpoints:
-        --------------\n
-            */system/private-data-encryption/set [POST]*
-        
-        Examples:
-        ---------\n
-        >>> init_variable.mntr_system_privatedataencryption_set(data={Dictionary Object})
-
-        Data Structure:
-        ---------------\n
-        >>> data = {
-                enable	[...]
-                password	[...]
-            }
-
-        """
-        self.payload = data
-        method = "post"
-        compatible_versions = ["7.6"]
-        if self.db_ver in compatible_versions:
-            if self.loginstate == True:
-                if data is not None:
-                    response = self._request(method=method, endpoint=f"api/v2/monitor/system/private-data-encryption/set", urloptions=urloptions)
-                    if self.debug == True:
-                        self._debugger(fnct=self.mntr_system_privatedataencryption_set.__name__, resp=response, mode=["std", "resp"])
-                else:
-                    response = self._json_error(fnct=self.mntr_system_privatedataencryption_set.__name__, msg=f"Data is {data}")
-            else:
-                response = self._json_error(fnct=self.mntr_system_privatedataencryption_set.__name__, msg=f"Login state is {self.loginstate}")
-        else:
-            response = self._json_error(fnct=self.mntr_system_privatedataencryption_set.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_ver)}")
-        return response
-    
-    def mntr_switchcontroller_knownnacdevice_criterialist(self, urloptions:str=None):
-        """
-        bcfortiapi.fgt.fgtapi.mntr_switchcontroller_knownnacdevice_criterialist\n
-
-        API Endpoints:
-        --------------\n
-            */switch-controller/known-nac-device-criteria-list [GET]*
-        
-        Examples:
-        ---------\n
-        >>> init_variable.mntr_switchcontroller_knownnacdevice_criterialist()
-
-        """
-        self.payload = None
-        method = "get"
-        compatible_versions = ["7.6"]
-        if self.db_ver in compatible_versions:
-            if self.loginstate == True:
-                response = self._request(method=method, endpoint=f"api/v2/monitor/switch-controller/known-nac-device-criteria-list", urloptions=urloptions)
-                if self.debug == True:
-                    self._debugger(fnct=self.mntr_switchcontroller_knownnacdevice_criterialist.__name__, resp=response, mode=["std", "resp"])
-            else:
-                response = self._json_error(fnct=self.mntr_switchcontroller_knownnacdevice_criterialist.__name__, msg=f"Login state is {self.loginstate}")
-        else:
-            response = self._json_error(fnct=self.mntr_switchcontroller_knownnacdevice_criterialist.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_ver)}")
-        return response
-    
-    def mntr_system_sandbox_detect(self, urloptions:str=None):
-        """
-        bcfortiapi.fgt.fgtapi.mntr_system_sandbox_detect\n
-
-        API Endpoints:
-        --------------\n
-            */system/sandbox/detect [GET]*
-        
-        Examples:
-        ---------\n
-        >>> init_variable.mntr_system_sandbox_detect()
-
-        """
-        self.payload = None
-        method = "get"
-        compatible_versions = ["7.6"]
-        if self.db_ver in compatible_versions:
-            if self.loginstate == True:
-                response = self._request(method=method, endpoint=f"api/v2/monitor/system/sandbox/detect", urloptions=urloptions)
-                if self.debug == True:
-                    self._debugger(fnct=self.mntr_system_sandbox_detect.__name__, resp=response, mode=["std", "resp"])
-            else:
-                response = self._json_error(fnct=self.mntr_system_sandbox_detect.__name__, msg=f"Login state is {self.loginstate}")
-        else:
-            response = self._json_error(fnct=self.mntr_system_sandbox_detect.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_ver)}")
-        return response
-    
-    def mntr_firewall_internetservicefqdn(self, urloptions:str=None):
-        """
-        bcfortiapi.fgt.fgtapi.mntr_firewall_internetservicefqdn\n
-
-        API Endpoints:
-        --------------\n
-            */firewall/internet-service-fqdn [GET]*
-        
-        Examples:
-        ---------\n
-        >>> init_variable.mntr_firewall_internetservicefqdn()
-
-        """
-        self.payload = None
-        method = "get"
-        compatible_versions = ["7.6"]
-        if self.db_ver in compatible_versions:
-            if self.loginstate == True:
-                response = self._request(method=method, endpoint=f"api/v2/monitor/firewall/internet-service-fqdn", urloptions=urloptions)
-                if self.debug == True:
-                    self._debugger(fnct=self.mntr_firewall_internetservicefqdn.__name__, resp=response, mode=["std", "resp"])
-            else:
-                response = self._json_error(fnct=self.mntr_firewall_internetservicefqdn.__name__, msg=f"Login state is {self.loginstate}")
-        else:
-            response = self._json_error(fnct=self.mntr_firewall_internetservicefqdn.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_ver)}")
-        return response
-    
-    def mntr_firewall_internetservicefqdn_iconids(self, urloptions:str=None):
-        """
-        bcfortiapi.fgt.fgtapi.mntr_firewall_internetservicefqdn_iconids\n
-
-        API Endpoints:
-        --------------\n
-            */firewall/internet-service-fqdn-icon-ids [GET]*
-        
-        Examples:
-        ---------\n
-        >>> init_variable.mntr_firewall_internetservicefqdn_iconids()
-
-        """
-        self.payload = None
-        method = "get"
-        compatible_versions = ["7.6"]
-        if self.db_ver in compatible_versions:
-            if self.loginstate == True:
-                response = self._request(method=method, endpoint=f"api/v2/monitor/firewall/internet-service-fqdn-icon-ids", urloptions=urloptions)
-                if self.debug == True:
-                    self._debugger(fnct=self.mntr_firewall_internetservicefqdn_iconids.__name__, resp=response, mode=["std", "resp"])
-            else:
-                response = self._json_error(fnct=self.mntr_firewall_internetservicefqdn_iconids.__name__, msg=f"Login state is {self.loginstate}")
-        else:
-            response = self._json_error(fnct=self.mntr_firewall_internetservicefqdn_iconids.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_ver)}")
-        return response
-    
-    def mntr_system_5gmodem_status(self, urloptions:str=None):
-        """
-        bcfortiapi.fgt.fgtapi.mntr_system_5gmodem_status\n
-
-        API Endpoints:
-        --------------\n
-            */system/5g-modem/status [GET]*
-        
-        Examples:
-        ---------\n
-        >>> init_variable.mntr_system_5gmodem_status()
-
-        """
-        self.payload = None
-        method = "get"
-        compatible_versions = ["7.6"]
-        if self.db_ver in compatible_versions:
-            if self.loginstate == True:
-                response = self._request(method=method, endpoint=f"api/v2/monitor/system/5g-modem/status", urloptions=urloptions)
-                if self.debug == True:
-                    self._debugger(fnct=self.mntr_system_5gmodem_status.__name__, resp=response, mode=["std", "resp"])
-            else:
-                response = self._json_error(fnct=self.mntr_system_5gmodem_status.__name__, msg=f"Login state is {self.loginstate}")
-        else:
-            response = self._json_error(fnct=self.mntr_system_5gmodem_status.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_ver)}")
-        return response
-    
-    def mntr_system_interface_poeusage(self, urloptions:str=None):
-        """
-        bcfortiapi.fgt.fgtapi.mntr_system_interface_poeusage\n
-
-        API Endpoints:
-        --------------\n
-            */system/interface/poe-usage [GET]*
-        
-        Examples:
-        ---------\n
-        >>> init_variable.mntr_system_interface_poeusage()
-
-        """
-        self.payload = None
-        method = "get"
-        compatible_versions = ["7.6"]
-        if self.db_ver in compatible_versions:
-            if self.loginstate == True:
-                response = self._request(method=method, endpoint=f"api/v2/monitor/system/interface/poe-usage", urloptions=urloptions)
-                if self.debug == True:
-                    self._debugger(fnct=self.mntr_system_interface_poeusage.__name__, resp=response, mode=["std", "resp"])
-            else:
-                response = self._json_error(fnct=self.mntr_system_interface_poeusage.__name__, msg=f"Login state is {self.loginstate}")
-        else:
-            response = self._json_error(fnct=self.mntr_system_interface_poeusage.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_ver)}")
-        return response
-    
-    def mntr_vpn_ipsec_connectioncount(self, urloptions:str=None):
-        """
-        bcfortiapi.fgt.fgtapi.mntr_vpn_ipsec_connectioncount\n
-
-        API Endpoints:
-        --------------\n
-            */vpn/ipsec/connection-count [GET]*
-        
-        Examples:
-        ---------\n
-        >>> init_variable.mntr_vpn_ipsec_connectioncount()
-
-        """
-        self.payload = None
-        method = "get"
-        compatible_versions = ["7.6"]
-        if self.db_ver in compatible_versions:
-            if self.loginstate == True:
-                response = self._request(method=method, endpoint=f"api/v2/monitor/vpn/ipsec/connection-count", urloptions=urloptions)
-                if self.debug == True:
-                    self._debugger(fnct=self.mntr_vpn_ipsec_connectioncount.__name__, resp=response, mode=["std", "resp"])
-            else:
-                response = self._json_error(fnct=self.mntr_vpn_ipsec_connectioncount.__name__, msg=f"Login state is {self.loginstate}")
-        else:
-            response = self._json_error(fnct=self.mntr_vpn_ipsec_connectioncount.__name__, msg=f"Endpoint not supported in FortiOS {str(self.db_ver)}")
         return response

@@ -5,8 +5,8 @@ A Python library for interacting with the Fortinet FortiGate and FortiManager AP
 ## Current Status
 
 - Status: Beta
-- Latest Release: 0.9.1
-- Release Date: 09-02-2026
+- Latest Release: 0.9.2
+- Release Date: 10-02-2026
 
 ## Dependencies
 
@@ -95,6 +95,10 @@ response_variable = init_variable.dvmdb_device(adom="ADOM name", method="get")
 ```
 init_variable.logout()
 ```
+
+## Change Log 0.9.2
+
+- 10-02-2026: Added support to bcfortiapi.fgtapi for FortiOS 7.6 API endpoints
 
 ## Change Log 0.9.1
 

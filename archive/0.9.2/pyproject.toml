@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "bcfortiapi"
-version = "0.9.3"
+version = "0.9.2"
 dependencies = [
     "urllib3>=2.2.1",
     "requests>=2.32.3"

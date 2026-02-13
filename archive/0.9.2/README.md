@@ -1,25 +1,3 @@
-Metadata-Version: 2.4
-Name: bcfortiapi
-Version: 0.9.3
-Summary: A Python library for interacting with the Fortinet FortiGate and FortiManager APIs
-Author-email: Benjamin Court <bmcitconsulting@gmail.com>
-Maintainer-email: Benjamin Court <bmcitconsulting@gmail.com>
-License-Expression: MIT
-Project-URL: Homepage, https://github.com/benjitron81/bcfortiapi
-Project-URL: Issues, https://github.com/benjitron81/bcfortiapi/issues
-Keywords: fortinet,fortigate,fgt,fortimanager,fmg,api
-Classifier: Development Status :: 4 - Beta
-Classifier: Intended Audience :: Developers
-Classifier: Operating System :: OS Independent
-Classifier: Programming Language :: Python :: 3
-Classifier: Topic :: Software Development :: Libraries :: Python Modules
-Requires-Python: >=3.11
-Description-Content-Type: text/markdown
-License-File: LICENSE.txt
-Requires-Dist: urllib3>=2.2.1
-Requires-Dist: requests>=2.32.3
-Dynamic: license-file
-
 # bcfortiapi
 
 A Python library for interacting with the Fortinet FortiGate and FortiManager APIs
@@ -27,8 +5,8 @@ A Python library for interacting with the Fortinet FortiGate and FortiManager AP
 ## Current Status
 
 - Status: Beta
-- Latest Release: 0.9.3
-- Release Date: 13-02-2026
+- Latest Release: 0.9.2
+- Release Date: 10-02-2026
 
 ## Dependencies
 
@@ -117,10 +95,6 @@ response_variable = init_variable.dvmdb_device(adom="ADOM name", method="get")
 ```
 init_variable.logout()
 ```
-
-## Change Log 0.9.3
-
-- 13-02-2026: Fixed consistency issue with data formatting between fmgapi and fgtapi modules
 
 ## Change Log 0.9.2
 

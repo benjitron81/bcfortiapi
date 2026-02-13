@@ -1,7 +1,7 @@
 #bcfortiapi.fmg
 #API library for Fortinet FortiManager
 #Created by Benjamin Court 06-01-2026
-#Last Updated: 13-02-2026
+#Last Updated: 09-02-2026
 
 """
 bcfortiapi.fmg\n
@@ -116,7 +116,7 @@ class fmgapi:
             self._debugger(fnct=self._payload_builder.__name__, mode=["std"])
     
     def _request(self):
-        response = self.session.post(url=self.base_url, data=self.payload)
+        response = self.session.post(url=self.base_url, json=self.payload)
         resp_req = response.content
         response = resp_req
         if self.debug == True:

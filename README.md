@@ -5,8 +5,8 @@ A Python library for interacting with the Fortinet FortiGate and FortiManager AP
 ## Current Status
 
 - Status: Beta
-- Latest Release: 0.9.2
-- Release Date: 10-02-2026
+- Latest Release: 0.9.4
+- Release Date: 15-02-2026
 
 ## Dependencies
 
@@ -25,7 +25,7 @@ To initialise the library within your project add the following:
 ```
 import bcfortiapi
 
-init_variable = bcfortiapi.fgtapi(fortigate="FGT IP or FQDN", port="FGT HTTPS Admin Port", authtoken="FGT API Token", version="7.4", debug=True/False)
+init_variable = bcfortiapi.fgtapi(fortigate="FGT IP or FQDN", port="FGT HTTPS Admin Port", authtoken="FGT API Token", version="FortiOS Version (M.m)", debug=True/False)
 ```
 - fortigate (str) = IP address or FQDN of the target FortiGate
 - port (str) = HTTPS admin port number of the target FortiGate
@@ -38,7 +38,7 @@ init_variable = bcfortiapi.fgtapi(fortigate="FGT IP or FQDN", port="FGT HTTPS Ad
 ```
 import bcfortiapi
 
-init_variable = bcfortiapi.fmgapi(server="127.0.0.1", port="443", version="7.4", debug=False)
+init_variable = bcfortiapi.fmgapi(server="FMG IP or FQDN", port="FMG HTTPS Admin Port", version="Configuration Database Version (M.m)", debug=True/False)
 ```
 - server (str) = IP address or FQDN of the target FortiManager
 - port (str) = HTTPS admin port number of the target FortiManager
@@ -59,7 +59,7 @@ init_variable.login(username="Username", password="Password")
 response_variable = init_variable.login(username="Username", password="Password")
 ```
 
-*Example GET (response returned as string, can be read using json.loads)*
+*Example GET*
 ```
 response_variable = init_variable.dvmdb_device(adom="ADOM name", method="get")
 ```
@@ -86,7 +86,7 @@ init_variable.login(username="Username", password="Password")
 response_variable = init_variable.login(username="Username", password="Password")
 ```
 
-*Example GET (response returned as string, can be read using json.loads)*
+*Example GET*
 ```
 response_variable = init_variable.dvmdb_device(adom="ADOM name", method="get")
 ```
@@ -96,13 +96,19 @@ response_variable = init_variable.dvmdb_device(adom="ADOM name", method="get")
 init_variable.logout()
 ```
 
+## Change Log 0.9.4
+
+- 15-02-2026: Added JSON validity check to API responses, library now returns a Python dictionary for valid JSON responses or the raw response content for non-JSON responses
+- 15-02-2026: Added bcfortiapi_test.py test program, available in source code under /tests
+- 15-02-2026: Updated README.md
+
 ## Change Log 0.9.2
 
 - 10-02-2026: Added support to bcfortiapi.fgtapi for FortiOS 7.6 API endpoints
 
 ## Change Log 0.9.1
 
-- 09-02-2026: Removed some pre-processing of API responses, library now returns raw response content as string for external processing as required (can still be processed with json.loads).
+- 09-02-2026: Removed some pre-processing of API responses, library now returns raw response content as string for external processing as required (can still be processed with json.loads)
 
 ## Change Log 0.9
 

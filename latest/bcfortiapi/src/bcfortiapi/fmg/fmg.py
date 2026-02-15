@@ -1,7 +1,7 @@
 #bcfortiapi.fmg
 #API library for Fortinet FortiManager
 #Created by Benjamin Court 06-01-2026
-#Last Updated: 09-02-2026
+#Last Updated: 15-02-2026
 
 """
 bcfortiapi.fmg\n
@@ -17,7 +17,11 @@ Examples:
 >>> import bcfortiapi
 
     *Initialise instance of fmgapi within script*
->>> init_variable = bcfortiapi.fmgapi(server="FMG IP or FQDN", port="FMG HTTPS Admin Port", debug=True/False)
+>>> init_variable = bcfortiapi.fmgapi(server="FMG IP or FQDN", port="FMG HTTPS Admin Port", version="Configuration Database Version (M.m)", debug=True/False)
+
+Notes:
+------\n
+    *If the API response content is JSON-formatted a Python dictionary object is returned, otherwise the raw response content is returned*
 
 """
 
@@ -39,7 +43,7 @@ class fmgapi:
         *Login and return login state (bool)*
     >>> response_variable = init_variable.login(username="Username", password="Password")
 
-        *Example GET (response returned as string, can be read using json.loads)*
+        *Example GET*
     >>> response_variable = init_variable.dvmdb_device(adom="ADOM name", method="get")
 
         *Logout*
@@ -96,6 +100,14 @@ class fmgapi:
         err = json.dumps(err)
         err_json = json.loads(err)
         return err_json
+    
+    def _json_validity_check(self, content=None):
+        if content is not None:
+            try:
+                json_content = json.loads(content)
+                return json_content
+            except:
+                return content
 
     def _payload_builder(self, method:str=None, endpoint:str=None, data:dict=None, session:str=None, verbose:int=None, fields:list=[], option:str=None):
         self.payload = {
@@ -117,11 +129,10 @@ class fmgapi:
     
     def _request(self):
         response = self.session.post(url=self.base_url, json=self.payload)
-        resp_req = response.content
-        response = resp_req
+        resp_req = self._json_validity_check(content=response.content)
         if self.debug == True:
             self._debugger(fnct=self._request.__name__, mode=["std", "resp"])
-        return response
+        return resp_req
     
     #----------------------------------------------
     #---------- Authentication Functions ----------

@@ -1,7 +1,7 @@
 #bcfortiapi.fgt
 #API library for Fortinet FortiGate
 #Created by Benjamin Court 14-01-2026
-#Last Updated: 10-02-2026
+#Last Updated: 15-02-2026
 
 """
 bcfortiapi.fgt\n
@@ -17,11 +17,13 @@ Examples:
 >>> import bcfortiapi
 
     *Initialise instance of fmgapi within script*
->>> init_variable = bcfortiapi.fgtapi(fortigate="FGT IP or FQDN", port="FGT HTTPS Admin Port", authtoken="FGT API Token", debug=True/False)
+>>> init_variable = bcfortiapi.fgtapi(fortigate="FGT IP or FQDN", port="FGT HTTPS Admin Port", authtoken="FGT API Token", version="FortiOS Version (M.m)", debug=True/False)
 
 Notes:
 ------\n
+    *If the API response content is JSON-formatted a Python dictionary object is returned, otherwise the raw response content is returned*
     *If authtoken is supplied when initialising the fgtapi class then fgtapi.login and fgtapi.logout functions are not required*
+    *Basic auth no longer allows POST, PUT or DELETE operations in FortiOS 7.4 and later, use of a REST API administrator with token is required*
 
 """
 
@@ -43,7 +45,7 @@ class fgtapi:
         *Login and return login state (bool)*
     >>> response_variable = init_variable.login(username="Username", password="Password")
 
-        *Example GET (response returned as string, can be read using json.loads)*
+        *Example GET*
     >>> response_variable = init_variable.dvmdb_device(adom="ADOM name", method="get")
 
         *Example GET (with URL options)*
@@ -105,6 +107,14 @@ class fgtapi:
         err = json.dumps(err)
         err_json = json.loads(err)
         return err_json
+
+    def _json_validity_check(self, content=None):
+        if content is not None:
+            try:
+                json_content = json.loads(content)
+                return json_content
+            except:
+                return content
     
     def _request(self, method:str="get", endpoint:str=None, urloptions:str=None):
         if urloptions is not None:
@@ -116,27 +126,26 @@ class fgtapi:
                 "Authorization": "Bearer " + self.authtoken
             }
             if method == "post":
-                response = self.session.post(url=apiurl, headers=authheader, data=self.payload)
+                response = self.session.post(url=apiurl, headers=authheader, data=json.dumps(self.payload))
             elif method == "put":
-                response = self.session.put(url=apiurl, headers=authheader, data=self.payload)
+                response = self.session.put(url=apiurl, headers=authheader, data=json.dumps(self.payload))
             elif method == "delete":
                 response = self.session.delete(url=apiurl, headers=authheader)
             else:
                 response = self.session.get(url=apiurl, headers=authheader)
         else:
             if method == "post":
-                response = self.session.post(url=apiurl, data=self.payload)
+                response = self.session.post(url=apiurl, data=json.dumps(self.payload))
             elif method == "put":
-                response = self.session.put(url=apiurl, data=self.payload)
+                response = self.session.put(url=apiurl, data=json.dumps(self.payload))
             elif method == "delete":
                 response = self.session.delete(url=apiurl)
             else:
                 response = self.session.get(url=apiurl)
-        resp_req = response.content
-        response = resp_req
+        resp_req = self._json_validity_check(content=response.content)
         if self.debug == True:
             self._debugger(fnct=self._request.__name__, mode=["std", "resp"])
-        return response
+        return resp_req
     
     #----------------------------------------------
     #---------- Authentication Functions ----------

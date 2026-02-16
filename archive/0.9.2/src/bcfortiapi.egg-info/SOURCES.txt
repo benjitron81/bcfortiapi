@@ -1,0 +1,13 @@
+LICENSE.txt
+README.md
+pyproject.toml
+src/bcfortiapi/__init__.py
+src/bcfortiapi.egg-info/PKG-INFO
+src/bcfortiapi.egg-info/SOURCES.txt
+src/bcfortiapi.egg-info/dependency_links.txt
+src/bcfortiapi.egg-info/requires.txt
+src/bcfortiapi.egg-info/top_level.txt
+src/bcfortiapi/fgt/__init__.py
+src/bcfortiapi/fgt/fgt.py
+src/bcfortiapi/fmg/__init__.py
+src/bcfortiapi/fmg/fmg.py

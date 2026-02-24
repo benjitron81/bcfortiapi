@@ -5,8 +5,8 @@ A Python library for interacting with the Fortinet FortiGate and FortiManager AP
 ## Current Status
 
 - Status: Beta
-- Latest Release: 0.9.5
-- Release Date: 24-02-2026
+- Latest Release: 0.9.4
+- Release Date: 15-02-2026
 
 ## Dependencies
 
@@ -43,15 +43,6 @@ init_variable = bcfortiapi.fmgapi(server="FMG IP or FQDN", port="FMG HTTPS Admin
 - server (str) = IP address or FQDN of the target FortiManager
 - port (str) = HTTPS admin port number of the target FortiManager
 - version (str) = Major and minor configuration database version of the target FortiManager (eg. 7.4)
-- debug (bool) = Console debug output enabled
-
-**Tools**
-
-```
-import bcfortiapi
-
-init_variable = bcfortiapi.toolbox(debug=True/False)
-```
 - debug (bool) = Console debug output enabled
 
 ### General Usage
@@ -104,10 +95,6 @@ response_variable = init_variable.dvmdb_device(adom="ADOM name", method="get")
 ```
 init_variable.logout()
 ```
-
-## Change Log 0.9.5
-
-- 24-02-2026: Added bcfortiapi.tools.toolbox module, contains miscellaneous additional tools for use with FortiGate and FortiManager modules
 
 ## Change Log 0.9.4
 

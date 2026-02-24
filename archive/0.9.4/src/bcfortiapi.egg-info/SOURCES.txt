@@ -11,5 +11,3 @@ src/bcfortiapi/fgt/__init__.py
 src/bcfortiapi/fgt/fgt.py
 src/bcfortiapi/fmg/__init__.py
 src/bcfortiapi/fmg/fmg.py
-src/bcfortiapi/tools/__init__.py
-src/bcfortiapi/tools/tools.py

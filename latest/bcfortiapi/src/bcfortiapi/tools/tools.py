@@ -1,7 +1,7 @@
 #bcfortiapi.tools
 #Additional tools for use with bcfortiapi
 #Created by Benjamin Court 22-02-2026
-#Last Updated: 24-02-2026
+#Last Updated: 25-02-2026
 
 """
 bcfortiapi.tools\n
@@ -50,21 +50,95 @@ class toolbox:
         for k, v in dict(src).items():
             if type(v) == list:
                 current_path.append(k)
-                v = self._list_itr(src=v, key=key, value=value, match_path=match_path, current_path=current_path)
+                if k == key:
+                    if match_path is not None:
+                        if str(match_path) == str(current_path):
+                            src[k] = value
+                            if self.debug == True:
+                                self._debugger(fnct=self._dict_itr.__name__, data={
+                                    'Match Parameters: ': 'Path, Key',
+                                    'Key': k,
+                                    'Old Value': v,
+                                    'New Value': value,
+                                    'Current Path': current_path,
+                                    'Matched Path': match_path
+                                    })
+                        else:
+                            src[k] = v
+                            v = self._list_itr(src=v, key=key, value=value, match_path=match_path, current_path=current_path)
+                    else:
+                        src[k] = value
+                        if self.debug == True:
+                            self._debugger(fnct=self._dict_itr.__name__, data={
+                                'Match Parameters: ': 'Path, Key',
+                                'Key': k,
+                                'Old Value': v,
+                                'New Value': value,
+                                'Current Path': current_path,
+                                'Matched Path': match_path
+                                })
+                        v = self._list_itr(src=v, key=key, value=value, match_path=match_path, current_path=current_path)
+                else:
+                    v = self._list_itr(src=v, key=key, value=value, match_path=match_path, current_path=current_path)
             elif type(v) == dict:
                 current_path.append(k)
-                v = self._dict_itr(src=v, key=key, value=value, match_path=match_path, current_path=current_path)
+                if k == key:
+                    if match_path is not None:
+                        if str(match_path) == str(current_path):
+                            src[k] = value
+                            if self.debug == True:
+                                self._debugger(fnct=self._dict_itr.__name__, data={
+                                    'Match Parameters: ': 'Path, Key',
+                                    'Key': k,
+                                    'Old Value': v,
+                                    'New Value': value,
+                                    'Current Path': current_path,
+                                    'Matched Path': match_path
+                                    })
+                        else:
+                            src[k] = v
+                            v = self._dict_itr(src=v, key=key, value=value, match_path=match_path, current_path=current_path)
+                    else:
+                        src[k] = value
+                        if self.debug == True:
+                            self._debugger(fnct=self._dict_itr.__name__, data={
+                                'Match Parameters: ': 'Path, Key',
+                                'Key': k,
+                                'Old Value': v,
+                                'New Value': value,
+                                'Current Path': current_path,
+                                'Matched Path': match_path
+                                })
+                        v = self._dict_itr(src=v, key=key, value=value, match_path=match_path, current_path=current_path)
+                else:
+                    v = self._dict_itr(src=v, key=key, value=value, match_path=match_path, current_path=current_path)
             elif k == key:
                 current_path.append(k)
                 if match_path is not None:
                     if str(match_path) == str(current_path):
                         src[k] = value
-                        print(f"Match Found with path: {k}: {v}, {current_path}, {match_path}")
+                        if self.debug == True:
+                            self._debugger(fnct=self._dict_itr.__name__, data={
+                                'Match Parameters: ': 'Path, Key',
+                                'Key': k,
+                                'Old Value': v,
+                                'New Value': value,
+                                'Current Path': current_path,
+                                'Matched Path': match_path
+                                })
                     else:
                         src[k] = v
                 else:
                     src[k] = value
-                    print(f"Match found: {k}: {v}, {current_path}, {match_path}")
+                    if self.debug == True:
+                        self._debugger(fnct=self._dict_itr.__name__, data={
+                            'Match Parameters: ': 'Path, Key',
+                            'Key': k,
+                            'Old Value': v,
+                            'New Value': value,
+                            'Current Path': current_path,
+                            'Matched Path': match_path
+                            })
             else:
                 continue
             current_path.pop()

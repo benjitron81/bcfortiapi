@@ -107,6 +107,7 @@ init_variable.logout()
 
 ## Change Log 0.9.5
 
+- 25-02-2026: Fixed bug in Toolbox module where some debugging console output was turned on regardless of debug setting
 - 24-02-2026: Added bcfortiapi.tools.toolbox module, contains miscellaneous additional tools for use with FortiGate and FortiManager modules
 
 ## Change Log 0.9.4

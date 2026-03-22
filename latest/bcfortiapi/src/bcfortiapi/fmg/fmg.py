@@ -1,7 +1,7 @@
 #bcfortiapi.fmg
 #API library for Fortinet FortiManager
 #Created by Benjamin Court 06-01-2026
-#Last Updated: 15-02-2026
+#Last Updated: 01-03-2026
 
 """
 bcfortiapi.fmg\n
@@ -1527,8 +1527,103 @@ class fmgapi:
         ---------\n
         >>> init_variable.dvmdb_device(adom="ADOM Name", method="HTTP Method", data={Dictionary Object})
 
-        Data Structure:
-        ---------------\n
+        Data Structure (7.6):
+        ---------------------\n
+        >>> data = {
+                adm_pass	[...]
+                adm_usr	[...]
+                app_ver	[...]
+                av_ver	[...]
+                beta	[...]
+                branch_pt	[...]
+                build	[...]
+                checksum	[...]
+                cluster_worker	[...]
+                conf_status	[...]
+                conn_mode	[...]
+                conn_status	[...]
+                db_status	[...]
+                desc	[...]
+                dev_status	[...]
+                eip	[...]
+                fap_cnt	[...]
+                faz.full_act	[...]
+                faz.perm	[...]
+                faz.quota	[...]
+                faz.used	[...]
+                fex_cnt	[...]
+                first_tunnel_up	[...]
+                flags	[...]
+                foslic_cpu	[...]
+                foslic_dr_site	[...]
+                foslic_inst_time	[...]
+                foslic_last_sync	[...]
+                foslic_ram	[...]
+                foslic_type	[...]
+                foslic_utm	[...]
+                fsw_cnt	[...]
+                ha.vsn	[...]
+                ha_group_id	[...]
+                ha_group_name	[...]
+                ha_mode	[...]
+                ha_upgrade_mode	[...]
+                hdisk_size	[...]
+                hostname	[...]
+                hw_generation	[...]
+                hw_rev_major	[...]
+                hw_rev_minor	[...]
+                hyperscale	[...]
+                ip	[...]
+                ips_ext	[...]
+                ips_ver	[...]
+                last_checked	[...]
+                last_resync	[...]
+                latitude	[...]
+                lic_flags	[...]
+                lic_region	[...]
+                location_from	[...]
+                logdisk_size	[...]
+                longitude	[...]
+                maxvdom	[...]
+                meta fields	{
+                    description:	[...]
+                }
+                mgmt_if	[...]
+                mgmt_mode	[...]
+                mgmt_uuid	[...]
+                mgt_vdom	[...]
+                module_sn	[...]
+                mr	[...]
+                name	[...]
+                nsxt_service_name	[...]
+                os_type	[...]
+                os_ver	[...]
+                patch	[...]
+                platform_str	[...]
+                prefer_img_ver	[...]
+                prio	[...]
+                private_key	[...]
+                private_key_status	[...]
+                psk	[...]
+                relver_info	[...]
+                role	[...]
+                sn	[...]
+                sov_sase_license	[...]
+                tunnel_sn	[...]
+                vdom	[...]
+                version	[...]
+                vm_cpu	[...]
+                vm_cpu_limit	[...]
+                vm_lic_expire	[...]
+                vm_lic_overdue_since	[...]
+                vm_mem	[...]
+                vm_mem_limit	[...]
+                vm_payg_status	[...]
+                vm_status	[...]
+            }
+
+        Data Structure (7.4):
+        ---------------------\n
         >>> data = {
                 adm_pass	[...]
                 adm_usr	[...]
@@ -1701,8 +1796,46 @@ class fmgapi:
         ---------\n
         >>> init_variable.dvmdb_adom(adom="ADOM Name", method="HTTP Method", data={Dictionary Object})
 
-        Data Structure:
-        ---------------\n
+        Data Structure (7.6):
+        ---------------------\n
+        >>> data = {
+                create_time	[...]
+                desc	[...]
+                flags	[...]
+                lock_override	[...]
+                log_db_retention_hours	[...]
+                log_disk_quota	[...]
+                log_disk_quota_alert_thres	[...]
+                log_disk_quota_split_ratio	[...]
+                log_file_retention_hours	[...]
+                meta fields	{
+                    description:	[...]
+                }
+                FnTmig_mr	[...]
+                mig_os_ver	[...]
+                mode	[...]
+                FnTmr	[...]
+                name	[...]
+                os_ver	[...]
+                primary_dns_ip4	[...]
+                primary_dns_ip6_1	[...]
+                primary_dns_ip6_2	[...]
+                primary_dns_ip6_3	[...]
+                primary_dns_ip6_4	[...]
+                FnTrestricted_prds	[...]
+                secondary_dns_ip4	[...]
+                secondary_dns_ip6_1	[...]
+                secondary_dns_ip6_2	[...]
+                secondary_dns_ip6_3	[...]
+                secondary_dns_ip6_4	[...]
+                state	[...]
+                tz	[...]
+                uuid	[...]
+                workspace_mode	[...]
+            }
+
+        Data Structure (7.4):
+        ---------------------\n
         >>> data = {
                 create_time	[...]
                 desc	[...]
@@ -2245,6 +2378,2669 @@ class fmgapi:
             response = self._json_error(fnct=self.confdb_pkgsettings.__name__, msg=f"Login state is {self.loginstate}")
         return response
     
+    def confdb_firewall_policy(self, adom:str=None, method:str="get", pkg:str=None, policy_id:str=None, pblock:bool=False, data:dict=None, fields:list=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_firewall_policy\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/adom/{adom}/pkg/{pkg}/firewall/policy*
+            */pm/config/adom/{adom}/pkg/{pkg}/firewall/policy/{policy}*
+            */pm/config/adom/{adom}/pblock/{pblock}/firewall/policy*
+            */pm/config/adom/{adom}/pblock/{pblock}/firewall/policy/{policy}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *adom, pkg*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone, move*
+        
+        Fields:
+        --------\n
+            *_policy_block, action, anti-replay, app-monitor, application-list, auth-cert, auth-path, auth-redirect-addr, auto-asic-offload, av-profile, block-notification, captive-portal-exempt, capture-packet, casb-profile, cgn-eif, cgn-eim, cgn-log-server-grp, cgn-resource-quota, cgn-session-quota, cgn-sw-eif-ctrl, comments, custom-log-fields, decrypted-traffic-mirror, delay-tcp-npu-session, diameter-filter-profile, diffserv-copy, diffserv-forward, diffserv-reverse, diffservcode-forward, diffservcode-rev, disclaimer, dlp-profile, dnsfilter-profile, dsri, dstaddr, dstaddr-negate, dstaddr6, dstaddr6-negate, dstintf, dynamic-shaping, eif-check, eif-learn, email-collect, emailfilter-profile, fec, file-filter-profile, firewall-session-dirty, fixedport, fsso-agent-for-ntlm, fsso-groups, geoip-anycast, geoip-match, global-label, groups, gtp-profile, http-policy-redirect, icap-profile, identity-based-route, inbound, inspection-mode, internet-service, internet-service-custom, internet-service-custom-group, internet-service-fortiguard, internet-service-group, internet-service-name, internet-service-negate, internet-service-src, internet-service-src-custom, internet-service-src-custom-group, internet-service-src-fortiguard, internet-service-src-group, internet-service-src-name, internet-service-src-negate, internet-service6, internet-service6-custom, internet-service6-custom-group, internet-service6-fortiguard, internet-service6-group, internet-service6-name, internet-service6-negate, internet-service6-src, internet-service6-src-custom, internet-service6-src-custom-group, internet-service6-src-fortiguard, internet-service6-src-group, internet-service6-src-name, internet-service6-src-negate, ip-version-type, ippool, ips-sensor, ips-voip-filter, label, log-http-transaction, logtraffic, logtraffic-start, match-vip, match-vip-only, name, nat, nat46, nat64, natinbound, natip, natoutbound, network-service-dynamic, network-service-src-dynamic, np-acceleration, ntlm, ntlm-enabled-browsers, ntlm-guest, outbound, passive-wan-health-measurement, pcp-inbound, pcp-outbound, pcp-poolname, per-ip-shaper, permit-any-host, permit-stun-host, pfcp-profile, policy-behaviour-type, policy-expiry, policy-expiry-date, policy-expiry-date-utc, policy-offload, policyid, poolname, poolname6, port-preserve, port-random, profile-group, profile-protocol-options, profile-type, radius-ip-auth-bypass, radius-mac-auth-bypass, redirect-url, replacemsg-override-group, reputation-direction, reputation-direction6, reputation-minimum, reputation-minimum6, rtp-addr, rtp-nat, saml-server, schedule, schedule-timeout, scim, scim-groups, scim-users, sctp-filter-profile, send-deny-packet, service, service-negate, session-ttl, sgt, sgt-check, src-vendor-mac, srcaddr, srcaddr-negate, srcaddr6, srcaddr6-negate, srcintf, ssh-filter-profile, ssh-policy-redirect, ssl-ssh-profile, status, tcp-mss-receiver, tcp-mss-sender, tcp-session-without-syn, tcp-timeout-pid, telemetry-profile, timeout-send-rst, tos, tos-mask, tos-negate, traffic-shaper, traffic-shaper-reverse, udp-timeout-pid, users, utm-status, uuid, videofilter-profile, virtual-patch-profile, vlan-cos-fwd, vlan-cos-rev, vlan-filter, voip-profile, vpntunnel, waf-profile, wanopt, wanopt-detection, wanopt-passive-opt, wanopt-peer, wanopt-profile, wccp, webcache, webcache-https, webfilter-profile, webproxy-forward-server, webproxy-profile, ztna-device-ownership, ztna-ems-tag, ztna-ems-tag-negate, ztna-ems-tag-secondary, ztna-geo-tag, ztna-policy-redirect, ztna-status, ztna-tags-match-logic*
+        
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_firewall_policy(adom="ADOM Name", method="HTTP Method", pkg="Policy Package or Block Name", policy_id="Policy ID", pblock=True/False, data={Dictionary Object}, fields=[List Object])
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                _policy_block	[...]
+                action	[...]
+                anti-replay	[...]
+                application-list	[[...]]
+                auth-cert	[[...]]
+                auth-path	[...]
+                auth-redirect-addr	[...]
+                auto-asic-offload	[...]
+                av-profile	[[...]]
+                block-notification	[...]
+                captive-portal-exempt	[...]
+                capture-packet	[...]
+                casb-profile	[[...]]
+                cgn-eif	[...]
+                cgn-eim	[...]
+                cgn-log-server-grp	[...]
+                cgn-resource-quota	[...]
+                cgn-session-quota	[...]
+                comments	[...]
+                custom-log-fields	[[...]]
+                decrypted-traffic-mirror	[[...]]
+                delay-tcp-npu-session	[...]
+                diameter-filter-profile	[[...]]
+                diffserv-copy	[...]
+                diffserv-forward	[...]
+                diffserv-reverse	[...]
+                diffservcode-forward	[...]
+                diffservcode-rev	[...]
+                disclaimer	[...]
+                dlp-profile	[[...]]
+                dnsfilter-profile	[[...]]
+                dsri	[...]
+                dstaddr	[[...]]
+                dstaddr-negate	[...]
+                dstaddr6	[[...]]
+                dstaddr6-negate	[...]
+                dstintf	[[...]]
+                dynamic-shaping	[...]
+                email-collect	[...]
+                emailfilter-profile	[[...]]
+                fec	[...]
+                file-filter-profile	[[...]]
+                firewall-session-dirty	[...]
+                fixedport	[...]
+                fsso-agent-for-ntlm	[[...]]
+                fsso-groups	[[...]]
+                geoip-anycast	[...]
+                geoip-match	[...]
+                global-label	[...]
+                groups	[[...]]
+                gtp-profile	[[...]]
+                http-policy-redirect	[...]
+                icap-profile	[[...]]
+                identity-based-route	[[...]]
+                inbound	[...]
+                inspection-mode	[...]
+                internet-service	[...]
+                internet-service-custom	[[...]]
+                internet-service-custom-group	[[...]]
+                internet-service-group	[[...]]
+                internet-service-name	[[...]]
+                internet-service-negate	[...]
+                internet-service-src	[...]
+                internet-service-src-custom	[[...]]
+                internet-service-src-custom-group	[[...]]
+                internet-service-src-group	[[...]]
+                internet-service-src-name	[[...]]
+                internet-service-src-negate	[...]
+                internet-service6	[...]
+                internet-service6-custom	[[...]]
+                internet-service6-custom-group	[[...]]
+                internet-service6-group	[[...]]
+                internet-service6-name	[[...]]
+                internet-service6-negate	[...]
+                internet-service6-src	[...]
+                internet-service6-src-custom	[[...]]
+                internet-service6-src-custom-group	[[...]]
+                internet-service6-src-group	[[...]]
+                internet-service6-src-name	[[...]]
+                internet-service6-src-negate	[...]
+                ip-version-type	[...]
+                ippool	[...]
+                ips-sensor	[[...]]
+                ips-voip-filter	[[...]]
+                label	[...]
+                logtraffic	[...]
+                logtraffic-start	[...]
+                match-vip	[...]
+                match-vip-only	[...]
+                name	[...]
+                nat	[...]
+                nat46	[...]
+                nat64	[...]
+                natinbound	[...]
+                natip	[[...]]
+                natoutbound	[...]
+                network-service-dynamic	[[...]]
+                network-service-src-dynamic	[[...]]
+                np-acceleration	[...]
+                ntlm	[...]
+                ntlm-enabled-browsers	[[...]]
+                ntlm-guest	[...]
+                outbound	[...]
+                passive-wan-health-measurement	[...]
+                pcp-inbound	[...]
+                pcp-outbound	[...]
+                pcp-poolname	[[...]]
+                per-ip-shaper	[[...]]
+                permit-any-host	[...]
+                permit-stun-host	[...]
+                pfcp-profile	[[...]]
+                policy-behaviour-type	[...]
+                policy-expiry	[...]
+                policy-expiry-date	[...]
+                policy-expiry-date-utc	[...]
+                policy-offload	[...]
+                policyid	[...]
+                poolname	[[...]]
+                poolname6	[[...]]
+                port-preserve	[...]
+                profile-group	[[...]]
+                profile-protocol-options	[[...]]
+                profile-type	[...]
+                radius-mac-auth-bypass	[...]
+                redirect-url	[...]
+                replacemsg-override-group	[[...]]
+                reputation-direction	[...]
+                reputation-direction6	[...]
+                reputation-minimum	[...]
+                reputation-minimum6	[...]
+                rtp-addr	[[...]]
+                rtp-nat	[...]
+                schedule	[[...]]
+                schedule-timeout	[...]
+                sctp-filter-profile	[[...]]
+                send-deny-packet	[...]
+                service	[[...]]
+                service-negate	[...]
+                session-ttl	[...]
+                sgt	[[...]]
+                sgt-check	[...]
+                src-vendor-mac	[[...]]
+                srcaddr	[[...]]
+                srcaddr-negate	[...]
+                srcaddr6	[[...]]
+                srcaddr6-negate	[...]
+                srcintf	[[...]]
+                ssh-filter-profile	[[...]]
+                ssh-policy-redirect	[...]
+                ssl-ssh-profile	[[...]]
+                status	[...]
+                tcp-mss-receiver	[...]
+                tcp-mss-sender	[...]
+                tcp-session-without-syn	[...]
+                tcp-timeout-pid	[[...]]
+                timeout-send-rst	[...]
+                tos	[...]
+                tos-mask	[...]
+                tos-negate	[...]
+                traffic-shaper	[[...]]
+                traffic-shaper-reverse	[[...]]
+                udp-timeout-pid	[[...]]
+                users	[[...]]
+                utm-status	[...]
+                uuid	[...]
+                videofilter-profile	[[...]]
+                virtual-patch-profile	[[...]]
+                vlan-cos-fwd	[...]
+                vlan-cos-rev	[...]
+                vlan-filter	[...]
+                voip-profile	[[...]]
+                vpntunnel	[[...]]
+                waf-profile	[[...]]
+                wanopt	[...]
+                wanopt-detection	[...]
+                wanopt-passive-opt	[...]
+                wanopt-peer	[[...]]
+                wanopt-profile	[[...]]
+                wccp	[...]
+                webcache	[...]
+                webcache-https	[...]
+                webfilter-profile	[[...]]
+                webproxy-forward-server	[[...]]
+                webproxy-profile	[[...]]
+                ztna-device-ownership	[...]
+                ztna-ems-tag	[[...]]
+                ztna-ems-tag-secondary	[[...]]
+                ztna-geo-tag	[[...]]
+                ztna-policy-redirect	[...]
+                ztna-status	[...]
+                ztna-tags-match-logic	[...]
+            }
+
+        """
+        if self.loginstate == True:
+            if adom is not None:
+                if pkg is not None:
+                    if pblock == False:
+                        if policy_id is not None:
+                            self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/firewall/policy/{policy_id}", session=self.session_id, verbose=1, data=data, fields=fields)
+                        else:
+                            self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/firewall/policy", session=self.session_id, verbose=1, data=data, fields=fields)
+                    else:
+                        if policy_id is not None:
+                            self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pblock/{pkg}/firewall/policy/{policy_id}", session=self.session_id, verbose=1, data=data, fields=fields)
+                        else:
+                            self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pblock/{pkg}/firewall/policy", session=self.session_id, verbose=1, data=data, fields=fields)
+                    response = self._request()
+                    if self.debug == True:
+                        self._debugger(fnct=self.confdb_firewall_policy.__name__, resp=response, mode=["std", "resp"])
+                else:
+                    response = self._json_error(fnct=self.confdb_firewall_policy.__name__, msg=f"Policy package or block name is {pkg}")
+            else:
+                response = self._json_error(fnct=self.confdb_firewall_policy.__name__, msg=f"ADOM is {adom}")
+        else:
+            response = self._json_error(fnct=self.confdb_firewall_policy.__name__, msg=f"Login state is {self.loginstate}")
+        return response
+    
+    def confdb_firewall_proxypolicy(self, adom:str=None, method:str="get", pkg:str=None, policy_id:str=None, pblock:bool=False, data:dict=None, fields:list=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_firewall_proxypolicy\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/adom/{adom}/pkg/{pkg}/firewall/proxy-policy*
+            */pm/config/adom/{adom}/pkg/{pkg}/firewall/proxy-policy/{policy}*
+            */pm/config/adom/{adom}/pblock/{pblock}/firewall/proxy-policy*
+            */pm/config/adom/{adom}/pblock/{pblock}/firewall/proxy-policy/{policy}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *adom, pkg*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone, move*
+        
+        Fields:
+        --------\n
+            *_policy_block, access-proxy, access-proxy6, action, application-list, av-profile, block-notification, casb-profile, comments, decrypted-traffic-mirror, detect-https-in-http-request, device-ownership, disclaimer, dlp-profile, dnsfilter-profile, dstaddr, dstaddr-negate, dstaddr6, dstintf, emailfilter-profile, file-filter-profile, global-label, groups, http-tunnel-auth, https-sub-category, icap-profile, internet-service, internet-service-custom, internet-service-custom-group, internet-service-fortiguard, internet-service-group, internet-service-name, internet-service-negate, internet-service6, internet-service6-custom, internet-service6-custom-group, internet-service6-fortiguard, internet-service6-group, internet-service6-name, internet-service6-negate, ips-sensor, ips-voip-filter, isolator-server, label, log-http-transaction, logtraffic, logtraffic-start, name, policyid, poolname, poolname6, profile-group, profile-protocol-options, profile-type, proxy, redirect-url, replacemsg-override-group, schedule, sctp-filter-profile, service, service-negate, session-ttl, srcaddr, srcaddr-negate, srcaddr6, srcintf, ssh-filter-profile, ssh-policy-redirect, ssl-ssh-profile, status, telemetry-profile, transparent, url-risk, users, utm-status, uuid, videofilter-profile, waf-profile, webcache, webcache-https, webfilter-profile, webproxy-forward-server, webproxy-profile, ztna-ems-tag, ztna-ems-tag-negate, ztna-proxy, ztna-tags-match-logic*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_firewall_proxypolicy(adom="ADOM Name", method="HTTP Method", pkg="Policy Package or Block Name", policy_id="Policy ID", pblock=True/False, data={Dictionary Object}, fields=[List Object])
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                _policy_block	[...]
+                access-proxy	[[...]]
+                access-proxy6	[[...]]
+                action	[...]
+                application-list	[[...]]
+                av-profile	[[...]]
+                block-notification	[...]
+                casb-profile	[[...]]
+                comments	[...]
+                decrypted-traffic-mirror	[[...]]
+                detect-https-in-http-request	[...]
+                device-ownership	[...]
+                disclaimer	[...]
+                dlp-profile	[[...]]
+                dnsfilter-profile	[[...]]
+                dstaddr	[[...]]
+                dstaddr-negate	[...]
+                dstaddr6	[[...]]
+                dstintf	[[...]]
+                emailfilter-profile	[[...]]
+                file-filter-profile	[[...]]
+                global-label	[...]
+                groups	[[...]]
+                http-tunnel-auth	[...]
+                https-sub-category	[...]
+                icap-profile	[[...]]
+                internet-service	[...]
+                internet-service-custom	[[...]]
+                internet-service-custom-group	[[...]]
+                internet-service-fortiguard	[[...]]
+                internet-service-group	[[...]]
+                internet-service-name	[[...]]
+                internet-service-negate	[...]
+                internet-service6	[...]
+                internet-service6-custom	[[...]]
+                internet-service6-custom-group	[[...]]
+                internet-service6-fortiguard	[[...]]
+                internet-service6-group	[[...]]
+                internet-service6-name	[[...]]
+                internet-service6-negate	[...]
+                ips-sensor	[[...]]
+                ips-voip-filter	[[...]]
+                isolator-server	[[...]]
+                label	[...]
+                log-http-transaction	[...]
+                logtraffic	[...]
+                logtraffic-start	[...]
+                name	[...]
+                policyid	[...]
+                poolname	[[...]]
+                poolname6	[[...]]
+                profile-group	[[...]]
+                profile-protocol-options	[[...]]
+                profile-type	[...]
+                proxy	[...]
+                redirect-url	[...]
+                replacemsg-override-group	[[...]]
+                schedule	[[...]]
+                sctp-filter-profile	[[...]]
+                service	[[...]]
+                service-negate	[...]
+                session-ttl	[...]
+                srcaddr	[[...]]
+                srcaddr-negate	[...]
+                srcaddr6	[[...]]
+                srcintf	[[...]]
+                ssh-filter-profile	[[...]]
+                ssh-policy-redirect	[...]
+                ssl-ssh-profile	[[...]]
+                status	[...]
+                telemetry-profile	[[...]]
+                transparent	[...]
+                url-risk	[[...]]
+                users	[[...]]
+                utm-status	[...]
+                uuid	[...]
+                videofilter-profile	[[...]]
+                waf-profile	[[...]]
+                webcache	[...]
+                webcache-https	[...]
+                webfilter-profile	[[...]]
+                webproxy-forward-server	[[...]]
+                webproxy-profile	[[...]]
+                ztna-ems-tag	[[...]]
+                ztna-ems-tag-negate	[...]
+                ztna-proxy	[[...]]
+                ztna-tags-match-logic	[...]
+            }
+
+        """
+        if self.loginstate == True:
+            if adom is not None:
+                if pkg is not None:
+                    if pblock == False:
+                        if policy_id is not None:
+                            self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/firewall/proxy-policy/{policy_id}", session=self.session_id, verbose=1, data=data, fields=fields)
+                        else:
+                            self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/firewall/proxy-policy", session=self.session_id, verbose=1, data=data, fields=fields)
+                    else:
+                        if policy_id is not None:
+                            self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pblock/{pkg}/firewall/proxy-policy/{policy_id}", session=self.session_id, verbose=1, data=data, fields=fields)
+                        else:
+                            self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pblock/{pkg}/firewall/proxy-policy", session=self.session_id, verbose=1, data=data, fields=fields)
+                    response = self._request()
+                    if self.debug == True:
+                        self._debugger(fnct=self.confdb_firewall_proxypolicy.__name__, resp=response, mode=["std", "resp"])
+                else:
+                    response = self._json_error(fnct=self.confdb_firewall_proxypolicy.__name__, msg=f"Policy package or block name is {pkg}")
+            else:
+                response = self._json_error(fnct=self.confdb_firewall_proxypolicy.__name__, msg=f"ADOM is {adom}")
+        else:
+            response = self._json_error(fnct=self.confdb_firewall_proxypolicy.__name__, msg=f"Login state is {self.loginstate}")
+        return response
+    
+    def confdb_firewall_dospolicy(self, adom:str=None, method:str="get", pkg:str=None, policy_id:str=None, data:dict=None, fields:list=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_firewall_dospolicy\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/adom/{adom}/pkg/{pkg}/firewall/DoS-policy*
+            */pm/config/adom/{adom}/pkg/{pkg}/firewall/DoS-policy/{policy}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *adom, pkg*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone, move*
+        
+        Fields:
+        --------\n
+            *comments, dstaddr, interface, name, policyid, service, srcaddr, status*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_firewall_dospolicy(adom="ADOM Name", method="HTTP Method", pkg="Policy Package Name", policy_id="Policy ID", data={Dictionary Object}, fields=[List Object])
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                anomaly	[{
+                    action	[...]
+                    log	[...]
+                    name	[...]
+                    quarantine	[...]
+                    quarantine-expiry	[...]
+                    quarantine-log	[...]
+                    status	[...]
+                    synproxy-tcp-mss	[...]
+                    synproxy-tcp-sack	[...]
+                    synproxy-tcp-timestamp	[...]
+                    synproxy-tcp-window	[...]
+                    synproxy-tcp-windowscale	[...]
+                    synproxy-tos	[...]
+                    synproxy-ttl	[...]
+                    threshold	[...]
+                    threshold(default)	[...]
+                }]
+                comments	[...]
+                dstaddr	[[...]]
+                interface	[[...]]
+                name	[...]
+                policyid	[...]
+                service	[[...]]
+                srcaddr	[[...]]
+                status	[...]
+            }
+
+        """
+        if self.loginstate == True:
+            if adom is not None:
+                if pkg is not None:
+                    if policy_id is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/firewall/DoS-policy/{policy_id}", session=self.session_id, verbose=1, data=data, fields=fields)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/firewall/DoS-policy", session=self.session_id, verbose=1, data=data, fields=fields)
+                    response = self._request()
+                    if self.debug == True:
+                        self._debugger(fnct=self.confdb_firewall_dospolicy.__name__, resp=response, mode=["std", "resp"])
+                else:
+                    response = self._json_error(fnct=self.confdb_firewall_dospolicy.__name__, msg=f"Policy package name is {pkg}")
+            else:
+                response = self._json_error(fnct=self.confdb_firewall_dospolicy.__name__, msg=f"ADOM is {adom}")
+        else:
+            response = self._json_error(fnct=self.confdb_firewall_dospolicy.__name__, msg=f"Login state is {self.loginstate}")
+        return response
+    
+    def confdb_firewall_dospolicy6(self, adom:str=None, method:str="get", pkg:str=None, policy_id:str=None, data:dict=None, fields:list=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_firewall_dospolicy6\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/adom/{adom}/pkg/{pkg}/firewall/DoS-policy6*
+            */pm/config/adom/{adom}/pkg/{pkg}/firewall/DoS-policy6/{policy}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *adom, pkg*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone, move*
+        
+        Fields:
+        --------\n
+            *comments, dstaddr, interface, name, policyid, service, srcaddr, status*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_firewall_dospolicy6(adom="ADOM Name", method="HTTP Method", pkg="Policy Package Name", policy_id="Policy ID", data={Dictionary Object}, fields=[List Object])
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                anomaly	[{
+                    action	[...]
+                    log	[...]
+                    name	[...]
+                    quarantine	[...]
+                    quarantine-expiry	[...]
+                    quarantine-log	[...]
+                    status	[...]
+                    synproxy-tcp-mss	[...]
+                    synproxy-tcp-sack	[...]
+                    synproxy-tcp-timestamp	[...]
+                    synproxy-tcp-window	[...]
+                    synproxy-tcp-windowscale	[...]
+                    synproxy-tos	[...]
+                    synproxy-ttl	[...]
+                    threshold	[...]
+                    threshold(default)	[...]
+                }]
+                comments	[...]
+                dstaddr	[[...]]
+                interface	[[...]]
+                name	[...]
+                policyid	[...]
+                service	[[...]]
+                srcaddr	[[...]]
+                status	[...]
+            }
+
+        """
+        if self.loginstate == True:
+            if adom is not None:
+                if pkg is not None:
+                    if policy_id is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/firewall/DoS-policy6/{policy_id}", session=self.session_id, verbose=1, data=data, fields=fields)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/firewall/DoS-policy6", session=self.session_id, verbose=1, data=data, fields=fields)
+                    response = self._request()
+                    if self.debug == True:
+                        self._debugger(fnct=self.confdb_firewall_dospolicy6.__name__, resp=response, mode=["std", "resp"])
+                else:
+                    response = self._json_error(fnct=self.confdb_firewall_dospolicy6.__name__, msg=f"Policy package name is {pkg}")
+            else:
+                response = self._json_error(fnct=self.confdb_firewall_dospolicy6.__name__, msg=f"ADOM is {adom}")
+        else:
+            response = self._json_error(fnct=self.confdb_firewall_dospolicy6.__name__, msg=f"Login state is {self.loginstate}")
+        return response
+    
+    def confdb_firewall_acl(self, adom:str=None, method:str="get", pkg:str=None, policy_id:str=None, data:dict=None, fields:list=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_firewall_acl\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/adom/{adom}/pkg/{pkg}/firewall/acl*
+            */pm/config/adom/{adom}/pkg/{pkg}/firewall/acl/{acl}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *adom, pkg*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone, move*
+        
+        Fields:
+        --------\n
+            *comments, dstaddr, fragment, interface, name, policyid, service, srcaddr, status*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_firewall_acl(adom="ADOM Name", method="HTTP Method", pkg="Policy Package Name", policy_id="Policy ID", data={Dictionary Object}, fields=[List Object])
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                comments	[...]
+                dstaddr	[[...]]
+                fragment	[...]
+                interface	[[...]]
+                name	[...]
+                policyid	[...]
+                service	[[...]]
+                srcaddr	[[...]]
+                status	[...]
+            }
+
+        """
+        if self.loginstate == True:
+            if adom is not None:
+                if pkg is not None:
+                    if policy_id is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/firewall/acl/{policy_id}", session=self.session_id, verbose=1, data=data, fields=fields)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/firewall/acl", session=self.session_id, verbose=1, data=data, fields=fields)
+                    response = self._request()
+                    if self.debug == True:
+                        self._debugger(fnct=self.confdb_firewall_acl.__name__, resp=response, mode=["std", "resp"])
+                else:
+                    response = self._json_error(fnct=self.confdb_firewall_acl.__name__, msg=f"Policy package name is {pkg}")
+            else:
+                response = self._json_error(fnct=self.confdb_firewall_acl.__name__, msg=f"ADOM is {adom}")
+        else:
+            response = self._json_error(fnct=self.confdb_firewall_acl.__name__, msg=f"Login state is {self.loginstate}")
+        return response
+    
+    def confdb_firewall_acl6(self, adom:str=None, method:str="get", pkg:str=None, policy_id:str=None, data:dict=None, fields:list=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_firewall_acl6\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/adom/{adom}/pkg/{pkg}/firewall/acl6*
+            */pm/config/adom/{adom}/pkg/{pkg}/firewall/acl6/{acl}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *adom, pkg*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone, move*
+        
+        Fields:
+        --------\n
+            *comments, dstaddr, fragment, interface, name, policyid, service, srcaddr, status*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_firewall_acl6(adom="ADOM Name", method="HTTP Method", pkg="Policy Package Name", policy_id="Policy ID", data={Dictionary Object}, fields=[List Object])
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                comments	[...]
+                dstaddr	[[...]]
+                fragment	[...]
+                interface	[[...]]
+                name	[...]
+                policyid	[...]
+                service	[[...]]
+                srcaddr	[[...]]
+                status	[...]
+            }
+
+        """
+        if self.loginstate == True:
+            if adom is not None:
+                if pkg is not None:
+                    if policy_id is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/firewall/acl6/{policy_id}", session=self.session_id, verbose=1, data=data, fields=fields)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/firewall/acl6", session=self.session_id, verbose=1, data=data, fields=fields)
+                    response = self._request()
+                    if self.debug == True:
+                        self._debugger(fnct=self.confdb_firewall_acl6.__name__, resp=response, mode=["std", "resp"])
+                else:
+                    response = self._json_error(fnct=self.confdb_firewall_acl6.__name__, msg=f"Policy package name is {pkg}")
+            else:
+                response = self._json_error(fnct=self.confdb_firewall_acl6.__name__, msg=f"ADOM is {adom}")
+        else:
+            response = self._json_error(fnct=self.confdb_firewall_acl6.__name__, msg=f"Login state is {self.loginstate}")
+        return response
+    
+    def confdb_firewall_centralsnat_map(self, adom:str=None, method:str="get", pkg:str=None, policy_id:str=None, data:dict=None, fields:list=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_firewall_centralsnat_map\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/adom/{adom}/pkg/{pkg}/firewall/central-snat-map*
+            */pm/config/adom/{adom}/pkg/{pkg}/firewall/central-snat-map/{map}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *adom, pkg*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone, move*
+        
+        Fields:
+        --------\n
+            *comments, dst-addr, dst-addr6, dst-port, dstintf, nat, nat-ippool, nat-ippool6, nat-port, nat46, nat64, orig-addr, orig-addr6, orig-port, policyid, port-preserve, port-random, protocol, srcintf, status, type, uuid*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_firewall_centralsnat_map(adom="ADOM Name", method="HTTP Method", pkg="Policy Package Name", policy_id="Policy ID", data={Dictionary Object}, fields=[List Object])
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                comments	[...]
+                dst-addr	[[...]]
+                dst-addr6	[[...]]
+                dst-port	[...]
+                dstintf	[[...]]
+                nat	[...]
+                nat-ippool	[[...]]
+                nat-ippool6	[[...]]
+                nat-port	[...]
+                nat46	[...]
+                nat64	[...]
+                orig-addr	[[...]]
+                orig-addr6	[[...]]
+                orig-port	[...]
+                policyid	[...]
+                port-preserve	[...]
+                port-random	[...]
+                protocol	[...]
+                srcintf	[[...]]
+                status	[...]
+                type	[...]
+                uuid	[...]
+            }
+
+        """
+        if self.loginstate == True:
+            if adom is not None:
+                if pkg is not None:
+                    if policy_id is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/firewall/central-snat-map/{policy_id}", session=self.session_id, verbose=1, data=data, fields=fields)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/firewall/central-snat-map", session=self.session_id, verbose=1, data=data, fields=fields)
+                    response = self._request()
+                    if self.debug == True:
+                        self._debugger(fnct=self.confdb_firewall_centralsnat_map.__name__, resp=response, mode=["std", "resp"])
+                else:
+                    response = self._json_error(fnct=self.confdb_firewall_centralsnat_map.__name__, msg=f"Policy package name is {pkg}")
+            else:
+                response = self._json_error(fnct=self.confdb_firewall_centralsnat_map.__name__, msg=f"ADOM is {adom}")
+        else:
+            response = self._json_error(fnct=self.confdb_firewall_centralsnat_map.__name__, msg=f"Login state is {self.loginstate}")
+        return response
+    
+    def confdb_firewall_interfacepolicy(self, adom:str=None, method:str="get", pkg:str=None, policy_id:str=None, data:dict=None, fields:list=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_firewall_interfacepolicy\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/adom/{adom}/pkg/{pkg}/firewall/interface-policy*
+            */pm/config/adom/{adom}/pkg/{pkg}/firewall/interface-policy/{policy}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *adom, pkg*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone, move*
+        
+        Fields:
+        --------\n
+            *address-type, application-list, application-list-status, av-profile, av-profile-status, casb-profile, casb-profile-status, comments, dlp-profile, dlp-profile-status, dsri, dstaddr, emailfilter-profile, emailfilter-profile-status, interface, ips-sensor, ips-sensor-status, label, logtraffic, policyid, service, srcaddr, status, uuid, webfilter-profile, webfilter-profile-status*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_firewall_interfacepolicy(adom="ADOM Name", method="HTTP Method", pkg="Policy Package Name", policy_id="Policy ID", data={Dictionary Object}, fields=[List Object])
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                address-type	[...]
+                application-list	[[...]]
+                application-list-status	[...]
+                av-profile	[[...]]
+                av-profile-status	[...]
+                casb-profile	[[...]]
+                casb-profile-status	[...]
+                comments	[...]
+                dlp-profile	[[...]]
+                dlp-profile-status	[...]
+                dsri	[...]
+                dstaddr	[[...]]
+                emailfilter-profile	[[...]]
+                emailfilter-profile-status	[...]
+                interface	[[...]]
+                ips-sensor	[[...]]
+                ips-sensor-status	[...]
+                label	[...]
+                logtraffic	[...]
+                policyid	[...]
+                service	[[...]]
+                srcaddr	[[...]]
+                status	[...]
+                uuid	[...]
+                webfilter-profile	[[...]]
+                webfilter-profile-status	[...]
+            }
+
+        """
+        if self.loginstate == True:
+            if adom is not None:
+                if pkg is not None:
+                    if policy_id is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/firewall/interface-policy/{policy_id}", session=self.session_id, verbose=1, data=data, fields=fields)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/firewall/interface-policy", session=self.session_id, verbose=1, data=data, fields=fields)
+                    response = self._request()
+                    if self.debug == True:
+                        self._debugger(fnct=self.confdb_firewall_interfacepolicy.__name__, resp=response, mode=["std", "resp"])
+                else:
+                    response = self._json_error(fnct=self.confdb_firewall_interfacepolicy.__name__, msg=f"Policy package name is {pkg}")
+            else:
+                response = self._json_error(fnct=self.confdb_firewall_interfacepolicy.__name__, msg=f"ADOM is {adom}")
+        else:
+            response = self._json_error(fnct=self.confdb_firewall_interfacepolicy.__name__, msg=f"Login state is {self.loginstate}")
+        return response
+    
+    def confdb_firewall_interfacepolicy6(self, adom:str=None, method:str="get", pkg:str=None, policy_id:str=None, data:dict=None, fields:list=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_firewall_interfacepolicy6\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/adom/{adom}/pkg/{pkg}/firewall/interface-policy6*
+            */pm/config/adom/{adom}/pkg/{pkg}/firewall/interface-policy6/{policy}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *adom, pkg*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone, move*
+        
+        Fields:
+        --------\n
+            *address-type, application-list, application-list-status, av-profile, av-profile-status, casb-profile, casb-profile-status, comments, dlp-profile, dlp-profile-status, dsri, dstaddr6, emailfilter-profile, emailfilter-profile-status, interface, ips-sensor, ips-sensor-status, label, logtraffic, policyid, service6, srcaddr6, status, uuid, webfilter-profile, webfilter-profile-status*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_firewall_interfacepolicy6(adom="ADOM Name", method="HTTP Method", pkg="Policy Package Name", policy_id="Policy ID", data={Dictionary Object}, fields=[List Object])
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                address-type	[...]
+                application-list	[[...]]
+                application-list-status	[...]
+                av-profile	[[...]]
+                av-profile-status	[...]
+                casb-profile	[[...]]
+                casb-profile-status	[...]
+                comments	[...]
+                dlp-profile	[[...]]
+                dlp-profile-status	[...]
+                dsri	[...]
+                dstaddr6	[[...]]
+                emailfilter-profile	[[...]]
+                emailfilter-profile-status	[...]
+                interface	[[...]]
+                ips-sensor	[[...]]
+                ips-sensor-status	[...]
+                label	[...]
+                logtraffic	[...]
+                policyid	[...]
+                service6	[[...]]
+                srcaddr6	[[...]]
+                status	[...]
+                uuid	[...]
+                webfilter-profile	[[...]]
+                webfilter-profile-status	[...]
+            }
+
+        """
+        if self.loginstate == True:
+            if adom is not None:
+                if pkg is not None:
+                    if policy_id is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/firewall/interface-policy6/{policy_id}", session=self.session_id, verbose=1, data=data, fields=fields)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/firewall/interface-policy6", session=self.session_id, verbose=1, data=data, fields=fields)
+                    response = self._request()
+                    if self.debug == True:
+                        self._debugger(fnct=self.confdb_firewall_interfacepolicy6.__name__, resp=response, mode=["std", "resp"])
+                else:
+                    response = self._json_error(fnct=self.confdb_firewall_interfacepolicy6.__name__, msg=f"Policy package name is {pkg}")
+            else:
+                response = self._json_error(fnct=self.confdb_firewall_interfacepolicy6.__name__, msg=f"ADOM is {adom}")
+        else:
+            response = self._json_error(fnct=self.confdb_firewall_interfacepolicy6.__name__, msg=f"Login state is {self.loginstate}")
+        return response
+    
+    def confdb_firewall_localinpolicy(self, adom:str=None, method:str="get", pkg:str=None, policy_id:str=None, data:dict=None, fields:list=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_firewall_localinpolicy\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/adom/{adom}/pkg/{pkg}/firewall/local-in-policy*
+            */pm/config/adom/{adom}/pkg/{pkg}/firewall/local-in-policy/{policy}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *adom, pkg*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone, move*
+        
+        Fields:
+        --------\n
+            *action, comments, dstaddr, dstaddr-negate, ha-mgmt-intf-only, internet-service-src, internet-service-src-custom, internet-service-src-custom-group, internet-service-src-fortiguard, internet-service-src-group, internet-service-src-name, internet-service-src-negate, intf, logtraffic, policyid, schedule, service, service-negate, srcaddr, srcaddr-negate, status, uuid, virtual-patch*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_firewall_localinpolicy(adom="ADOM Name", method="HTTP Method", pkg="Policy Package Name", policy_id="Policy ID", data={Dictionary Object}, fields=[List Object])
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                action	[...]
+                comments	[...]
+                dstaddr	[[...]]
+                dstaddr-negate	[...]
+                ha-mgmt-intf-only	[...]
+                internet-service-src	[...]
+                internet-service-src-custom	[[...]]
+                internet-service-src-custom-group	[[...]]
+                internet-service-src-fortiguard	[[...]]
+                internet-service-src-group	[[...]]
+                internet-service-src-name	[[...]]
+                internet-service-src-negate	[...]
+                intf	[[...]]
+                logtraffic	[...]
+                policyid	[...]
+                schedule	[[...]]
+                service	[[...]]
+                service-negate	[...]
+                srcaddr	[[...]]
+                srcaddr-negate	[...]
+                status	[...]
+                uuid	[...]
+                virtual-patch	[...]
+            }
+
+        """
+        if self.loginstate == True:
+            if adom is not None:
+                if pkg is not None:
+                    if policy_id is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/firewall/local-in-policy/{policy_id}", session=self.session_id, verbose=1, data=data, fields=fields)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/firewall/local-in-policy", session=self.session_id, verbose=1, data=data, fields=fields)
+                    response = self._request()
+                    if self.debug == True:
+                        self._debugger(fnct=self.confdb_firewall_localinpolicy.__name__, resp=response, mode=["std", "resp"])
+                else:
+                    response = self._json_error(fnct=self.confdb_firewall_localinpolicy.__name__, msg=f"Policy package name is {pkg}")
+            else:
+                response = self._json_error(fnct=self.confdb_firewall_localinpolicy.__name__, msg=f"ADOM is {adom}")
+        else:
+            response = self._json_error(fnct=self.confdb_firewall_localinpolicy.__name__, msg=f"Login state is {self.loginstate}")
+        return response
+    
+    def confdb_firewall_localinpolicy6(self, adom:str=None, method:str="get", pkg:str=None, policy_id:str=None, data:dict=None, fields:list=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_firewall_localinpolicy6\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/adom/{adom}/pkg/{pkg}/firewall/local-in-policy6*
+            */pm/config/adom/{adom}/pkg/{pkg}/firewall/local-in-policy6/{policy}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *adom, pkg*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone, move*
+        
+        Fields:
+        --------\n
+            *action, comments, dstaddr, dstaddr-negate, internet-service6-src, internet-service6-src-custom, internet-service6-src-custom-group, internet-service6-src-fortiguard, internet-service6-src-group, internet-service6-src-name, internet-service6-src-negate, intf, logtraffic, policyid, schedule, service, service-negate, srcaddr, srcaddr-negate, status, uuid, virtual-patch*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_firewall_localinpolicy6(adom="ADOM Name", method="HTTP Method", pkg="Policy Package Name", policy_id="Policy ID", data={Dictionary Object}, fields=[List Object])
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                action	[...]
+                comments	[...]
+                dstaddr	[[...]]
+                dstaddr-negate	[...]
+                internet-service6-src	[...]
+                internet-service6-src-custom	[[...]]
+                internet-service6-src-custom-group	[[...]]
+                internet-service6-src-fortiguard	[[...]]
+                internet-service6-src-group	[[...]]
+                internet-service6-src-name	[[...]]
+                internet-service6-src-negate	[...]
+                intf	[[...]]
+                logtraffic	[...]
+                policyid	[...]
+                schedule	[[...]]
+                service	[[...]]
+                service-negate	[...]
+                srcaddr	[[...]]
+                srcaddr-negate	[...]
+                status	[...]
+                uuid	[...]
+                virtual-patch	[...]
+            }
+
+        """
+        if self.loginstate == True:
+            if adom is not None:
+                if pkg is not None:
+                    if policy_id is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/firewall/local-in-policy6/{policy_id}", session=self.session_id, verbose=1, data=data, fields=fields)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/firewall/local-in-policy6", session=self.session_id, verbose=1, data=data, fields=fields)
+                    response = self._request()
+                    if self.debug == True:
+                        self._debugger(fnct=self.confdb_firewall_localinpolicy6.__name__, resp=response, mode=["std", "resp"])
+                else:
+                    response = self._json_error(fnct=self.confdb_firewall_localinpolicy6.__name__, msg=f"Policy package name is {pkg}")
+            else:
+                response = self._json_error(fnct=self.confdb_firewall_localinpolicy6.__name__, msg=f"ADOM is {adom}")
+        else:
+            response = self._json_error(fnct=self.confdb_firewall_localinpolicy6.__name__, msg=f"Login state is {self.loginstate}")
+        return response
+    
+    def confdb_firewall_multicastpolicy(self, adom:str=None, method:str="get", pkg:str=None, policy_id:str=None, data:dict=None, fields:list=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_firewall_multicastpolicy\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/adom/{adom}/pkg/{pkg}/firewall/multicast-policy*
+            */pm/config/adom/{adom}/pkg/{pkg}/firewall/multicast-policy/{policy}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *adom, pkg*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone, move*
+        
+        Fields:
+        --------\n
+            *action, auto-asic-offload, comments, dnat, dstaddr, dstintf, end-port, id, ips-sensor, logtraffic, name, protocol, snat, snat-ip, srcaddr, srcintf, start-port, status, traffic-shaper, utm-status, uuid*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_firewall_multicastpolicy(adom="ADOM Name", method="HTTP Method", pkg="Policy Package Name", policy_id="Policy ID", data={Dictionary Object}, fields=[List Object])
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                action	[...]
+                auto-asic-offload	[...]
+                comments	[...]
+                dnat	[...]
+                dstaddr	[[...]]
+                dstintf	[[...]]
+                end-port	[...]
+                id	[...]
+                ips-sensor	[[...]]
+                logtraffic	[...]
+                name	[...]
+                protocol	[...]
+                snat	[...]
+                snat-ip	[...]
+                srcaddr	[[...]]
+                srcintf	[[...]]
+                start-port	[...]
+                status	[...]
+                traffic-shaper	[[...]]
+                utm-status	[...]
+                uuid	[...]
+            }
+
+        """
+        if self.loginstate == True:
+            if adom is not None:
+                if pkg is not None:
+                    if policy_id is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/firewall/multicast-policy/{policy_id}", session=self.session_id, verbose=1, data=data, fields=fields)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/firewall/multicast-policy", session=self.session_id, verbose=1, data=data, fields=fields)
+                    response = self._request()
+                    if self.debug == True:
+                        self._debugger(fnct=self.confdb_firewall_multicastpolicy.__name__, resp=response, mode=["std", "resp"])
+                else:
+                    response = self._json_error(fnct=self.confdb_firewall_multicastpolicy.__name__, msg=f"Policy package name is {pkg}")
+            else:
+                response = self._json_error(fnct=self.confdb_firewall_multicastpolicy.__name__, msg=f"ADOM is {adom}")
+        else:
+            response = self._json_error(fnct=self.confdb_firewall_multicastpolicy.__name__, msg=f"Login state is {self.loginstate}")
+        return response
+    
+    def confdb_firewall_multicastpolicy6(self, adom:str=None, method:str="get", pkg:str=None, policy_id:str=None, data:dict=None, fields:list=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_firewall_multicastpolicy6\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/adom/{adom}/pkg/{pkg}/firewall/multicast-policy6*
+            */pm/config/adom/{adom}/pkg/{pkg}/firewall/multicast-policy6/{policy}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *adom, pkg*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone, move*
+        
+        Fields:
+        --------\n
+            *action, auto-asic-offload, comments, dstaddr, dstintf, end-port, id, ips-sensor, logtraffic, name, protocol, srcaddr, srcintf, start-port, status, utm-status, uuid*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_firewall_multicastpolicy6(adom="ADOM Name", method="HTTP Method", pkg="Policy Package Name", policy_id="Policy ID", data={Dictionary Object}, fields=[List Object])
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                action	[...]
+                auto-asic-offload	[...]
+                comments	[...]
+                dstaddr	[[...]]
+                dstintf	[[...]]
+                end-port	[...]
+                id	[...]
+                ips-sensor	[[...]]
+                logtraffic	[...]
+                name	[...]
+                protocol	[...]
+                srcaddr	[[...]]
+                srcintf	[[...]]
+                start-port	[...]
+                status	[...]
+                utm-status	[...]
+                uuid	[...]
+            }
+
+        """
+        if self.loginstate == True:
+            if adom is not None:
+                if pkg is not None:
+                    if policy_id is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/firewall/multicast-policy6/{policy_id}", session=self.session_id, verbose=1, data=data, fields=fields)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/firewall/multicast-policy6", session=self.session_id, verbose=1, data=data, fields=fields)
+                    response = self._request()
+                    if self.debug == True:
+                        self._debugger(fnct=self.confdb_firewall_multicastpolicy6.__name__, resp=response, mode=["std", "resp"])
+                else:
+                    response = self._json_error(fnct=self.confdb_firewall_multicastpolicy6.__name__, msg=f"Policy package name is {pkg}")
+            else:
+                response = self._json_error(fnct=self.confdb_firewall_multicastpolicy6.__name__, msg=f"ADOM is {adom}")
+        else:
+            response = self._json_error(fnct=self.confdb_firewall_multicastpolicy6.__name__, msg=f"Login state is {self.loginstate}")
+        return response
+    
+    def confdb_firewall_shapingpolicy(self, adom:str=None, method:str="get", pkg:str=None, policy_id:str=None, data:dict=None, fields:list=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_firewall_shapingpolicy\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/adom/{adom}/pkg/{pkg}/firewall/shaping-policy*
+            */pm/config/adom/{adom}/pkg/{pkg}/firewall/shaping-policy/{policy}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *adom, pkg*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone, move*
+        
+        Fields:
+        --------\n
+            *app-category, app-group, application, class-id, comment, cos, cos-mask, diffserv-forward, diffserv-reverse, diffservcode-forward, diffservcode-rev, dstaddr, dstaddr6, dstintf, groups, id, internet-service, internet-service-custom, internet-service-custom-group, internet-service-fortiguard, internet-service-group, internet-service-name, internet-service-src, internet-service-src-custom, internet-service-src-custom-group, internet-service-src-fortiguard, internet-service-src-group, internet-service-src-name, ip-version, name, per-ip-shaper, schedule, service, srcaddr, srcaddr6, srcintf, status, tos, tos-mask, tos-negate, traffic-shaper, traffic-shaper-reverse, traffic-type, url-category, users, uuid*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_firewall_shapingpolicy(adom="ADOM Name", method="HTTP Method", pkg="Policy Package Name", policy_id="Policy ID", data={Dictionary Object}, fields=[List Object])
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                app-category	[[...]]
+                app-group	[[...]]
+                application	[[...]]
+                class-id	[[...]]
+                comment	[...]
+                cos	[...]
+                cos-mask	[...]
+                diffserv-forward	[...]
+                diffserv-reverse	[...]
+                diffservcode-forward	[...]
+                diffservcode-rev	[...]
+                dstaddr	[[...]]
+                dstaddr6	[[...]]
+                dstintf	[[...]]
+                groups	[[...]]
+                id	[...]
+                internet-service	[...]
+                internet-service-custom	[[...]]
+                internet-service-custom-group	[[...]]
+                internet-service-fortiguard	[[...]]
+                internet-service-group	[[...]]
+                internet-service-name	[[...]]
+                internet-service-src	[...]
+                internet-service-src-custom	[[...]]
+                internet-service-src-custom-group	[[...]]
+                internet-service-src-fortiguard	[[...]]
+                internet-service-src-group	[[...]]
+                internet-service-src-name	[[...]]
+                ip-version	[...]
+                name	[...]
+                per-ip-shaper	[[...]]
+                schedule	[[...]]
+                service	[[...]]
+                srcaddr	[[...]]
+                srcaddr6	[[...]]
+                srcintf	[[...]]
+                status	[...]
+                tos	[...]
+                tos-mask	[...]
+                tos-negate	[...]
+                traffic-shaper	[[...]]
+                traffic-shaper-reverse	[[...]]
+                traffic-type	[...]
+                url-category	[[...]]
+                users	[[...]]
+                uuid	[...]
+            }
+
+        """
+        if self.loginstate == True:
+            if adom is not None:
+                if pkg is not None:
+                    if policy_id is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/firewall/shaping-policy/{policy_id}", session=self.session_id, verbose=1, data=data, fields=fields)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/firewall/shaping-policy", session=self.session_id, verbose=1, data=data, fields=fields)
+                    response = self._request()
+                    if self.debug == True:
+                        self._debugger(fnct=self.confdb_firewall_shapingpolicy.__name__, resp=response, mode=["std", "resp"])
+                else:
+                    response = self._json_error(fnct=self.confdb_firewall_shapingpolicy.__name__, msg=f"Policy package name is {pkg}")
+            else:
+                response = self._json_error(fnct=self.confdb_firewall_shapingpolicy.__name__, msg=f"ADOM is {adom}")
+        else:
+            response = self._json_error(fnct=self.confdb_firewall_shapingpolicy.__name__, msg=f"Login state is {self.loginstate}")
+        return response
+    
+    def confdb_firewall_securitypolicy(self, adom:str=None, method:str="get", pkg:str=None, policy_id:str=None, pblock:bool=False, data:dict=None, fields:list=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_firewall_securitypolicy\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/adom/{adom}/pkg/{pkg}/firewall/security-policy*
+            */pm/config/adom/{adom}/pkg/{pkg}/firewall/security-policy/{policy}*
+            */pm/config/adom/{adom}/pblock/{pblock}/firewall/security-policy*
+            */pm/config/adom/{adom}/pblock/{pblock}/firewall/security-policy/{policy}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *adom, pkg*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone, move*
+        
+        Fields:
+        --------\n
+            *_policy_block, action, app-category, app-group, application, application-list, av-profile, casb-profile, comments, diameter-filter-profile, dlp-profile, dnsfilter-profile, dstaddr, dstaddr-negate, dstaddr6, dstaddr6-negate, dstintf, emailfilter-profile, enforce-default-app-port, file-filter-profile, fsso-groups, global-label, groups, icap-profile, internet-service, internet-service-custom, internet-service-custom-group, internet-service-fortiguard, internet-service-group, internet-service-name, internet-service-negate, internet-service-src, internet-service-src-custom, internet-service-src-custom-group, internet-service-src-fortiguard, internet-service-src-group, internet-service-src-name, internet-service-src-negate, internet-service6, internet-service6-custom, internet-service6-custom-group, internet-service6-fortiguard, internet-service6-group, internet-service6-name, internet-service6-negate, internet-service6-src, internet-service6-src-custom, internet-service6-src-custom-group, internet-service6-src-fortiguard, internet-service6-src-group, internet-service6-src-name, internet-service6-src-negate, ips-sensor, ips-voip-filter, learning-mode, logtraffic, name, nat46, nat64, policyid, profile-group, profile-protocol-options, profile-type, schedule, sctp-filter-profile, send-deny-packet, service, service-negate, srcaddr, srcaddr-negate, srcaddr6, srcaddr6-negate, srcintf, ssh-filter-profile, ssl-ssh-profile, status, telemetry-profile, url-category, users, utm-status, uuid, videofilter-profile, virtual-patch-profile, voip-profile, webfilter-profile*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_firewall_securitypolicy(adom="ADOM Name", method="HTTP Method", pkg="Policy Package or Block Name", policy_id="Policy ID", pblock=True/False, data={Dictionary Object}, fields=[List Object])
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                _policy_block	[...]
+                action	[...]
+                app-category	[[...]]
+                app-group	[[...]]
+                application	[[...]]
+                application-list	[[...]]
+                av-profile	[[...]]
+                casb-profile	[[...]]
+                comments	[...]
+                diameter-filter-profile	[[...]]
+                dlp-profile	[[...]]
+                dnsfilter-profile	[[...]]
+                dstaddr	[[...]]
+                dstaddr-negate	[...]
+                dstaddr6	[[...]]
+                dstaddr6-negate	[...]
+                dstintf	[[...]]
+                emailfilter-profile	[[...]]
+                enforce-default-app-port	[...]
+                file-filter-profile	[[...]]
+                fsso-groups	[[...]]
+                global-label	[...]
+                groups	[[...]]
+                icap-profile	[[...]]
+                internet-service	[...]
+                internet-service-custom	[[...]]
+                internet-service-custom-group	[[...]]
+                internet-service-fortiguard	[[...]]
+                internet-service-group	[[...]]
+                internet-service-name	[[...]]
+                internet-service-negate	[...]
+                internet-service-src	[...]
+                internet-service-src-custom	[[...]]
+                internet-service-src-custom-group	[[...]]
+                internet-service-src-fortiguard	[[...]]
+                internet-service-src-group	[[...]]
+                internet-service-src-name	[[...]]
+                internet-service-src-negate	[...]
+                internet-service6	[...]
+                internet-service6-custom	[[...]]
+                internet-service6-custom-group	[[...]]
+                internet-service6-fortiguard	[[...]]
+                internet-service6-group	[[...]]
+                internet-service6-name	[[...]]
+                internet-service6-negate	[...]
+                internet-service6-src	[...]
+                internet-service6-src-custom	[[...]]
+                internet-service6-src-custom-group	[[...]]
+                internet-service6-src-fortiguard	[[...]]
+                internet-service6-src-group	[[...]]
+                internet-service6-src-name	[[...]]
+                internet-service6-src-negate	[...]
+                ips-sensor	[[...]]
+                ips-voip-filter	[[...]]
+                learning-mode	[...]
+                logtraffic	[...]
+                name	[...]
+                nat46	[...]
+                nat64	[...]
+                policyid	[...]
+                profile-group	[[...]]
+                profile-protocol-options	[[...]]
+                profile-type	[...]
+                schedule	[[...]]
+                sctp-filter-profile	[[...]]
+                send-deny-packet	[...]
+                service	[[...]]
+                service-negate	[...]
+                srcaddr	[[...]]
+                srcaddr-negate	[...]
+                srcaddr6	[[...]]
+                srcaddr6-negate	[...]
+                srcintf	[[...]]
+                ssh-filter-profile	[[...]]
+                ssl-ssh-profile	[[...]]
+                status	[...]
+                telemetry-profile	[[...]]
+                url-category	[[...]]
+                users	[[...]]
+                utm-status	[...]
+                uuid	[...]
+                videofilter-profile	[[...]]
+                virtual-patch-profile	[[...]]
+                voip-profile	[[...]]
+                webfilter-profile	[[...]]
+            }
+
+        """
+        if self.loginstate == True:
+            if adom is not None:
+                if pkg is not None:
+                    if pblock == False:
+                        if policy_id is not None:
+                            self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/firewall/security-policy/{policy_id}", session=self.session_id, verbose=1, data=data, fields=fields)
+                        else:
+                            self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/firewall/security-policy", session=self.session_id, verbose=1, data=data, fields=fields)
+                    else:
+                        if policy_id is not None:
+                            self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pblock/{pkg}/firewall/security-policy/{policy_id}", session=self.session_id, verbose=1, data=data, fields=fields)
+                        else:
+                            self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pblock/{pkg}/firewall/security-policy", session=self.session_id, verbose=1, data=data, fields=fields)
+                    response = self._request()
+                    if self.debug == True:
+                        self._debugger(fnct=self.confdb_firewall_securitypolicy.__name__, resp=response, mode=["std", "resp"])
+                else:
+                    response = self._json_error(fnct=self.confdb_firewall_securitypolicy.__name__, msg=f"Policy package or block name is {pkg}")
+            else:
+                response = self._json_error(fnct=self.confdb_firewall_securitypolicy.__name__, msg=f"ADOM is {adom}")
+        else:
+            response = self._json_error(fnct=self.confdb_firewall_securitypolicy.__name__, msg=f"Login state is {self.loginstate}")
+        return response
+    
+    def confdb_global_footer_policy(self, adom:str=None, method:str="get", pkg:str=None, policy_id:str=None, data:dict=None, fields:list=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_global_footer_policy\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/global/pkg/{pkg}/global/footer/policy*
+            */pm/config/global/pkg/{pkg}/global/footer/policy/{policy}*
+            */pm/config/adom/{adom}/pkg/{pkg}/global/footer/policy*
+            */pm/config/adom/{adom}/pkg/{pkg}/global/footer/policy/{policy}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *pkg*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone*
+        
+        Fields:
+        --------\n
+            *_policy_block, access-proxy, action, active-auth-method, anti-replay, app-monitor, application-charts, application-list, auth-cert, auth-method, auth-path, auth-portal, auth-redirect-addr, auto-asic-offload, av-profile, bandwidth, best-route, block-notification, captive-portal-exempt, capture-packet, casb-profile, casi-profile, central-nat, cgn-eif, cgn-eim, cgn-log-server-grp, cgn-resource-quota, cgn-session-quota, cgn-sw-eif-ctrl, client-reputation, client-reputation-mode, comments, custom-log-fields, decrypted-traffic-mirror, deep-inspection-options, delay-tcp-npu-session, delay-tcp-npu-sessoin, detect-https-in-http-request, device-detection-portal, device-ownership, devices, diameter-filter-profile, diffserv-copy, diffserv-forward, diffserv-reverse, diffservcode-forward, diffservcode-rev, disclaimer, dlp-profile, dlp-sensor, dnsfilter-profile, dponly, dscp-match, dscp-negate, dscp-value, dsri, dstaddr, dstaddr-negate, dstaddr6, dstaddr6-negate, dstintf, dynamic-bypass, dynamic-profile, dynamic-profile-access, dynamic-profile-fallthrough, dynamic-profile-group, dynamic-shaping, eif-check, eif-learn, email-collect, email-collection-portal, emailfilter-profile, endpoint-check, endpoint-compliance, endpoint-keepalive-interface, endpoint-profile, extended-log, failed-connection, fall-through-unauthenticated, fec, file-filter-profile, firewall-session-dirty, fixedport, force-proxy, forticlient-compliance-devices, forticlient-compliance-enforcement-portal, fsae, fsae-server-for-ntlm, fsso, fsso-agent-for-ntlm, fsso-groups, geo-location, geoip-anycast, geoip-match, global-label, groups, gtp-profile, http-policy-redirect, http-tunnel-auth, https-sub-category, ia-profile, icap-profile, identity-based, identity-based-route, identity-from, implicit-proxy-detection, inbound, inspection-mode, internet-service, internet-service-custom, internet-service-custom-group, internet-service-fortiguard, internet-service-group, internet-service-id, internet-service-name, internet-service-negate, internet-service-src, internet-service-src-custom, internet-service-src-custom-group, internet-service-src-fortiguard, internet-service-src-group, internet-service-src-id, internet-service-src-name, internet-service-src-negate, internet-service6, internet-service6-custom, internet-service6-custom-group, internet-service6-fortiguard, internet-service6-group, internet-service6-name, internet-service6-negate, internet-service6-src, internet-service6-src-custom, internet-service6-src-custom-group, internet-service6-src-fortiguard, internet-service6-src-group, internet-service6-src-name, internet-service6-src-negate, ip-based, ip-version-type, ippool, ips-sensor, ips-voip-filter, isolator-profile, isolator-server, label, learning-mode, llm-profile, log-http-transaction, log-unmatched-traffic, logtraffic, logtraffic-app, logtraffic-start, match-vip, match-vip-only, max-session-per-user, mms-profile, name, nat, nat46, nat64, natinbound, natip, natoutbound, network-service-dynamic, network-service-src-dynamic, np-acceleration, ntlm, ntlm-enabled-browsers, ntlm-guest, outbound, pass-through, passive-wan-health-measurement, pcp-inbound, pcp-outbound, pcp-poolname, per-ip-shaper, permit-any-host, permit-stun-host, pfcp-profile, policy-behaviour-type, policy-expiry, policy-expiry-date, policy-expiry-date-utc, policy-offload, policyid, poolname, poolname6, port-preserve, port-random, profile-group, profile-protocol-options, profile-type, radius-ip-auth-bypass, radius-mac-auth-bypass, redirect-profile, redirect-url, replacemsg-group, replacemsg-override-group, reputation-direction, reputation-direction6, reputation-minimum, reputation-minimum6, require-tfa, reverse-cache, rsso, rtp-addr, rtp-nat, saml-server, scan-botnet-connections, schedule, schedule-timeout, scim, scim-groups, scim-users, sctp-filter-profile, send-deny-packet, service, service-connector, service-negate, session-ttl, sessions, sgt, sgt-check, spamfilter-profile, src-vendor-mac, srcaddr, srcaddr-negate, srcaddr6, srcaddr6-negate, srcintf, ssh-filter-profile, ssh-policy-check, ssh-policy-redirect, ssl-mirror, ssl-mirror-intf, ssl-ssh-profile, sslvpn-auth, sslvpn-ccert, sslvpn-cipher, sso-auth-method, status, tags, tcp-mss-receiver, tcp-mss-sender, tcp-reset, tcp-session-without-syn, tcp-timeout-pid, telemetry-profile, timeout-send-rst, tos, tos-mask, tos-negate, traffic-shaper, traffic-shaper-reverse, transaction-based, transparent, type, udp-timeout-pid, url-risk, users, utm-inspection-mode, utm-status, uuid, vendor-mac, videofilter-profile, virtual-patch-profile, vlan-cos-fwd, vlan-cos-rev, vlan-filter, voip-profile, vpntunnel, waf-profile, wanopt, wanopt-detection, wanopt-passive-opt, wanopt-peer, wanopt-profile, wccp, web-auth-cookie, webcache, webcache-https, webfilter-profile, webproxy-forward-server, webproxy-profile, wsso, ztna-device-ownership, ztna-ems-tag, ztna-ems-tag-negate, ztna-ems-tag-secondary, ztna-geo-tag, ztna-policy-redirect, ztna-proxy, ztna-status, ztna-tags-match-logic*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_global_footer_policy(adom="ADOM Name", method="HTTP Method", pkg="Policy Package Name", policy_id="Policy ID", data={Dictionary Object}, fields=[List Object])
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                _policy_block	[...]
+                access-proxy	[[...]]
+                action	[...]
+                active-auth-method	[...]
+                anti-replay	[...]
+                app-monitor	[...]
+                application-charts	[[...]]
+                application-list	[[...]]
+                auth-cert	[[...]]
+                auth-method	[...]
+                auth-path	[...]
+                auth-portal	[...]
+                auth-redirect-addr	[...]
+                auto-asic-offload	[...]
+                av-profile	[[...]]
+                bandwidth	[...]
+                best-route	[...]
+                block-notification	[...]
+                captive-portal-exempt	[...]
+                capture-packet	[...]
+                casb-profile	[[...]]
+                casi-profile	[[...]]
+                central-nat	[...]
+                cgn-eif	[...]
+                cgn-eim	[...]
+                cgn-log-server-grp	[...]
+                cgn-resource-quota	[...]
+                cgn-session-quota	[...]
+                cgn-sw-eif-ctrl	[...]
+                client-reputation	[...]
+                client-reputation-mode	[...]
+                comments	[...]
+                custom-log-fields	[[...]]
+                decrypted-traffic-mirror	[[...]]
+                deep-inspection-options	[[...]]
+                delay-tcp-npu-session	[...]
+                delay-tcp-npu-sessoin	[...]
+                detect-https-in-http-request	[...]
+                device-detection-portal	[...]
+                device-ownership	[...]
+                devices	[[...]]
+                diameter-filter-profile	[[...]]
+                diffserv-copy	[...]
+                diffserv-forward	[...]
+                diffserv-reverse	[...]
+                diffservcode-forward	[...]
+                diffservcode-rev	[...]
+                disclaimer	[...]
+                dlp-profile	[[...]]
+                dlp-sensor	[[...]]
+                dnsfilter-profile	[[...]]
+                dponly	[...]
+                dscp-match	[...]
+                dscp-negate	[...]
+                dscp-value	[...]
+                dsri	[...]
+                dstaddr	[[...]]
+                dstaddr-negate	[...]
+                dstaddr6	[[...]]
+                dstaddr6-negate	[...]
+                dstintf	[[...]]
+                dynamic-bypass	[...]
+                dynamic-profile	[...]
+                dynamic-profile-access	[[...]]
+                dynamic-profile-fallthrough	[...]
+                dynamic-profile-group	[[...]]
+                dynamic-shaping	[...]
+                eif-check	[...]
+                eif-learn	[...]
+                email-collect	[...]
+                email-collection-portal	[...]
+                emailfilter-profile	[[...]]
+                endpoint-check	[...]
+                endpoint-compliance	[...]
+                endpoint-keepalive-interface	[[...]]
+                endpoint-profile	[[...]]
+                extended-log	[...]
+                failed-connection	[...]
+                fall-through-unauthenticated	[...]
+                fec	[...]
+                file-filter-profile	[[...]]
+                firewall-session-dirty	[...]
+                fixedport	[...]
+                force-proxy	[...]
+                forticlient-compliance-devices	[[...]]
+                forticlient-compliance-enforcement-portal	[...]
+                fsae	[...]
+                fsae-server-for-ntlm	[[...]]
+                fsso	[...]
+                fsso-agent-for-ntlm	[[...]]
+                fsso-groups	[[...]]
+                geo-location	[...]
+                geoip-anycast	[...]
+                geoip-match	[...]
+                global-label	[...]
+                groups	[[...]]
+                gtp-profile	[[...]]
+                http-policy-redirect	[...]
+                http-tunnel-auth	[...]
+                https-sub-category	[...]
+                ia-profile	[[...]]
+                icap-profile	[[...]]
+                identity-based	[...]
+                identity-based-route	[[...]]
+                identity-from	[...]
+                implicit-proxy-detection	[...]
+                inbound	[...]
+                inspection-mode	[...]
+                internet-service	[...]
+                internet-service-custom	[[...]]
+                internet-service-custom-group	[[...]]
+                internet-service-fortiguard	[[...]]
+                internet-service-group	[[...]]
+                internet-service-id	[[...]]
+                internet-service-name	[[...]]
+                internet-service-negate	[...]
+                internet-service-src	[...]
+                internet-service-src-custom	[[...]]
+                internet-service-src-custom-group	[[...]]
+                internet-service-src-fortiguard	[[...]]
+                internet-service-src-group	[[...]]
+                internet-service-src-id	[[...]]
+                internet-service-src-name	[[...]]
+                internet-service-src-negate	[...]
+                internet-service6	[...]
+                internet-service6-custom	[[...]]
+                internet-service6-custom-group	[[...]]
+                internet-service6-fortiguard	[[...]]
+                internet-service6-group	[[...]]
+                internet-service6-name	[[...]]
+                internet-service6-negate	[...]
+                internet-service6-src	[...]
+                internet-service6-src-custom	[[...]]
+                internet-service6-src-custom-group	[[...]]
+                internet-service6-src-fortiguard	[[...]]
+                internet-service6-src-group	[[...]]
+                internet-service6-src-name	[[...]]
+                internet-service6-src-negate	[...]
+                ip-based	[...]
+                ip-version-type	[...]
+                ippool	[...]
+                ips-sensor	[[...]]
+                ips-voip-filter	[[...]]
+                isolator-profile	[[...]]
+                isolator-server	[[...]]
+                label	[...]
+                learning-mode	[...]
+                llm-profile	[[...]]
+                log-http-transaction	[...]
+                log-unmatched-traffic	[...]
+                logtraffic	[...]
+                logtraffic-app	[...]
+                logtraffic-start	[...]
+                match-vip	[...]
+                match-vip-only	[...]
+                max-session-per-user	[...]
+                mms-profile	[[...]]
+                name	[...]
+                nat	[...]
+                nat46	[...]
+                nat64	[...]
+                natinbound	[...]
+                natip	[[...]]
+                natoutbound	[...]
+                network-service-dynamic	[[...]]
+                network-service-src-dynamic	[[...]]
+                np-acceleration	[...]
+                ntlm	[...]
+                ntlm-enabled-browsers	[[...]]
+                ntlm-guest	[...]
+                outbound	[...]
+                pass-through	[...]
+                passive-wan-health-measurement	[...]
+                pcp-inbound	[...]
+                pcp-outbound	[...]
+                pcp-poolname	[[...]]
+                per-ip-shaper	[[...]]
+                permit-any-host	[...]
+                permit-stun-host	[...]
+                pfcp-profile	[[...]]
+                policy-behaviour-type	[...]
+                policy-expiry	[...]
+                policy-expiry-date	[...]
+                policy-expiry-date-utc	[...]
+                policy-offload	[...]
+                policyid	[...]
+                poolname	[[...]]
+                poolname6	[[...]]
+                port-preserve	[...]
+                port-random	[...]
+                profile-group	[[...]]
+                profile-protocol-options	[[...]]
+                profile-type	[...]
+                radius-ip-auth-bypass	[...]
+                radius-mac-auth-bypass	[...]
+                redirect-profile	[[...]]
+                redirect-url	[...]
+                replacemsg-group	[[...]]
+                replacemsg-override-group	[[...]]
+                reputation-direction	[...]
+                reputation-direction6	[...]
+                reputation-minimum	[...]
+                reputation-minimum6	[...]
+                require-tfa	[...]
+                reverse-cache	[...]
+                rsso	[...]
+                rtp-addr	[[...]]
+                rtp-nat	[...]
+                saml-server	[[...]]
+                scan-botnet-connections	[...]
+                schedule	[[...]]
+                schedule-timeout	[...]
+                scim	[...]
+                scim-groups	[[...]]
+                scim-users	[[...]]
+                sctp-filter-profile	[[...]]
+                send-deny-packet	[...]
+                service	[[...]]
+                service-connector	[[...]]
+                service-negate	[...]
+                session-ttl	[...]
+                sessions	[...]
+                sgt	[[...]]
+                sgt-check	[...]
+                spamfilter-profile	[[...]]
+                src-vendor-mac	[[...]]
+                srcaddr	[[...]]
+                srcaddr-negate	[...]
+                srcaddr6	[[...]]
+                srcaddr6-negate	[...]
+                srcintf	[[...]]
+                ssh-filter-profile	[[...]]
+                ssh-policy-check	[...]
+                ssh-policy-redirect	[...]
+                ssl-mirror	[...]
+                ssl-mirror-intf	[[...]]
+                ssl-ssh-profile	[[...]]
+                sslvpn-auth	[...]
+                sslvpn-ccert	[...]
+                sslvpn-cipher	[...]
+                sso-auth-method	[...]
+                status	[...]
+                tags	[[...]]
+                tcp-mss-receiver	[...]
+                tcp-mss-sender	[...]
+                tcp-reset	[...]
+                tcp-session-without-syn	[...]
+                tcp-timeout-pid	[[...]]
+                telemetry-profile	[[...]]
+                timeout-send-rst	[...]
+                tos	[...]
+                tos-mask	[...]
+                tos-negate	[...]
+                traffic-shaper	[[...]]
+                traffic-shaper-reverse	[[...]]
+                transaction-based	[...]
+                transparent	[...]
+                type	[...]
+                udp-timeout-pid	[[...]]
+                url-risk	[[...]]
+                users	[[...]]
+                utm-inspection-mode	[...]
+                utm-status	[...]
+                uuid	[...]
+                vendor-mac	[[...]]
+                videofilter-profile	[[...]]
+                virtual-patch-profile	[[...]]
+                vlan-cos-fwd	[...]
+                vlan-cos-rev	[...]
+                vlan-filter	[...]
+                voip-profile	[[...]]
+                vpntunnel	[[...]]
+                waf-profile	[[...]]
+                wanopt	[...]
+                wanopt-detection	[...]
+                wanopt-passive-opt	[...]
+                wanopt-peer	[[...]]
+                wanopt-profile	[[...]]
+                wccp	[...]
+                web-auth-cookie	[...]
+                webcache	[...]
+                webcache-https	[...]
+                webfilter-profile	[[...]]
+                webproxy-forward-server	[[...]]
+                webproxy-profile	[[...]]
+                wsso	[...]
+                ztna-device-ownership	[...]
+                ztna-ems-tag	[[...]]
+                ztna-ems-tag-negate	[...]
+                ztna-ems-tag-secondary	[[...]]
+                ztna-geo-tag	[[...]]
+                ztna-policy-redirect	[...]
+                ztna-proxy	[[...]]
+                ztna-status	[...]
+                ztna-tags-match-logic	[...]
+            }
+
+        """
+        if self.loginstate == True:
+            if pkg is not None:
+                if adom is not None:
+                    if policy_id is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/global/footer/policy/{policy_id}", session=self.session_id, verbose=1, data=data, fields=fields)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/global/footer/policy", session=self.session_id, verbose=1, data=data, fields=fields)
+                else:
+                    if policy_id is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/global/pkg/{pkg}/global/footer/policy/{policy_id}", session=self.session_id, verbose=1, data=data, fields=fields)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/global/pkg/{pkg}/global/footer/policy", session=self.session_id, verbose=1, data=data, fields=fields)
+                response = self._request()
+                if self.debug == True:
+                    self._debugger(fnct=self.confdb_global_footer_policy.__name__, resp=response, mode=["std", "resp"])
+            else:
+                response = self._json_error(fnct=self.confdb_global_footer_policy.__name__, msg=f"Policy package name is {pkg}")
+        else:
+            response = self._json_error(fnct=self.confdb_global_footer_policy.__name__, msg=f"Login state is {self.loginstate}")
+        return response
+    
+    def confdb_global_footer_shapingpolicy(self, adom:str=None, method:str="get", pkg:str=None, policy_id:str=None, data:dict=None, fields:list=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_global_footer_shapingpolicy\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/global/pkg/{pkg}/global/footer/shaping-policy*
+            */pm/config/global/pkg/{pkg}/global/footer/shaping-policy/{policy}*
+            */pm/config/adom/{adom}/pkg/{pkg}/global/footer/shaping-policy*
+            */pm/config/adom/{adom}/pkg/{pkg}/global/footer/shaping-policy/{policy}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *pkg*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone*
+        
+        Fields:
+        --------\n
+            *app-category, app-group, application, class-id, class-id-reverse, comment, cos, cos-mask, diffserv-forward, diffserv-reverse, diffservcode-forward, diffservcode-rev, dstaddr, dstaddr6, dstintf, groups, http-response-match, id, internet-service, internet-service-custom, internet-service-custom-group, internet-service-fortiguard, internet-service-group, internet-service-id, internet-service-name, internet-service-src, internet-service-src-custom, internet-service-src-custom-group, internet-service-src-fortiguard, internet-service-src-group, internet-service-src-id, internet-service-src-name, ip-version, name, per-ip-shaper, schedule, service, service-type, srcaddr, srcaddr6, srcintf, status, tos, tos-mask, tos-negate, traffic-shaper, traffic-shaper-reverse, traffic-type, url-category, users, uuid*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_global_footer_shapingpolicy(adom="ADOM Name", method="HTTP Method", pkg="Policy Package Name", policy_id="Policy ID", data={Dictionary Object}, fields=[List Object])
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                app-category	[[...]]
+                app-group	[[...]]
+                application	[[...]]
+                class-id	[[...]]
+                class-id-reverse	[...]
+                comment	[...]
+                cos	[...]
+                cos-mask	[...]
+                diffserv-forward	[...]
+                diffserv-reverse	[...]
+                diffservcode-forward	[...]
+                diffservcode-rev	[...]
+                dstaddr	[[...]]
+                dstaddr6	[[...]]
+                dstintf	[[...]]
+                groups	[[...]]
+                http-response-match	[...]
+                id	[...]
+                internet-service	[...]
+                internet-service-custom	[[...]]
+                internet-service-custom-group	[[...]]
+                internet-service-fortiguard	[[...]]
+                internet-service-group	[[...]]
+                internet-service-id	[[...]]
+                internet-service-name	[[...]]
+                internet-service-src	[...]
+                internet-service-src-custom	[[...]]
+                internet-service-src-custom-group	[[...]]
+                internet-service-src-fortiguard	[[...]]
+                internet-service-src-group	[[...]]
+                internet-service-src-id	[[...]]
+                internet-service-src-name	[[...]]
+                ip-version	[...]
+                name	[...]
+                per-ip-shaper	[[...]]
+                schedule	[[...]]
+                service	[[...]]
+                service-type	[...]
+                srcaddr	[[...]]
+                srcaddr6	[[...]]
+                srcintf	[[...]]
+                status	[...]
+                tos	[...]
+                tos-mask	[...]
+                tos-negate	[...]
+                traffic-shaper	[[...]]
+                traffic-shaper-reverse	[[...]]
+                traffic-type	[...]
+                url-category	[[...]]
+                users	[[...]]
+                uuid	[...]
+            }
+
+        """
+        if self.loginstate == True:
+            if pkg is not None:
+                if adom is not None:
+                    if policy_id is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/global/footer/shaping-policy/{policy_id}", session=self.session_id, verbose=1, data=data, fields=fields)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/global/footer/shaping-policy", session=self.session_id, verbose=1, data=data, fields=fields)
+                else:
+                    if policy_id is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/global/pkg/{pkg}/global/footer/shaping-policy/{policy_id}", session=self.session_id, verbose=1, data=data, fields=fields)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/global/pkg/{pkg}/global/footer/shaping-policy", session=self.session_id, verbose=1, data=data, fields=fields)
+                response = self._request()
+                if self.debug == True:
+                    self._debugger(fnct=self.confdb_global_footer_shapingpolicy.__name__, resp=response, mode=["std", "resp"])
+            else:
+                response = self._json_error(fnct=self.confdb_global_footer_shapingpolicy.__name__, msg=f"Policy package name is {pkg}")
+        else:
+            response = self._json_error(fnct=self.confdb_global_footer_shapingpolicy.__name__, msg=f"Login state is {self.loginstate}")
+        return response
+    
+    def confdb_global_header_policy(self, adom:str=None, method:str="get", pkg:str=None, policy_id:str=None, data:dict=None, fields:list=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_global_header_policy\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/global/pkg/{pkg}/global/header/policy*
+            */pm/config/global/pkg/{pkg}/global/header/policy/{policy}*
+            */pm/config/adom/{adom}/pkg/{pkg}/global/header/policy*
+            */pm/config/adom/{adom}/pkg/{pkg}/global/header/policy/{policy}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *pkg*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone*
+        
+        Fields:
+        --------\n
+            *_policy_block, access-proxy, action, active-auth-method, anti-replay, app-monitor, application-charts, application-list, auth-cert, auth-method, auth-path, auth-portal, auth-redirect-addr, auto-asic-offload, av-profile, bandwidth, best-route, block-notification, captive-portal-exempt, capture-packet, casb-profile, casi-profile, central-nat, cgn-eif, cgn-eim, cgn-log-server-grp, cgn-resource-quota, cgn-session-quota, cgn-sw-eif-ctrl, client-reputation, client-reputation-mode, comments, custom-log-fields, decrypted-traffic-mirror, deep-inspection-options, delay-tcp-npu-session, delay-tcp-npu-sessoin, detect-https-in-http-request, device-detection-portal, device-ownership, devices, diameter-filter-profile, diffserv-copy, diffserv-forward, diffserv-reverse, diffservcode-forward, diffservcode-rev, disclaimer, dlp-profile, dlp-sensor, dnsfilter-profile, dponly, dscp-match, dscp-negate, dscp-value, dsri, dstaddr, dstaddr-negate, dstaddr6, dstaddr6-negate, dstintf, dynamic-bypass, dynamic-profile, dynamic-profile-access, dynamic-profile-fallthrough, dynamic-profile-group, dynamic-shaping, eif-check, eif-learn, email-collect, email-collection-portal, emailfilter-profile, endpoint-check, endpoint-compliance, endpoint-keepalive-interface, endpoint-profile, extended-log, failed-connection, fall-through-unauthenticated, fec, file-filter-profile, firewall-session-dirty, fixedport, force-proxy, forticlient-compliance-devices, forticlient-compliance-enforcement-portal, fsae, fsae-server-for-ntlm, fsso, fsso-agent-for-ntlm, fsso-groups, geo-location, geoip-anycast, geoip-match, global-label, groups, gtp-profile, http-policy-redirect, http-tunnel-auth, https-sub-category, ia-profile, icap-profile, identity-based, identity-based-route, identity-from, implicit-proxy-detection, inbound, inspection-mode, internet-service, internet-service-custom, internet-service-custom-group, internet-service-fortiguard, internet-service-group, internet-service-id, internet-service-name, internet-service-negate, internet-service-src, internet-service-src-custom, internet-service-src-custom-group, internet-service-src-fortiguard, internet-service-src-group, internet-service-src-id, internet-service-src-name, internet-service-src-negate, internet-service6, internet-service6-custom, internet-service6-custom-group, internet-service6-fortiguard, internet-service6-group, internet-service6-name, internet-service6-negate, internet-service6-src, internet-service6-src-custom, internet-service6-src-custom-group, internet-service6-src-fortiguard, internet-service6-src-group, internet-service6-src-name, internet-service6-src-negate, ip-based, ip-version-type, ippool, ips-sensor, ips-voip-filter, isolator-profile, isolator-server, label, learning-mode, llm-profile, log-http-transaction, log-unmatched-traffic, logtraffic, logtraffic-app, logtraffic-start, match-vip, match-vip-only, max-session-per-user, mms-profile, name, nat, nat46, nat64, natinbound, natip, natoutbound, network-service-dynamic, network-service-src-dynamic, np-acceleration, ntlm, ntlm-enabled-browsers, ntlm-guest, outbound, pass-through, passive-wan-health-measurement, pcp-inbound, pcp-outbound, pcp-poolname, per-ip-shaper, permit-any-host, permit-stun-host, pfcp-profile, policy-behaviour-type, policy-expiry, policy-expiry-date, policy-expiry-date-utc, policy-offload, policyid, poolname, poolname6, port-preserve, port-random, profile-group, profile-protocol-options, profile-type, radius-ip-auth-bypass, radius-mac-auth-bypass, redirect-profile, redirect-url, replacemsg-group, replacemsg-override-group, reputation-direction, reputation-direction6, reputation-minimum, reputation-minimum6, require-tfa, reverse-cache, rsso, rtp-addr, rtp-nat, saml-server, scan-botnet-connections, schedule, schedule-timeout, scim, scim-groups, scim-users, sctp-filter-profile, send-deny-packet, service, service-connector, service-negate, session-ttl, sessions, sgt, sgt-check, spamfilter-profile, src-vendor-mac, srcaddr, srcaddr-negate, srcaddr6, srcaddr6-negate, srcintf, ssh-filter-profile, ssh-policy-check, ssh-policy-redirect, ssl-mirror, ssl-mirror-intf, ssl-ssh-profile, sslvpn-auth, sslvpn-ccert, sslvpn-cipher, sso-auth-method, status, tags, tcp-mss-receiver, tcp-mss-sender, tcp-reset, tcp-session-without-syn, tcp-timeout-pid, telemetry-profile, timeout-send-rst, tos, tos-mask, tos-negate, traffic-shaper, traffic-shaper-reverse, transaction-based, transparent, type, udp-timeout-pid, url-risk, users, utm-inspection-mode, utm-status, uuid, vendor-mac, videofilter-profile, virtual-patch-profile, vlan-cos-fwd, vlan-cos-rev, vlan-filter, voip-profile, vpntunnel, waf-profile, wanopt, wanopt-detection, wanopt-passive-opt, wanopt-peer, wanopt-profile, wccp, web-auth-cookie, webcache, webcache-https, webfilter-profile, webproxy-forward-server, webproxy-profile, wsso, ztna-device-ownership, ztna-ems-tag, ztna-ems-tag-negate, ztna-ems-tag-secondary, ztna-geo-tag, ztna-policy-redirect, ztna-proxy, ztna-status, ztna-tags-match-logic*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_global_header_policy(adom="ADOM Name", method="HTTP Method", pkg="Policy Package Name", policy_id="Policy ID", data={Dictionary Object}, fields=[List Object])
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                _policy_block	[...]
+                access-proxy	[[...]]
+                action	[...]
+                active-auth-method	[...]
+                anti-replay	[...]
+                app-monitor	[...]
+                application-charts	[[...]]
+                application-list	[[...]]
+                auth-cert	[[...]]
+                auth-method	[...]
+                auth-path	[...]
+                auth-portal	[...]
+                auth-redirect-addr	[...]
+                auto-asic-offload	[...]
+                av-profile	[[...]]
+                bandwidth	[...]
+                best-route	[...]
+                block-notification	[...]
+                captive-portal-exempt	[...]
+                capture-packet	[...]
+                casb-profile	[[...]]
+                casi-profile	[[...]]
+                central-nat	[...]
+                cgn-eif	[...]
+                cgn-eim	[...]
+                cgn-log-server-grp	[...]
+                cgn-resource-quota	[...]
+                cgn-session-quota	[...]
+                cgn-sw-eif-ctrl	[...]
+                client-reputation	[...]
+                client-reputation-mode	[...]
+                comments	[...]
+                custom-log-fields	[[...]]
+                decrypted-traffic-mirror	[[...]]
+                deep-inspection-options	[[...]]
+                delay-tcp-npu-session	[...]
+                delay-tcp-npu-sessoin	[...]
+                detect-https-in-http-request	[...]
+                device-detection-portal	[...]
+                device-ownership	[...]
+                devices	[[...]]
+                diameter-filter-profile	[[...]]
+                diffserv-copy	[...]
+                diffserv-forward	[...]
+                diffserv-reverse	[...]
+                diffservcode-forward	[...]
+                diffservcode-rev	[...]
+                disclaimer	[...]
+                dlp-profile	[[...]]
+                dlp-sensor	[[...]]
+                dnsfilter-profile	[[...]]
+                dponly	[...]
+                dscp-match	[...]
+                dscp-negate	[...]
+                dscp-value	[...]
+                dsri	[...]
+                dstaddr	[[...]]
+                dstaddr-negate	[...]
+                dstaddr6	[[...]]
+                dstaddr6-negate	[...]
+                dstintf	[[...]]
+                dynamic-bypass	[...]
+                dynamic-profile	[...]
+                dynamic-profile-access	[[...]]
+                dynamic-profile-fallthrough	[...]
+                dynamic-profile-group	[[...]]
+                dynamic-shaping	[...]
+                eif-check	[...]
+                eif-learn	[...]
+                email-collect	[...]
+                email-collection-portal	[...]
+                emailfilter-profile	[[...]]
+                endpoint-check	[...]
+                endpoint-compliance	[...]
+                endpoint-keepalive-interface	[[...]]
+                endpoint-profile	[[...]]
+                extended-log	[...]
+                failed-connection	[...]
+                fall-through-unauthenticated	[...]
+                fec	[...]
+                file-filter-profile	[[...]]
+                firewall-session-dirty	[...]
+                fixedport	[...]
+                force-proxy	[...]
+                forticlient-compliance-devices	[[...]]
+                forticlient-compliance-enforcement-portal	[...]
+                fsae	[...]
+                fsae-server-for-ntlm	[[...]]
+                fsso	[...]
+                fsso-agent-for-ntlm	[[...]]
+                fsso-groups	[[...]]
+                geo-location	[...]
+                geoip-anycast	[...]
+                geoip-match	[...]
+                global-label	[...]
+                groups	[[...]]
+                gtp-profile	[[...]]
+                http-policy-redirect	[...]
+                http-tunnel-auth	[...]
+                https-sub-category	[...]
+                ia-profile	[[...]]
+                icap-profile	[[...]]
+                identity-based	[...]
+                identity-based-route	[[...]]
+                identity-from	[...]
+                implicit-proxy-detection	[...]
+                inbound	[...]
+                inspection-mode	[...]
+                internet-service	[...]
+                internet-service-custom	[[...]]
+                internet-service-custom-group	[[...]]
+                internet-service-fortiguard	[[...]]
+                internet-service-group	[[...]]
+                internet-service-id	[[...]]
+                internet-service-name	[[...]]
+                internet-service-negate	[...]
+                internet-service-src	[...]
+                internet-service-src-custom	[[...]]
+                internet-service-src-custom-group	[[...]]
+                internet-service-src-fortiguard	[[...]]
+                internet-service-src-group	[[...]]
+                internet-service-src-id	[[...]]
+                internet-service-src-name	[[...]]
+                internet-service-src-negate	[...]
+                internet-service6	[...]
+                internet-service6-custom	[[...]]
+                internet-service6-custom-group	[[...]]
+                internet-service6-fortiguard	[[...]]
+                internet-service6-group	[[...]]
+                internet-service6-name	[[...]]
+                internet-service6-negate	[...]
+                internet-service6-src	[...]
+                internet-service6-src-custom	[[...]]
+                internet-service6-src-custom-group	[[...]]
+                internet-service6-src-fortiguard	[[...]]
+                internet-service6-src-group	[[...]]
+                internet-service6-src-name	[[...]]
+                internet-service6-src-negate	[...]
+                ip-based	[...]
+                ip-version-type	[...]
+                ippool	[...]
+                ips-sensor	[[...]]
+                ips-voip-filter	[[...]]
+                isolator-profile	[[...]]
+                isolator-server	[[...]]
+                label	[...]
+                learning-mode	[...]
+                llm-profile	[[...]]
+                log-http-transaction	[...]
+                log-unmatched-traffic	[...]
+                logtraffic	[...]
+                logtraffic-app	[...]
+                logtraffic-start	[...]
+                match-vip	[...]
+                match-vip-only	[...]
+                max-session-per-user	[...]
+                mms-profile	[[...]]
+                name	[...]
+                nat	[...]
+                nat46	[...]
+                nat64	[...]
+                natinbound	[...]
+                natip	[[...]]
+                natoutbound	[...]
+                network-service-dynamic	[[...]]
+                network-service-src-dynamic	[[...]]
+                np-acceleration	[...]
+                ntlm	[...]
+                ntlm-enabled-browsers	[[...]]
+                ntlm-guest	[...]
+                outbound	[...]
+                pass-through	[...]
+                passive-wan-health-measurement	[...]
+                pcp-inbound	[...]
+                pcp-outbound	[...]
+                pcp-poolname	[[...]]
+                per-ip-shaper	[[...]]
+                permit-any-host	[...]
+                permit-stun-host	[...]
+                pfcp-profile	[[...]]
+                policy-behaviour-type	[...]
+                policy-expiry	[...]
+                policy-expiry-date	[...]
+                policy-expiry-date-utc	[...]
+                policy-offload	[...]
+                policyid	[...]
+                poolname	[[...]]
+                poolname6	[[...]]
+                port-preserve	[...]
+                port-random	[...]
+                profile-group	[[...]]
+                profile-protocol-options	[[...]]
+                profile-type	[...]
+                radius-ip-auth-bypass	[...]
+                radius-mac-auth-bypass	[...]
+                redirect-profile	[[...]]
+                redirect-url	[...]
+                replacemsg-group	[[...]]
+                replacemsg-override-group	[[...]]
+                reputation-direction	[...]
+                reputation-direction6	[...]
+                reputation-minimum	[...]
+                reputation-minimum6	[...]
+                require-tfa	[...]
+                reverse-cache	[...]
+                rsso	[...]
+                rtp-addr	[[...]]
+                rtp-nat	[...]
+                saml-server	[[...]]
+                scan-botnet-connections	[...]
+                schedule	[[...]]
+                schedule-timeout	[...]
+                scim	[...]
+                scim-groups	[[...]]
+                scim-users	[[...]]
+                sctp-filter-profile	[[...]]
+                send-deny-packet	[...]
+                service	[[...]]
+                service-connector	[[...]]
+                service-negate	[...]
+                session-ttl	[...]
+                sessions	[...]
+                sgt	[[...]]
+                sgt-check	[...]
+                spamfilter-profile	[[...]]
+                src-vendor-mac	[[...]]
+                srcaddr	[[...]]
+                srcaddr-negate	[...]
+                srcaddr6	[[...]]
+                srcaddr6-negate	[...]
+                srcintf	[[...]]
+                ssh-filter-profile	[[...]]
+                ssh-policy-check	[...]
+                ssh-policy-redirect	[...]
+                ssl-mirror	[...]
+                ssl-mirror-intf	[[...]]
+                ssl-ssh-profile	[[...]]
+                sslvpn-auth	[...]
+                sslvpn-ccert	[...]
+                sslvpn-cipher	[...]
+                sso-auth-method	[...]
+                status	[...]
+                tags	[[...]]
+                tcp-mss-receiver	[...]
+                tcp-mss-sender	[...]
+                tcp-reset	[...]
+                tcp-session-without-syn	[...]
+                tcp-timeout-pid	[[...]]
+                telemetry-profile	[[...]]
+                timeout-send-rst	[...]
+                tos	[...]
+                tos-mask	[...]
+                tos-negate	[...]
+                traffic-shaper	[[...]]
+                traffic-shaper-reverse	[[...]]
+                transaction-based	[...]
+                transparent	[...]
+                type	[...]
+                udp-timeout-pid	[[...]]
+                url-risk	[[...]]
+                users	[[...]]
+                utm-inspection-mode	[...]
+                utm-status	[...]
+                uuid	[...]
+                vendor-mac	[[...]]
+                videofilter-profile	[[...]]
+                virtual-patch-profile	[[...]]
+                vlan-cos-fwd	[...]
+                vlan-cos-rev	[...]
+                vlan-filter	[...]
+                voip-profile	[[...]]
+                vpntunnel	[[...]]
+                waf-profile	[[...]]
+                wanopt	[...]
+                wanopt-detection	[...]
+                wanopt-passive-opt	[...]
+                wanopt-peer	[[...]]
+                wanopt-profile	[[...]]
+                wccp	[...]
+                web-auth-cookie	[...]
+                webcache	[...]
+                webcache-https	[...]
+                webfilter-profile	[[...]]
+                webproxy-forward-server	[[...]]
+                webproxy-profile	[[...]]
+                wsso	[...]
+                ztna-device-ownership	[...]
+                ztna-ems-tag	[[...]]
+                ztna-ems-tag-negate	[...]
+                ztna-ems-tag-secondary	[[...]]
+                ztna-geo-tag	[[...]]
+                ztna-policy-redirect	[...]
+                ztna-proxy	[[...]]
+                ztna-status	[...]
+                ztna-tags-match-logic	[...]
+            }
+
+        """
+        if self.loginstate == True:
+            if pkg is not None:
+                if adom is not None:
+                    if policy_id is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/global/header/policy/{policy_id}", session=self.session_id, verbose=1, data=data, fields=fields)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/global/header/policy", session=self.session_id, verbose=1, data=data, fields=fields)
+                else:
+                    if policy_id is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/global/pkg/{pkg}/global/header/policy/{policy_id}", session=self.session_id, verbose=1, data=data, fields=fields)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/global/pkg/{pkg}/global/header/policy", session=self.session_id, verbose=1, data=data, fields=fields)
+                response = self._request()
+                if self.debug == True:
+                    self._debugger(fnct=self.confdb_global_header_policy.__name__, resp=response, mode=["std", "resp"])
+            else:
+                response = self._json_error(fnct=self.confdb_global_header_policy.__name__, msg=f"Policy package name is {pkg}")
+        else:
+            response = self._json_error(fnct=self.confdb_global_header_policy.__name__, msg=f"Login state is {self.loginstate}")
+        return response
+    
+    def confdb_global_header_shapingpolicy(self, adom:str=None, method:str="get", pkg:str=None, policy_id:str=None, data:dict=None, fields:list=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_global_header_shapingpolicy\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/global/pkg/{pkg}/global/header/shaping-policy*
+            */pm/config/global/pkg/{pkg}/global/header/shaping-policy/{policy}*
+            */pm/config/adom/{adom}/pkg/{pkg}/global/header/shaping-policy*
+            */pm/config/adom/{adom}/pkg/{pkg}/global/header/shaping-policy/{policy}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *pkg*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone*
+        
+        Fields:
+        --------\n
+            *app-category, app-group, application, class-id, class-id-reverse, comment, cos, cos-mask, diffserv-forward, diffserv-reverse, diffservcode-forward, diffservcode-rev, dstaddr, dstaddr6, dstintf, groups, http-response-match, id, internet-service, internet-service-custom, internet-service-custom-group, internet-service-fortiguard, internet-service-group, internet-service-id, internet-service-name, internet-service-src, internet-service-src-custom, internet-service-src-custom-group, internet-service-src-fortiguard, internet-service-src-group, internet-service-src-id, internet-service-src-name, ip-version, name, per-ip-shaper, schedule, service, service-type, srcaddr, srcaddr6, srcintf, status, tos, tos-mask, tos-negate, traffic-shaper, traffic-shaper-reverse, traffic-type, url-category, users, uuid*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_global_header_shapingpolicy(adom="ADOM Name", method="HTTP Method", pkg="Policy Package Name", policy_id="Policy ID", data={Dictionary Object}, fields=[List Object])
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                app-category	[[...]]
+                app-group	[[...]]
+                application	[[...]]
+                class-id	[[...]]
+                class-id-reverse	[...]
+                comment	[...]
+                cos	[...]
+                cos-mask	[...]
+                diffserv-forward	[...]
+                diffserv-reverse	[...]
+                diffservcode-forward	[...]
+                diffservcode-rev	[...]
+                dstaddr	[[...]]
+                dstaddr6	[[...]]
+                dstintf	[[...]]
+                groups	[[...]]
+                http-response-match	[...]
+                id	[...]
+                internet-service	[...]
+                internet-service-custom	[[...]]
+                internet-service-custom-group	[[...]]
+                internet-service-fortiguard	[[...]]
+                internet-service-group	[[...]]
+                internet-service-id	[[...]]
+                internet-service-name	[[...]]
+                internet-service-src	[...]
+                internet-service-src-custom	[[...]]
+                internet-service-src-custom-group	[[...]]
+                internet-service-src-fortiguard	[[...]]
+                internet-service-src-group	[[...]]
+                internet-service-src-id	[[...]]
+                internet-service-src-name	[[...]]
+                ip-version	[...]
+                name	[...]
+                per-ip-shaper	[[...]]
+                schedule	[[...]]
+                service	[[...]]
+                service-type	[...]
+                srcaddr	[[...]]
+                srcaddr6	[[...]]
+                srcintf	[[...]]
+                status	[...]
+                tos	[...]
+                tos-mask	[...]
+                tos-negate	[...]
+                traffic-shaper	[[...]]
+                traffic-shaper-reverse	[[...]]
+                traffic-type	[...]
+                url-category	[[...]]
+                users	[[...]]
+                uuid	[...]
+            }
+
+        """
+        if self.loginstate == True:
+            if pkg is not None:
+                if adom is not None:
+                    if policy_id is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/global/header/shaping-policy/{policy_id}", session=self.session_id, verbose=1, data=data, fields=fields)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/global/header/shaping-policy", session=self.session_id, verbose=1, data=data, fields=fields)
+                else:
+                    if policy_id is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/global/pkg/{pkg}/global/header/shaping-policy/{policy_id}", session=self.session_id, verbose=1, data=data, fields=fields)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/global/pkg/{pkg}/global/header/shaping-policy", session=self.session_id, verbose=1, data=data, fields=fields)
+                response = self._request()
+                if self.debug == True:
+                    self._debugger(fnct=self.confdb_global_header_shapingpolicy.__name__, resp=response, mode=["std", "resp"])
+            else:
+                response = self._json_error(fnct=self.confdb_global_header_shapingpolicy.__name__, msg=f"Policy package name is {pkg}")
+        else:
+            response = self._json_error(fnct=self.confdb_global_header_shapingpolicy.__name__, msg=f"Login state is {self.loginstate}")
+        return response
+    
+    def confdb_authentication_rule(self, adom:str=None, method:str="get", pkg:str=None, rule:str=None, data:dict=None, fields:list=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_authentication_rule\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/adom/{adom}/pkg/{pkg}/authentication/rule*
+            */pm/config/adom/{adom}/pkg/{pkg}/authentication/rule/{rule}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *adom, pkg*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone, move*
+        
+        Fields:
+        --------\n
+            *active-auth-method, cert-auth-cookie, comments, cors-depth, cors-stateful, dstaddr, dstaddr6, ip-based, name, protocol, session-logout, srcaddr, srcaddr6, srcintf, sso-auth-method, status, transaction-based, web-auth-cookie, web-portal*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_authentication_rule(adom="ADOM Name", method="HTTP Method", pkg="Policy Package Name", rule="Rule Name", data={Dictionary Object}, fields=[List Object])
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                active-auth-method	[[...]]
+                cert-auth-cookie	[...]
+                comments	[...]
+                cors-depth	[...]
+                cors-stateful	[...]
+                dstaddr	[[...]]
+                dstaddr6	[[...]]
+                ip-based	[...]
+                name	[...]
+                protocol	[...]
+                session-logout	[...]
+                srcaddr	[[...]]
+                srcaddr6	[[...]]
+                srcintf	[[...]]
+                sso-auth-method	[[...]]
+                status	[...]
+                transaction-based	[...]
+                web-auth-cookie	[...]
+                web-portal	[...]
+            }
+
+        """
+        if self.loginstate == True:
+            if adom is not None:
+                if pkg is not None:
+                    if rule is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/authentication/rule/{rule}", session=self.session_id, verbose=1, data=data, fields=fields)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/authentication/rule", session=self.session_id, verbose=1, data=data, fields=fields)
+                    response = self._request()
+                    if self.debug == True:
+                        self._debugger(fnct=self.confdb_authentication_rule.__name__, resp=response, mode=["std", "resp"])
+                else:
+                    response = self._json_error(fnct=self.confdb_authentication_rule.__name__, msg=f"Policy package name is {pkg}")
+            else:
+                response = self._json_error(fnct=self.confdb_authentication_rule.__name__, msg=f"ADOM is {adom}")
+        else:
+            response = self._json_error(fnct=self.confdb_authentication_rule.__name__, msg=f"Login state is {self.loginstate}")
+        return response
+    
+    def confdb_authentication_setting(self, adom:str=None, method:str="get", pkg:str=None, data:dict=None, fields:list=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_authentication_setting\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/adom/{adom}/pkg/{pkg}/authentication/setting*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *adom, pkg*
+        
+        HTTP Methods:
+        -------------\n
+            *get, set, update*
+        
+        Options:
+        --------\n
+            *scope member, chksum, datasrc*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_firewall_authentication_setting(adom="ADOM Name", method="HTTP Method", pkg="Policy Package Name", data={Dictionary Object}, fields=[List Object])
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                active-auth-scheme	[[...]]
+                auth-https	[...]
+                captive-portal	[[...]]
+                captive-portal-ip	[...]
+                captive-portal-ip6	[...]
+                captive-portal-port	[...]
+                captive-portal-ssl-port	[...]
+                captive-portal-type	[...]
+                captive-portal6	[[...]]
+                cert-auth	[...]
+                cert-captive-portal	[[...]]
+                cert-captive-portal-ip	[...]
+                cert-captive-portal-port	[...]
+                cookie-max-age	[...]
+                cookie-refresh-div	[...]
+                dev-range	[[...]]
+                ip-auth-cookie	[...]
+                persistent-cookie	[...]
+                sso-auth-scheme	[[...]]
+                update-time	[...]
+                user-cert-ca	[[...]]
+            }
+
+        """
+        if self.loginstate == True:
+            if adom is not None:
+                if pkg is not None:
+                    self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/authentication/setting", session=self.session_id, verbose=1, data=data, fields=fields)
+                    response = self._request()
+                    if self.debug == True:
+                        self._debugger(fnct=self.confdb_authentication_setting.__name__, resp=response, mode=["std", "resp"])
+                else:
+                    response = self._json_error(fnct=self.confdb_authentication_setting.__name__, msg=f"Policy package name is {pkg}")
+            else:
+                response = self._json_error(fnct=self.confdb_authentication_setting.__name__, msg=f"ADOM is {adom}")
+        else:
+            response = self._json_error(fnct=self.confdb_authentication_setting.__name__, msg=f"Login state is {self.loginstate}")
+        return response
+    
+    def confdb_central_dnat(self, adom:str=None, method:str="get", pkg:str=None, name:str=None, data:dict=None, fields:list=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_central_dnat\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/adom/{adom}/pkg/{pkg}/central/dnat*
+            */pm/config/adom/{adom}/pkg/{pkg}/central/dnat/{dnat}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *adom, pkg*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone, move*
+        
+        Fields:
+        --------\n
+            *name*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_central_dnat(adom="ADOM Name", method="HTTP Method", pkg="Policy Package Name", name="DNAT Name", data={Dictionary Object}, fields=[List Object])
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                name	[...]
+            }
+
+        """
+        if self.loginstate == True:
+            if adom is not None:
+                if pkg is not None:
+                    if name is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/central/dnat/{name}", session=self.session_id, verbose=1, data=data, fields=fields)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/central/dnat", session=self.session_id, verbose=1, data=data, fields=fields)
+                    response = self._request()
+                    if self.debug == True:
+                        self._debugger(fnct=self.confdb_central_dnat.__name__, resp=response, mode=["std", "resp"])
+                else:
+                    response = self._json_error(fnct=self.confdb_central_dnat.__name__, msg=f"Policy package name is {pkg}")
+            else:
+                response = self._json_error(fnct=self.confdb_central_dnat.__name__, msg=f"ADOM is {adom}")
+        else:
+            response = self._json_error(fnct=self.confdb_central_dnat.__name__, msg=f"Login state is {self.loginstate}")
+        return response
+    
+    def confdb_central_dnat6(self, adom:str=None, method:str="get", pkg:str=None, name:str=None, data:dict=None, fields:list=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_central_dnat6\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/adom/{adom}/pkg/{pkg}/central/dnat6*
+            */pm/config/adom/{adom}/pkg/{pkg}/central/dnat6/{dnat}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *adom, pkg*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone, move*
+        
+        Fields:
+        --------\n
+            *name*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_central_dnat6(adom="ADOM Name", method="HTTP Method", pkg="Policy Package Name", name="DNAT Name", data={Dictionary Object}, fields=[List Object])
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                name	[...]
+            }
+
+        """
+        if self.loginstate == True:
+            if adom is not None:
+                if pkg is not None:
+                    if name is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/central/dnat6/{name}", session=self.session_id, verbose=1, data=data, fields=fields)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/central/dnat6", session=self.session_id, verbose=1, data=data, fields=fields)
+                    response = self._request()
+                    if self.debug == True:
+                        self._debugger(fnct=self.confdb_central_dnat6.__name__, resp=response, mode=["std", "resp"])
+                else:
+                    response = self._json_error(fnct=self.confdb_central_dnat6.__name__, msg=f"Policy package name is {pkg}")
+            else:
+                response = self._json_error(fnct=self.confdb_central_dnat6.__name__, msg=f"ADOM is {adom}")
+        else:
+            response = self._json_error(fnct=self.confdb_central_dnat6.__name__, msg=f"Login state is {self.loginstate}")
+        return response
+    
+    def confdb_user_nacpolicy(self, adom:str=None, method:str="get", pkg:str=None, name:str=None, data:dict=None, fields:list=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_user_nacpolicy\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/adom/{adom}/pkg/{pkg}/user/nac-policy*
+            */pm/config/adom/{adom}/pkg/{pkg}/user/nac-policy/{policy}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *adom, pkg*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone, move*
+        
+        Fields:
+        --------\n
+            *category, description, ems-tag, family, firewall-address, fortivoice-tag, host, hw-vendor, hw-version, mac, match-period, match-remove, match-type, name, os, severity, src, ssid-policy, status, sw-version, switch-fortilink, switch-group, switch-mac-policy, type, user, user-group*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_user_nacpolicy(adom="ADOM Name", method="HTTP Method", pkg="Policy Package Name", name="Policy Name", data={Dictionary Object}, fields=[List Object])
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                category	[...]
+                description	[...]
+                ems-tag	[[...]]
+                family	[...]
+                firewall-address	[[...]]
+                fortivoice-tag	[[...]]
+                host	[...]
+                hw-vendor	[...]
+                hw-version	[...]
+                mac	[...]
+                match-period	[...]
+                match-remove	[...]
+                match-type	[...]
+                name	[...]
+                os	[...]
+                severity	[[...]]
+                src	[...]
+                ssid-policy	[[...]]
+                status	[...]
+                sw-version	[...]
+                switch-fortilink	[[...]]
+                switch-group	[[...]]
+                switch-mac-policy	[[...]]
+                type	[...]
+                user	[...]
+                user-group	[[...]]
+            }
+
+        """
+        if self.loginstate == True:
+            if adom is not None:
+                if pkg is not None:
+                    if name is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/user/nac-policy/{name}", session=self.session_id, verbose=1, data=data, fields=fields)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/user/nac-policy", session=self.session_id, verbose=1, data=data, fields=fields)
+                    response = self._request()
+                    if self.debug == True:
+                        self._debugger(fnct=self.confdb_user_nacpolicy.__name__, resp=response, mode=["std", "resp"])
+                else:
+                    response = self._json_error(fnct=self.confdb_user_nacpolicy.__name__, msg=f"Policy package name is {pkg}")
+            else:
+                response = self._json_error(fnct=self.confdb_user_nacpolicy.__name__, msg=f"ADOM is {adom}")
+        else:
+            response = self._json_error(fnct=self.confdb_user_nacpolicy.__name__, msg=f"Login state is {self.loginstate}")
+        return response
+    
+    def confdb_videofilter_youtubekey(self, adom:str=None, method:str="get", pkg:str=None, id:str=None, data:dict=None, fields:list=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_videofilter_youtubekey\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/adom/{adom}/pkg/{pkg}/videofilter/youtube-key*
+            */pm/config/adom/{adom}/pkg/{pkg}/videofilter/youtube-key/{id}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *adom, pkg*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone*
+        
+        Fields:
+        --------\n
+            *id, key*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_videofilter_youtubekey(adom="ADOM Name", method="HTTP Method", pkg="Policy Package Name", id="YouTube Key ID", data={Dictionary Object}, fields=[List Object])
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                id	[...]
+                key	[...]
+            }
+
+        """
+        if self.loginstate == True:
+            if adom is not None:
+                if pkg is not None:
+                    if id is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/videofilter/youtube-key/{id}", session=self.session_id, verbose=1, data=data, fields=fields)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/videofilter/youtube-key", session=self.session_id, verbose=1, data=data, fields=fields)
+                    response = self._request()
+                    if self.debug == True:
+                        self._debugger(fnct=self.confdb_videofilter_youtubekey.__name__, resp=response, mode=["std", "resp"])
+                else:
+                    response = self._json_error(fnct=self.confdb_videofilter_youtubekey.__name__, msg=f"Policy package name is {pkg}")
+            else:
+                response = self._json_error(fnct=self.confdb_videofilter_youtubekey.__name__, msg=f"ADOM is {adom}")
+        else:
+            response = self._json_error(fnct=self.confdb_videofilter_youtubekey.__name__, msg=f"Login state is {self.loginstate}")
+        return response
+    
     def confdb_adom_options(self, adom:str=None, method:str="get", data:dict=None, option:str=None):
         """
         bcfortiapi.fmg.fmgapi.confdb_adom_options\n
@@ -2314,10 +5110,14 @@ class fmgapi:
         --------\n
             *count, scope member, datasrc, get reserved, syntax*
 
-        Fields:
-        -------\n
+        Fields (7.6):
+        -------------\n
+            *analytics-accept-filetype, analytics-db, analytics-ignore-filetype, av-virus-log, comment, ems-threat-feed, extended-log, external-blocklist, external-blocklist-enable-all, feature-set, fortindr-error-action, fortindr-timeout-action, fortisandbox-error-action, fortisandbox-max-upload, fortisandbox-mode, fortisandbox-scan-timeout, fortisandbox-timeout-action, mobile-malware-db, name, outbreak-prevention-archive-scan, replacemsg-group, scan-mode*
+            
+        Fields (7.4):
+        -------------\n
             *analytics-accept-filetype, analytics-db, analytics-ignore-filetype, av-virus-log, comment, ems-threat-feed, extended-log, external-blocklist, external-blocklist-enable-all, feature-set, fortindr-error-action, fortindr-timeout-action, fortisandbox-error-action, fortisandbox-max-upload, fortisandbox-mode, fortisandbox-timeout-action, mobile-malware-db, name, outbreak-prevention-archive-scan, replacemsg-group, scan-mode*
-        
+
         Examples:
         ---------\n
         >>> init_variable.confdb_av_profile(adom="ADOM Name", profile="Profile Name", method="HTTP Method", fields=[List Object], option="Option", data={Dictionary Object})
@@ -3667,8 +6467,12 @@ class fmgapi:
         --------\n
             *count, scope member, datasrc, get reserved, syntax*
 
-        Fields:
-        -------\n
+        Fields (7.6):
+        -------------\n
+            *_image-base64, agent-id, allow-routing, associated-interface, cache-ttl, clearpass-spt, color, comment, country, dirty, end-ip, epg-name, fabric-object, filter, fqdn, fsso-group, hw-model, hw-vendor, interface, macaddr, name, node-ip-only, obj-id, obj-tag, obj-type, organization, os, passive-fqdn-learning, policy-group, route-tag, sdn, sdn-addr-type, sdn-tag, sso-attribute-value, start-ip, sub-type, subnet, subnet-name, sw-version, tag-detection-level, tag-type, tag-uuid, tenant, type, uuid, wildcard, wildcard-fqdn*    
+        
+        Fields (7.4):
+        -------------\n
             *_image-base64, allow-routing, associated-interface, cache-ttl, clearpass-spt, color, comment, country, dirty, end-ip, epg-name, fabric-object, filter, fqdn, fsso-group, hw-model, hw-vendor, interface, macaddr, name, node-ip-only, obj-id, obj-tag, obj-type, organization, os, policy-group, route-tag, sdn, sdn-addr-type, sdn-tag, start-ip, sub-type, subnet, subnet-name, sw-version, tag-detection-level, tag-type, tenant, type, uuid, wildcard, wildcard-fqdn*
 
         Examples:
@@ -3923,8 +6727,12 @@ class fmgapi:
         --------\n
             *count, scope member, datasrc, get reserved, syntax*
 
-        Fields:
-        -------\n
+        Fields (7.6):
+        -------------\n
+            *_image-base64, cache-ttl, color, comment, country, end-ip, epg-name, fabric-object, filter, fqdn, host, host-type, ip6, macaddr, name, obj-id, passive-fqdn-learning, route-tag, sdn, sdn-addr-type, sdn-tag, start-ip, template, tenant, type, uuid, wildcard*    
+        
+        Fields (7.4):
+        -------------\n
             *_image-base64, cache-ttl, color, comment, country, end-ip, epg-name, fabric-object, filter, fqdn, host, host-type, ip6, macaddr, name, obj-id, route-tag, sdn, sdn-addr-type, sdn-tag, start-ip, template, tenant, type, uuid*
 
         Examples:
@@ -4119,6 +6927,181 @@ class fmgapi:
                 self._debugger(fnct=self.confdb_firewall_addrgrp6.__name__, resp=response, mode=["std", "resp"])
         else:
             response = self._json_error(fnct=self.confdb_firewall_addrgrp6.__name__, msg=f"Login state is {self.loginstate}")
+        return response
+    
+    def confdb_firewall_schedule_onetime(self, adom:str=None, schedule:str=None, method:str="get", fields:list=None, data:dict=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_firewall_schedule_onetime\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/global/obj/firewall/schedule/onetime*
+            */pm/config/global/obj/firewall/schedule/onetime/{schedule}*
+            */pm/config/adom/{adom}/obj/firewall/schedule/onetime*
+            */pm/config/adom/{adom}/obj/firewall/schedule/onetime/{schedule}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *None*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone*
+
+        Fields:
+        -------\n
+            *color, end, end-utc, expiration-days, fabric-object, name, start, start-utc, uuid*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_firewall_schedule_onetime(adom="ADOM Name", schedule="Schedule Name", method="HTTP Method", fields=[List Object], data={Dictionary Object})
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                color	[...]
+                end	[...]
+                end-utc	[...]
+                expiration-days	[...]
+                fabric-object	[...]
+                name	[...]
+                start	[...]
+                start-utc	[...]
+                uuid	[...]
+            }
+
+        """
+        if self.loginstate == True:
+            if adom is not None:
+                if schedule is not None:
+                    self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/obj/firewall/schedule/onetime/{schedule}", session=self.session_id, verbose=1, data=data, fields=fields)
+                else:
+                    self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/obj/firewall/schedule/onetime", session=self.session_id, verbose=1, data=data, fields=fields)
+            else:
+                if schedule is not None:
+                    self._payload_builder(method=method, endpoint=f"/pm/config/global/obj/firewall/schedule/onetime/{schedule}", session=self.session_id, verbose=1, data=data, fields=fields)
+                else:
+                    self._payload_builder(method=method, endpoint=f"/pm/config/global/obj/firewall/schedule/onetime", session=self.session_id, verbose=1, data=data, fields=fields)
+            response = self._request()
+            if self.debug == True:
+                self._debugger(fnct=self.confdb_firewall_schedule_onetime.__name__, resp=response, mode=["std", "resp"])
+        else:
+            response = self._json_error(fnct=self.confdb_firewall_schedule_onetime.__name__, msg=f"Login state is {self.loginstate}")
+        return response
+    
+    def confdb_firewall_schedule_recurring(self, adom:str=None, schedule:str=None, method:str="get", fields:list=None, data:dict=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_firewall_schedule_recurring\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/global/obj/firewall/schedule/recurring*
+            */pm/config/global/obj/firewall/schedule/recurring/{schedule}*
+            */pm/config/adom/{adom}/obj/firewall/schedule/recurring*
+            */pm/config/adom/{adom}/obj/firewall/schedule/recurring/{schedule}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *None*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone*
+
+        Fields:
+        -------\n
+            *color, day, end, fabric-object, label-day, name, start, uuid*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_firewall_schedule_recurring(adom="ADOM Name", schedule="Schedule Name", method="HTTP Method", fields=[List Object], data={Dictionary Object})
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                color	[...]
+                day	[[...]]
+                end	[...]
+                fabric-object	[...]
+                label-day	[...]
+                name	[...]
+                start	[...]
+                uuid	[...]
+            }
+
+        """
+        if self.loginstate == True:
+            if adom is not None:
+                if schedule is not None:
+                    self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/obj/firewall/schedule/recurring/{schedule}", session=self.session_id, verbose=1, data=data, fields=fields)
+                else:
+                    self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/obj/firewall/schedule/recurring", session=self.session_id, verbose=1, data=data, fields=fields)
+            else:
+                if schedule is not None:
+                    self._payload_builder(method=method, endpoint=f"/pm/config/global/obj/firewall/schedule/recurring/{schedule}", session=self.session_id, verbose=1, data=data, fields=fields)
+                else:
+                    self._payload_builder(method=method, endpoint=f"/pm/config/global/obj/firewall/schedule/recurring", session=self.session_id, verbose=1, data=data, fields=fields)
+            response = self._request()
+            if self.debug == True:
+                self._debugger(fnct=self.confdb_firewall_schedule_recurring.__name__, resp=response, mode=["std", "resp"])
+        else:
+            response = self._json_error(fnct=self.confdb_firewall_schedule_recurring.__name__, msg=f"Login state is {self.loginstate}")
+        return response
+    
+    def confdb_firewall_schedule_group(self, adom:str=None, grp:str=None, method:str="get", fields:list=None, data:dict=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_firewall_schedule_group\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/global/obj/firewall/schedule/group*
+            */pm/config/global/obj/firewall/schedule/group/{group}*
+            */pm/config/adom/{adom}/obj/firewall/schedule/group*
+            */pm/config/adom/{adom}/obj/firewall/schedule/group/{group}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *None*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone*
+
+        Fields:
+        -------\n
+            *color, fabric-object, member, name, uuid*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_firewall_schedule_group(adom="ADOM Name", grp="Group Name", method="HTTP Method", fields=[List Object], data={Dictionary Object})
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                color	[...]
+                fabric-object	[...]
+                member	[[...]]
+                name	[...]
+                uuid	[...]
+            }
+
+        """
+        if self.loginstate == True:
+            if adom is not None:
+                if grp is not None:
+                    self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/obj/firewall/schedule/group/{grp}", session=self.session_id, verbose=1, data=data, fields=fields)
+                else:
+                    self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/obj/firewall/schedule/group", session=self.session_id, verbose=1, data=data, fields=fields)
+            else:
+                if grp is not None:
+                    self._payload_builder(method=method, endpoint=f"/pm/config/global/obj/firewall/schedule/group/{grp}", session=self.session_id, verbose=1, data=data, fields=fields)
+                else:
+                    self._payload_builder(method=method, endpoint=f"/pm/config/global/obj/firewall/schedule/group", session=self.session_id, verbose=1, data=data, fields=fields)
+            response = self._request()
+            if self.debug == True:
+                self._debugger(fnct=self.confdb_firewall_schedule_group.__name__, resp=response, mode=["std", "resp"])
+        else:
+            response = self._json_error(fnct=self.confdb_firewall_schedule_group.__name__, msg=f"Login state is {self.loginstate}")
         return response
     
     def confdb_firewall_isdb_custom(self, adom:str=None, isdb:str=None, method:str="get", fields:list=None, option:str=None, data:dict=None):
@@ -5480,8 +8463,12 @@ class fmgapi:
         --------\n
             *count, scope member, datasrc, get reserved, syntax*
 
-        Fields:
-        -------\n
+        Fields (7.6):
+        -------------\n
+            *add-nat46-route, arp-reply, client-cert, color, comment, dns-mapping-ttl, empty-cert-action, extaddr, extintf, extip, extport, gratuitous-arp-interval, gslb-domain-name, gslb-hostname, h2-support, h3-support, http-cookie-age, http-cookie-domain, http-cookie-domain-from-host, http-cookie-generation, http-cookie-path, http-cookie-share, http-ip-header, http-ip-header-name, http-multiplex, http-multiplex-max-concurrent-request, http-multiplex-max-request, http-multiplex-ttl, http-redirect, https-cookie-secure, id, ipv6-mappedip, ipv6-mappedport, ldb-method, mapped-addr, mappedip, mappedport, max-embryonic-connections, monitor, name, nat-source-vip, nat44, nat46, one-click-gslb-server, outlook-web-access, persistence, portforward, portmapping-type, protocol, server-type, service, src-filter, src-vip-filter, srcintf-filter, ssl-accept-ffdhe-groups, ssl-algorithm, ssl-certificate, ssl-client-fallback, ssl-client-rekey-count, ssl-client-renegotiation, ssl-client-session-state-max, ssl-client-session-state-timeout, ssl-client-session-state-type, ssl-dh-bits, ssl-hpkp, ssl-hpkp-age, ssl-hpkp-backup, ssl-hpkp-include-subdomains, ssl-hpkp-primary, ssl-hpkp-report-uri, ssl-hsts, ssl-hsts-age, ssl-hsts-include-subdomains, ssl-http-location-conversion, ssl-http-match-host, ssl-max-version, ssl-min-version, ssl-mode, ssl-pfs, ssl-send-empty-frags, ssl-server-algorithm, ssl-server-max-version, ssl-server-min-version, ssl-server-renegotiation, ssl-server-session-state-max, ssl-server-session-state-timeout, ssl-server-session-state-type, status, type, user-agent-detect, uuid, vip-id, weblogic-server, websphere-server*    
+        
+        Fields (7.4):
+        -------------\n
             *add-nat46-route, arp-reply, color, comment, dns-mapping-ttl, extaddr, extintf, extip, extport, gratuitous-arp-interval, gslb-domain-name, gslb-hostname, h2-support, h3-support, http-cookie-age, http-cookie-domain, http-cookie-domain-from-host, http-cookie-generation, http-cookie-path, http-cookie-share, http-ip-header, http-ip-header-name, http-multiplex, http-multiplex-max-concurrent-request, http-multiplex-max-request, http-multiplex-ttl, http-redirect, https-cookie-secure, id, ipv6-mappedip, ipv6-mappedport, ldb-method, mapped-addr, mappedip, mappedport, max-embryonic-connections, monitor, name, nat-source-vip, nat44, nat46, one-click-gslb-server, outlook-web-access, persistence, portforward, portmapping-type, protocol, server-type, service, src-filter, src-vip-filter, srcintf-filter, ssl-accept-ffdhe-groups, ssl-algorithm, ssl-certificate, ssl-client-fallback, ssl-client-rekey-count, ssl-client-renegotiation, ssl-client-session-state-max, ssl-client-session-state-timeout, ssl-client-session-state-type, ssl-dh-bits, ssl-hpkp, ssl-hpkp-age, ssl-hpkp-backup, ssl-hpkp-include-subdomains, ssl-hpkp-primary, ssl-hpkp-report-uri, ssl-hsts, ssl-hsts-age, ssl-hsts-include-subdomains, ssl-http-location-conversion, ssl-http-match-host, ssl-max-version, ssl-min-version, ssl-mode, ssl-pfs, ssl-send-empty-frags, ssl-server-algorithm, ssl-server-max-version, ssl-server-min-version, ssl-server-renegotiation, ssl-server-session-state-max, ssl-server-session-state-timeout, ssl-server-session-state-type, status, type, uuid, weblogic-server, websphere-server*
 
         Examples:
@@ -5787,8 +8774,12 @@ class fmgapi:
         --------\n
             *count, scope member, datasrc, get reserved, syntax*
 
-        Fields:
-        -------\n
+        Fields (7.6):
+        -------------\n
+            *add-nat64-route, client-cert, color, comment, embedded-ipv4-address, empty-cert-action, extip, extport, h2-support, h3-support, http-cookie-age, http-cookie-domain, http-cookie-domain-from-host, http-cookie-generation, http-cookie-path, http-cookie-share, http-ip-header, http-ip-header-name, http-multiplex, http-redirect, https-cookie-secure, id, ipv4-mappedip, ipv4-mappedport, ldb-method, mappedip, mappedport, max-embryonic-connections, monitor, name, nat-source-vip, nat64, nat66, ndp-reply, outlook-web-access, persistence, portforward, protocol, server-type, src-filter, src-vip-filter, ssl-accept-ffdhe-groups, ssl-algorithm, ssl-certificate, ssl-client-fallback, ssl-client-rekey-count, ssl-client-renegotiation, ssl-client-session-state-max, ssl-client-session-state-timeout, ssl-client-session-state-type, ssl-dh-bits, ssl-hpkp, ssl-hpkp-age, ssl-hpkp-backup, ssl-hpkp-include-subdomains, ssl-hpkp-primary, ssl-hpkp-report-uri, ssl-hsts, ssl-hsts-age, ssl-hsts-include-subdomains, ssl-http-location-conversion, ssl-http-match-host, ssl-max-version, ssl-min-version, ssl-mode, ssl-pfs, ssl-send-empty-frags, ssl-server-algorithm, ssl-server-max-version, ssl-server-min-version, ssl-server-renegotiation, ssl-server-session-state-max, ssl-server-session-state-timeout, ssl-server-session-state-type, type, user-agent-detect, uuid, vip-id, weblogic-server, websphere-server*
+        
+        Fields (7.4):
+        -------------\n
             *add-nat64-route, color, comment, embedded-ipv4-address, extip, extport, h2-support, h3-support, http-cookie-age, http-cookie-domain, http-cookie-domain-from-host, http-cookie-generation, http-cookie-path, http-cookie-share, http-ip-header, http-ip-header-name, http-multiplex, http-redirect, https-cookie-secure, id, ipv4-mappedip, ipv4-mappedport, ldb-method, mappedip, mappedport, max-embryonic-connections, monitor, name, nat-source-vip, nat64, nat66, ndp-reply, outlook-web-access, persistence, portforward, protocol, server-type, src-filter, src-vip-filter, ssl-accept-ffdhe-groups, ssl-algorithm, ssl-certificate, ssl-client-fallback, ssl-client-rekey-count, ssl-client-renegotiation, ssl-client-session-state-max, ssl-client-session-state-timeout, ssl-client-session-state-type, ssl-dh-bits, ssl-hpkp, ssl-hpkp-age, ssl-hpkp-backup, ssl-hpkp-include-subdomains, ssl-hpkp-primary, ssl-hpkp-report-uri, ssl-hsts, ssl-hsts-age, ssl-hsts-include-subdomains, ssl-http-location-conversion, ssl-http-match-host, ssl-max-version, ssl-min-version, ssl-mode, ssl-pfs, ssl-send-empty-frags, ssl-server-algorithm, ssl-server-max-version, ssl-server-min-version, ssl-server-renegotiation, ssl-server-session-state-max, ssl-server-session-state-timeout, ssl-server-session-state-type, type, uuid, weblogic-server, websphere-server*
 
         Examples:
@@ -6356,6 +9347,73 @@ class fmgapi:
                 self._debugger(fnct=self.confdb_fmg_device_blueprint.__name__, resp=response, mode=["std", "resp"])
         else:
             response = self._json_error(fnct=self.confdb_fmg_device_blueprint.__name__, msg=f"Login state is {self.loginstate}")
+        return response
+    
+    def confdb_fmg_fabric_authtemplate(self, adom:str=None, name:str=None, method:str="get", fields:list=None, option:str=None, data:dict=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_fmg_fabric_authtemplate\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/global/obj/fmg/fabric/authorization/template*
+            */pm/config/global/obj/fmg/fabric/authorization/template/{template}*
+            */pm/config/adom/{adom}/obj/fmg/fabric/authorization/template*
+            */pm/config/adom/{adom}/obj/fmg/fabric/authorization/template/{template}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *None*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone*
+        
+        Options:
+        --------\n
+            *count, scope member, datasrc, get reserved, syntax*
+
+        Fields:
+        -------\n
+            *description, extender-controller, name, switch-controller, wireless-controller*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_fmg_fabric_authtemplate(adom="ADOM Name", name="Template Name", method="HTTP Method", fields=[List Object], option="Option", data={Dictionary Object})
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                description	[...]
+                extender-controller	[...]
+                name	[...]
+                platforms	[{
+                    count	[...]
+                    extension-type	[...]
+                    fortilink	[...]
+                    prefix	[...]
+                    type	[...]
+                }]
+                switch-controller	[...]
+                wireless-controller	[...]
+            }
+
+        """
+        if self.loginstate == True:
+            if adom is not None:
+                if name is not None:
+                    self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/obj/fmg/fabric/authorization/template/{name}", session=self.session_id, verbose=1, data=data, option=option, fields=fields)
+                else:
+                    self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/obj/fmg/fabric/authorization/template", session=self.session_id, verbose=1, data=data, option=option, fields=fields)
+            else:
+                if name is not None:
+                    self._payload_builder(method=method, endpoint=f"/pm/config/global/obj/fmg/fabric/authorization/template/{name}", session=self.session_id, verbose=1, data=data, option=option, fields=fields)
+                else:
+                    self._payload_builder(method=method, endpoint=f"/pm/config/global/obj/fmg/fabric/authorization/template", session=self.session_id, verbose=1, data=data, option=option, fields=fields)
+            response = self._request()
+            if self.debug == True:
+                self._debugger(fnct=self.confdb_fmg_fabric_authtemplate.__name__, resp=response, mode=["std", "resp"])
+        else:
+            response = self._json_error(fnct=self.confdb_fmg_fabric_authtemplate.__name__, msg=f"Login state is {self.loginstate}")
         return response
     
     def confdb_fmg_variable(self, adom:str=None, name:str=None, method:str="get", fields:list=None, option:str=None, data:dict=None):
@@ -7794,8 +10852,263 @@ class fmgapi:
         ---------\n
         >>> init_variable.confdb_system_npu(adom="ADOM Name", method="HTTP Method", option="Option", data={Dictionary Object})
 
-        Data Structure:
-        ---------------\n
+        Data Structure (7.6):
+        ---------------------\n
+        >>> data = {
+                background-sse-scan	{
+                    scan	[...]
+                    scan-stale	[...]
+                    scan-vt	[...]
+                    stats-qual-access	[...]
+                    stats-qual-duration	[...]
+                    stats-update-interval	[...]
+                    udp-keepalive-interval	[...]
+                    udp-qual-access	[...]
+                    udp-qual-duration	[...]
+                }
+                capwap-offload	[...]
+                dedicated-lacp-queue	[...]
+                dedicated-management-affinity	[...]
+                dedicated-management-cpu	[...]
+                default-qos-type	[...]
+                default-tcp-refresh-dir	[...]
+                default-udp-refresh-dir	[...]
+                dos-options	{
+                    npu-dos-meter-mode	[...]
+                    npu-dos-synproxy-mode	[...]
+                    npu-dos-tpe-mode	[...]
+                }
+                double-level-mcast-offload	[...]
+                dse-timeout	[...]
+                dsw-dts-profile	[...]
+                dsw-queue-dts-profile	[...]
+                fastpath	[...]
+                fp-anomaly	{
+                    esp-minlen-err	[...]
+                    gre-csum-err	[...]
+                    icmp-csum-err	[...]
+                    icmp-frag	[...]
+                    icmp-land	[...]
+                    icmp-minlen-err	[...]
+                    ipv4-csum-err	[...]
+                    ipv4-ihl-err	[...]
+                    ipv4-land	[...]
+                    ipv4-len-err	[...]
+                    ipv4-opt-err	[...]
+                    ipv4-optlsrr	[...]
+                    ipv4-optrr	[...]
+                    ipv4-optsecurity	[...]
+                    ipv4-optssrr	[...]
+                    ipv4-optstream	[...]
+                    ipv4-opttimestamp	[...]
+                    ipv4-proto-err	[...]
+                    ipv4-ttlzero-err	[...]
+                    ipv4-unknopt	[...]
+                    ipv4-ver-err	[...]
+                    ipv6-daddr-err	[...]
+                    ipv6-exthdr-len-err	[...]
+                    ipv6-exthdr-order-err	[...]
+                    ipv6-ihl-err	[...]
+                    ipv6-land	[...]
+                    ipv6-optendpid	[...]
+                    ipv6-opthomeaddr	[...]
+                    ipv6-optinvld	[...]
+                    ipv6-optjumbo	[...]
+                    ipv6-optnsap	[...]
+                    ipv6-optralert	[...]
+                    ipv6-opttunnel	[...]
+                    ipv6-plen-zero	[...]
+                    ipv6-proto-err	[...]
+                    ipv6-saddr-err	[...]
+                    ipv6-unknopt	[...]
+                    ipv6-ver-err	[...]
+                    sctp-csum-err	[...]
+                    tcp-csum-err	[...]
+                    tcp-fin-noack	[...]
+                    tcp-fin-only	[...]
+                    tcp-hlen-err	[...]
+                    tcp-land	[...]
+                    tcp-no-flag	[...]
+                    tcp-plen-err	[...]
+                    tcp-syn-data	[...]
+                    tcp-syn-fin	[...]
+                    tcp-winnuke	[...]
+                    udp-csum-err	[...]
+                    udp-hlen-err	[...]
+                    udp-land	[...]
+                    udp-len-err	[...]
+                    udp-plen-err	[...]
+                    udplite-cover-err	[...]
+                    udplite-csum-err	[...]
+                    unknproto-minlen-err	[...]
+                }
+                gtp-enhanced-cpu-range	[...]
+                gtp-enhanced-mode	[...]
+                gtp-support	[...]
+                hash-config	[...]
+                hash-ipv6-sel	[...]
+                hash-tbl-spread	[...]
+                hif-queue-customize	[...]
+                host-shortcut-mode	[...]
+                hpe	{
+                    all-protocol	[...]
+                    arp-max	[...]
+                    enable-queue-shaper	[...]
+                    enable-shaper	[...]
+                    esp-max	[...]
+                    exception-code	[...]
+                    fragment-with-sess	[...]
+                    fragment-without-session	[...]
+                    high-priority	[...]
+                    icmp-max	[...]
+                    ip-frag-max	[...]
+                    ip-others-max	[...]
+                    l2-others-max	[...]
+                    queue-shaper-max	[...]
+                    sctp-max	[...]
+                    tcp-max	[...]
+                    tcpfin-rst-max	[...]
+                    tcpsyn-ack-max	[...]
+                    tcpsyn-max	[...]
+                    udp-max	[...]
+                }
+                htab-dedi-queue-nr	[...]
+                htab-msg-queue	[...]
+                htx-gtse-quota	[...]
+                htx-icmp-csum-chk	[...]
+                hw-ha-scan-interval	[...]
+                icmp-error-rate-ctrl	{
+                    icmpv4-error-bucket-size	[...]
+                    icmpv4-error-rate	[...]
+                    icmpv4-error-rate-limit	[...]
+                    icmpv6-error-bucket-size	[...]
+                    icmpv6-error-rate	[...]
+                    icmpv6-error-rate-limit	[...]
+                }
+                ike-port	[...]
+                inbound-dscp-copy-port	[...]
+                intf-shaping-offload	[...]
+                ip-fragment-offload	[...]
+                ip-reassembly	{
+                    max-timeout	[...]
+                    min-timeout	[...]
+                    status	[...]
+                }
+                iph-rsvd-re-cksum	[...]
+                ippool-overload-high	[...]
+                ippool-overload-low	[...]
+                ipsec-STS-timeout	[...]
+                ipsec-dec-subengine-mask	[...]
+                ipsec-enc-subengine-mask	[...]
+                ipsec-inbound-cache	[...]
+                ipsec-mtu-override	[...]
+                ipsec-ob-np-sel	[...]
+                ipsec-ordering	[...]
+                ipsec-over-vlink	[...]
+                ipsec-throughput-msg-frequency	[...]
+                ipt-STS-timeout	[...]
+                ipt-throughput-msg-frequency	[...]
+                ipv4-session-quota	[...]
+                ipv4-session-quota-high	[...]
+                ipv4-session-quota-low	[...]
+                ipv6-prefix-session-quota	[...]
+                ipv6-prefix-session-quota-high	[...]
+                ipv6-prefix-session-quota-low	[...]
+                isf-np-queues	{
+                    cos0	[...]
+                    cos1	[...]
+                    cos2	[...]
+                    cos3	[...]
+                    cos4	[...]
+                    cos5	[...]
+                    cos6	[...]
+                    cos7	[...]
+                }
+                lag-hash-gre	[...]
+                lag-out-port-select	[...]
+                max-receive-unit	[...]
+                max-session-timeout	[...]
+                mcast-denied-ses-offload	[...]
+                mcast-session-accounting	[...]
+                napi-break-interval	[...]
+                np-queues	{
+                    custom-etype-lookup	[...]
+                    ethernet-type	[...]
+                    ip-protocol	[...]
+                    ip-service	[...]
+                    profile	[...]
+                    scheduler	[...]
+                }
+                np6-cps-optimization-mode	[...]
+                npu-tcam	[...]
+                nss-threads-option	[...]
+                pba-eim	[...]
+                pba-port-select-mode	[...]
+                per-policy-accounting	[...]
+                per-session-accounting	[...]
+                ple-non-syn-tcp-action	[...]
+                policy-offload-level	[...]
+                port-cpu-map	[...]
+                port-npu-map	[...]
+                port-path-option	{
+                    ports-using-npu	[...]
+                }
+                priority-protocol	{
+                    bfd	[...]
+                    bgp	[...]
+                    slbc	[...]
+                }
+                prp-session-clear-mode	[...]
+                qos-mode	[...]
+                qtm-buf-mode	[...]
+                rdp-offload	[...]
+                session-acct-interval	[...]
+                session-denied-offload	[...]
+                shadow-virtual-switch	[...]
+                shaping-stats	[...]
+                spa-port-select-mode	[...]
+                split-ipsec-engines	[...]
+                sse-backpressure	[...]
+                sse-ha-scan	{
+                    gap	[...]
+                    max-session-cnt	[...]
+                    min-duration	[...]
+                }
+                strip-clear-text-padding	[...]
+                strip-esp-padding	[...]
+                sw-eh-hash	{
+                    computation	[...]
+                    destination-ip-lower-16	[...]
+                    destination-ip-upper-16	[...]
+                    destination-port	[...]
+                    ip-protocol	[...]
+                    netmask-length	[...]
+                    source-ip-lower-16	[...]
+                    source-ip-upper-16	[...]
+                    source-port	[...]
+                }
+                sw-np-bandwidth	[...]
+                sw-np-pause	[...]
+                sw-np-rate	[...]
+                sw-np-rate-unit	[...]
+                sw-tr-hash	{
+                    draco15	[...]
+                    tcp-udp-port	[...]
+                }
+                switch-np-hash	[...]
+                tcp-rst-timeout	[...]
+                tunnel-over-vlink	[...]
+                uesp-offload	[...]
+                ull-port-mode	[...]
+                use-ixgbe-tx	[...]
+                use-mse-oft	[...]
+                vlan-lookup-cache	[...]
+                vxlan-mac-flapping-guard	[...]
+                vxlan-offload	[...]
+            }
+
+        Data Structure (7.4):
+        ---------------------\n
         >>> data = {
                 background-sse-scan	{
                     scan	[...]
@@ -8686,8 +11999,12 @@ class fmgapi:
         --------\n
             *count, scope member, datasrc, get reserved, syntax*
 
-        Fields:
-        -------\n
+        Fields (7.6):
+        -------------\n
+            *_local_cert, access-key, alt-resource-ip, api-key, azure-region, client-id, client-secret, compute-generation, domain, group-name, ha-status, ibm-region, key-passwd, login-endpoint, message-server-port, microsoft-365, name, oci-cert, oci-fingerprint, oci-region-type, par-id, password, private-key, proxy, region, resource-group, resource-url, secret-key, secret-token, server, server-ca-cert, server-cert, server-list, server-port, service-account, status, subscription-id, tenant-id, type, update-interval, use-metadata-iam, user-id, username, vcenter-password, vcenter-server, vcenter-username, vdom, verify-certificate, vpc-id*    
+        
+        Fields (7.4):
+        -------------\n
             *_local_cert, access-key, alt-resource-ip, api-key, azure-region, client-id, client-secret, compute-generation, domain, group-name, ha-status, ibm-region, key-passwd, login-endpoint, name, oci-cert, oci-fingerprint, oci-region-type, password, private-key, proxy, region, resource-group, resource-url, secret-key, secret-token, server, server-ca-cert, server-cert, server-list, server-port, service-account, status, subscription-id, tenant-id, type, update-interval, use-metadata-iam, user-id, username, vcenter-password, vcenter-server, vcenter-username, verify-certificate, vpc-id*
 
         Examples:
@@ -10148,8 +13465,12 @@ class fmgapi:
         --------\n
             *count, scope member, datasrc, get reserved, syntax*
 
-        Fields:
-        -------\n
+        Fields (7.6):
+        -------------\n
+            *adfs-claim, auth-url, cert, clock-tolerance, digest-method, entity-id, group-claim-type, group-name, idp-cert, idp-entity-id, idp-single-logout-url, idp-single-sign-on-url, limit-relaystate, name, reauth, require-signed-resp-and-asrt, scim-client, scim-group-attr-type, scim-user-attr-type, single-logout-url, single-sign-on-url, user-claim-type, user-name*    
+        
+        Fields (7.4):
+        -------------\n
             *adfs-claim, auth-url, cert, clock-tolerance, digest-method, entity-id, group-claim-type, group-name, idp-cert, idp-entity-id, idp-single-logout-url, idp-single-sign-on-url, limit-relaystate, name, reauth, single-logout-url, single-sign-on-url, user-claim-type, user-name*
 
         Examples:
@@ -10292,8 +13613,12 @@ class fmgapi:
         --------\n
             *count, scope member, datasrc, get reserved, syntax*
 
-        Fields:
-        -------\n
+        Fields (7.6):
+        -------------\n
+            *cert-http-header, digest-algo, digest-rfc2069, domain-controller, external-idp, fsso-agent-for-ntlm, fsso-guest, group-attr-type, kerberos-keytab, method, name, negotiate-ntlm, require-tfa, saml-server, saml-timeout, ssh-ca, user-cert, user-database*    
+        
+        Fields (7.4):
+        -------------\n
             *domain-controller, fsso-agent-for-ntlm, fsso-guest, kerberos-keytab, method, name, negotiate-ntlm, require-tfa, saml-server, saml-timeout, ssh-ca, user-cert, user-database*
 
         Examples:
@@ -15164,8 +18489,12 @@ class fmgapi:
         --------\n
             *count, scope member, datasrc, get reserved, syntax*
 
-        Fields:
-        -------\n
+        Fields (7.6):
+        -------------\n
+            *header-client-cert, header-client-ip, header-front-end-https, header-via-request, header-via-response, header-x-authenticated-groups, header-x-authenticated-user, header-x-forwarded-client-cert, header-x-forwarded-for, log-header-change, name, strip-encoding*    
+        
+        Fields (7.4):
+        -------------\n
             *header-client-ip, header-front-end-https, header-via-request, header-via-response, header-x-authenticated-groups, header-x-authenticated-user, header-x-forwarded-client-cert, header-x-forwarded-for, log-header-change, name, strip-encoding*
 
         Examples:
@@ -15278,4 +18607,864 @@ class fmgapi:
                 self._debugger(fnct=self.confdb_webproxy_wisp.__name__, resp=response, mode=["std", "resp"])
         else:
             response = self._json_error(fnct=self.confdb_webproxy_wisp.__name__, msg=f"Login state is {self.loginstate}")
+        return response
+    
+    def confdb_telemetrycontroller_agent(self, adom:str=None, name:str=None, method:str="get", option:str=None, data:dict=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_telemetrycontroller_agent\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/global/obj/telemetry-controller/agent*
+            */pm/config/global/obj/telemetry-controller/agent/{agent}*
+            */pm/config/adom/{adom}/obj/telemetry-controller/agent*
+            */pm/config/adom/{adom}/obj/telemetry-controller/agent/{agent}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *None*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone*
+        
+        Options:
+        --------\n
+            *count, scope member, datasrc, get reserved, syntax*
+
+        Fields:
+        -------\n
+            *agent-id, agent-profile, alias, authz, comment*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_telemetrycontroller_agent(adom="ADOM Name", name="Agent ID", method="HTTP Method", fields=[List Object], option="Option", data={Dictionary Object})
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                agent-id	[...]
+                agent-profile	[[...]]
+                alias	[...]
+                authz	[...]
+                comment	[...]
+            }
+
+        """
+        compatible_versions = ["7.6"]
+        if self.db_ver in compatible_versions:
+            if self.loginstate == True:
+                if adom is not None:
+                    if name is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/obj/telemetry-controller/agent/{name}", session=self.session_id, verbose=1, data=data, option=option)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/obj/telemetry-controller/agent", session=self.session_id, verbose=1, data=data, option=option)
+                else:
+                    if name is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/global/obj/telemetry-controller/agent/{name}", session=self.session_id, verbose=1, data=data, option=option)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/global/obj/telemetry-controller/agent", session=self.session_id, verbose=1, data=data, option=option)
+                response = self._request()
+                if self.debug == True:
+                    self._debugger(fnct=self.confdb_telemetrycontroller_agent.__name__, resp=response, mode=["std", "resp"])
+            else:
+                response = self._json_error(fnct=self.confdb_telemetrycontroller_agent.__name__, msg=f"Login state is {self.loginstate}")
+        else:
+            response = self._json_error(fnct=self.confdb_telemetrycontroller_agent.__name__, msg=f"Endpoint not supported in FortiManager ADOM version {str(self.db_ver)}")
+        return response
+    
+    def confdb_telemetrycontroller_agentprofile(self, adom:str=None, name:str=None, method:str="get", option:str=None, data:dict=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_telemetrycontroller_agentprofile\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/global/obj/telemetry-controller/agent-profile*
+            */pm/config/global/obj/telemetry-controller/agent-profile/{profile}*
+            */pm/config/adom/{adom}/obj/telemetry-controller/agent-profile*
+            */pm/config/adom/{adom}/obj/telemetry-controller/agent-profile/{profile}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *None*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone*
+        
+        Options:
+        --------\n
+            *count, scope member, datasrc, get reserved, syntax*
+
+        Fields:
+        -------\n
+            *comment, model, name*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_telemetrycontroller_agentprofile(adom="ADOM Name", name="Profile Name", method="HTTP Method", fields=[List Object], option="Option", data={Dictionary Object})
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                comment	[...]
+                model	[...]
+                name	[...]
+            }
+
+        """
+        compatible_versions = ["7.6"]
+        if self.db_ver in compatible_versions:
+            if self.loginstate == True:
+                if adom is not None:
+                    if name is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/obj/telemetry-controller/agent-profile/{name}", session=self.session_id, verbose=1, data=data, option=option)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/obj/telemetry-controller/agent-profile", session=self.session_id, verbose=1, data=data, option=option)
+                else:
+                    if name is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/global/obj/telemetry-controller/agent-profile/{name}", session=self.session_id, verbose=1, data=data, option=option)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/global/obj/telemetry-controller/agent-profile", session=self.session_id, verbose=1, data=data, option=option)
+                response = self._request()
+                if self.debug == True:
+                    self._debugger(fnct=self.confdb_telemetrycontroller_agentprofile.__name__, resp=response, mode=["std", "resp"])
+            else:
+                response = self._json_error(fnct=self.confdb_telemetrycontroller_agentprofile.__name__, msg=f"Login state is {self.loginstate}")
+        else:
+            response = self._json_error(fnct=self.confdb_telemetrycontroller_agentprofile.__name__, msg=f"Endpoint not supported in FortiManager ADOM version {str(self.db_ver)}")
+        return response
+    
+    def confdb_telemetrycontroller_predefinedapp(self, adom:str=None, name:str=None, method:str="get", option:str=None, data:dict=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_telemetrycontroller_predefinedapp\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/global/obj/telemetry-controller/application/predefine*
+            */pm/config/global/obj/telemetry-controller/application/predefine/{application}*
+            */pm/config/adom/{adom}/obj/telemetry-controller/application/predefine*
+            */pm/config/adom/{adom}/obj/telemetry-controller/application/predefine/{application}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *None*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone*
+        
+        Options:
+        --------\n
+            *count, scope member, datasrc, get reserved, syntax*
+
+        Fields:
+        -------\n
+            *app-name, comment*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_telemetrycontroller_predefinedapp(adom="ADOM Name", name="Application Name", method="HTTP Method", fields=[List Object], option="Option", data={Dictionary Object})
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                app-name	[...]
+                comment	[...]
+            }
+
+        """
+        compatible_versions = ["7.6"]
+        if self.db_ver in compatible_versions:
+            if self.loginstate == True:
+                if adom is not None:
+                    if name is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/obj/telemetry-controller/application/predefine/{name}", session=self.session_id, verbose=1, data=data, option=option)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/obj/telemetry-controller/application/predefine", session=self.session_id, verbose=1, data=data, option=option)
+                else:
+                    if name is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/global/obj/telemetry-controller/application/predefine/{name}", session=self.session_id, verbose=1, data=data, option=option)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/global/obj/telemetry-controller/application/predefine", session=self.session_id, verbose=1, data=data, option=option)
+                response = self._request()
+                if self.debug == True:
+                    self._debugger(fnct=self.confdb_telemetrycontroller_predefinedapp.__name__, resp=response, mode=["std", "resp"])
+            else:
+                response = self._json_error(fnct=self.confdb_telemetrycontroller_predefinedapp.__name__, msg=f"Login state is {self.loginstate}")
+        else:
+            response = self._json_error(fnct=self.confdb_telemetrycontroller_predefinedapp.__name__, msg=f"Endpoint not supported in FortiManager ADOM version {str(self.db_ver)}")
+        return response
+    
+    def confdb_telemetrycontroller_profile(self, adom:str=None, name:str=None, method:str="get", option:str=None, data:dict=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_telemetrycontroller_profile\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/global/obj/telemetry-controller/profile*
+            */pm/config/global/obj/telemetry-controller/profile/{profile}*
+            */pm/config/adom/{adom}/obj/telemetry-controller/profile*
+            */pm/config/adom/{adom}/obj/telemetry-controller/profile/{profile}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *None*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone*
+        
+        Options:
+        --------\n
+            *count, scope member, datasrc, get reserved, syntax*
+
+        Fields:
+        -------\n
+            *comment, name*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_telemetrycontroller_profile(adom="ADOM Name", name="Profile Name", method="HTTP Method", fields=[List Object], option="Option", data={Dictionary Object})
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                application	[{
+                    app-name	[[...]]
+                    id	[...]
+                    interval	[...]
+                    monitor	[...]
+                    sla	{
+                        app-throughput-threshold	[...]
+                        atdt-threshold	[...]
+                        dns-time-threshold	[...]
+                        experience-score-threshold	[...]
+                        failure-rate-threshold	[...]
+                        jitter-threshold	[...]
+                        latency-threshold	[...]
+                        packet-loss-threshold	[...]
+                        sla-factor	[...]
+                        tcp-rtt-threshold	[...]
+                        tls-time-threshold	[...]
+                        ttfb-threshold	[...]
+                    }
+                }]
+                comment	[...]
+                name	[...]
+            }
+
+        """
+        compatible_versions = ["7.6"]
+        if self.db_ver in compatible_versions:
+            if self.loginstate == True:
+                if adom is not None:
+                    if name is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/obj/telemetry-controller/profile/{name}", session=self.session_id, verbose=1, data=data, option=option)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/obj/telemetry-controller/profile", session=self.session_id, verbose=1, data=data, option=option)
+                else:
+                    if name is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/global/obj/telemetry-controller/profile/{name}", session=self.session_id, verbose=1, data=data, option=option)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/global/obj/telemetry-controller/profile", session=self.session_id, verbose=1, data=data, option=option)
+                response = self._request()
+                if self.debug == True:
+                    self._debugger(fnct=self.confdb_telemetrycontroller_profile.__name__, resp=response, mode=["std", "resp"])
+            else:
+                response = self._json_error(fnct=self.confdb_telemetrycontroller_profile.__name__, msg=f"Login state is {self.loginstate}")
+        else:
+            response = self._json_error(fnct=self.confdb_telemetrycontroller_profile.__name__, msg=f"Endpoint not supported in FortiManager ADOM version {str(self.db_ver)}")
+        return response
+    
+    def confdb_vpn_ipsec_manualkey(self, adom:str=None, name:str=None, method:str="get", option:str=None, data:dict=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_vpn_ipsec_manualkey\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/global/obj/vpn/ipsec/manualkey*
+            */pm/config/global/obj/vpn/ipsec/manualkey/{tunnel}*
+            */pm/config/adom/{adom}/obj/vpn/ipsec/manualkey*
+            */pm/config/adom/{adom}/obj/vpn/ipsec/manualkey/{tunnel}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *None*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone*
+        
+        Options:
+        --------\n
+            *count, scope member, datasrc, get reserved, syntax*
+
+        Fields:
+        -------\n
+            *authentication, authkey, enckey, encryption, interface, local-gw, localspi, name, npu-offload, remote-gw, remotespi*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_vpn_ipsec_manualkey(adom="ADOM Name", name="Tunnel Name", method="HTTP Method", fields=[List Object], option="Option", data={Dictionary Object})
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                authentication	[...]
+                authkey	[[...]]
+                enckey	[[...]]
+                encryption	[...]
+                interface	[[...]]
+                local-gw	[...]
+                localspi	[...]
+                name	[...]
+                npu-offload	[...]
+                remote-gw	[...]
+                remotespi	[...]
+            }
+
+        """
+        compatible_versions = ["7.6"]
+        if self.db_ver in compatible_versions:
+            if self.loginstate == True:
+                if adom is not None:
+                    if name is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/obj/vpn/ipsec/manualkey/{name}", session=self.session_id, verbose=1, data=data, option=option)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/obj/vpn/ipsec/manualkey", session=self.session_id, verbose=1, data=data, option=option)
+                else:
+                    if name is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/global/obj/vpn/ipsec/manualkey/{name}", session=self.session_id, verbose=1, data=data, option=option)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/global/obj/vpn/ipsec/manualkey", session=self.session_id, verbose=1, data=data, option=option)
+                response = self._request()
+                if self.debug == True:
+                    self._debugger(fnct=self.confdb_vpn_ipsec_manualkey.__name__, resp=response, mode=["std", "resp"])
+            else:
+                response = self._json_error(fnct=self.confdb_vpn_ipsec_manualkey.__name__, msg=f"Login state is {self.loginstate}")
+        else:
+            response = self._json_error(fnct=self.confdb_vpn_ipsec_manualkey.__name__, msg=f"Endpoint not supported in FortiManager ADOM version {str(self.db_ver)}")
+        return response
+    
+    def confdb_vpn_ipsec_phase1(self, adom:str=None, name:str=None, method:str="get", option:str=None, data:dict=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_vpn_ipsec_phase1\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/global/obj/vpn/ipsec/phase1*
+            */pm/config/global/obj/vpn/ipsec/phase1/{gateway}*
+            */pm/config/adom/{adom}/obj/vpn/ipsec/phase1*
+            */pm/config/adom/{adom}/obj/vpn/ipsec/phase1/{gateway}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *None*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone*
+        
+        Options:
+        --------\n
+            *count, scope member, datasrc, get reserved, syntax*
+
+        Fields:
+        -------\n
+            *acct-verify, add-gw-route, add-route, addke1, addke2, addke3, addke4, addke5, addke6, addke7, assign-ip, assign-ip-from, authmethod, authmethod-remote, authpasswd, authusr, authusrgrp, auto-negotiate, auto-transport-threshold, azure-ad-autoconnect, backup-gateway, banner, cert-id-validation, cert-peer-username-strip, cert-peer-username-validation, cert-trust-store, certificate, childless-ike, client-auto-negotiate, client-keep-alive, client-resume, client-resume-interval, comments, dev-id, dev-id-notification, dhcp-ra-giaddr, dhcp6-ra-linkaddr, dhgrp, digital-signature-auth, distance, dns-mode, dns-suffix-search, domain, dpd, dpd-retrycount, dpd-retryinterval, eap, eap-cert-auth, eap-exclude-peergrp, eap-identity, ems-sn-check, enforce-unique-id, esn, exchange-fgt-device-id, fec-base, fec-codec, fec-egress, fec-health-check, fec-ingress, fec-mapping-profile, fec-receive-timeout, fec-redundant, fec-send-timeout, fgsp-sync, fortinet-esp, fragmentation, fragmentation-mtu, group-authentication, group-authentication-secret, ha-sync-esp-seqno, idle-timeout, idle-timeoutinterval, ike-version, inbound-dscp-copy, include-local-lan, interface, internal-domain-list, ip-delay-interval, ipv4-dns-server1, ipv4-dns-server2, ipv4-dns-server3, ipv4-end-ip, ipv4-name, ipv4-netmask, ipv4-split-exclude, ipv4-split-include, ipv4-start-ip, ipv4-wins-server1, ipv4-wins-server2, ipv6-auto-linklocal, ipv6-dns-server1, ipv6-dns-server2, ipv6-dns-server3, ipv6-end-ip, ipv6-name, ipv6-prefix, ipv6-split-exclude, ipv6-split-include, ipv6-start-ip, keepalive, keylife, kms, link-cost, local-gw, localid, localid-type, loopback-asymroute, mesh-selector-type, mode, mode-cfg, mode-cfg-allow-client-selector, name, nattraversal, negotiate-timeout, network-id, network-overlay, npu-offload, peer, peergrp, peerid, peertype, ppk, ppk-identity, ppk-secret, priority, proposal, psksecret, psksecret-remote, qkd, qkd-hybrid, qkd-profile, reauth, rekey, remote-gw, remote-gw-country, remote-gw-end-ip, remote-gw-match, remote-gw-start-ip, remote-gw-subnet, remote-gw-ztna-tags, remote-gw6-country, remote-gw6-end-ip, remote-gw6-match, remote-gw6-start-ip, remote-gw6-subnet, remotegw-ddns, rsa-signature-format, rsa-signature-hash-override, save-password, send-cert-chain, shared-idle-timeout, signature-hash-alg, split-include-service, suite-b, transit-gateway, transport, type, unity-support, usrgrp, wizard-type, xauthtype*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_vpn_ipsec_phase1(adom="ADOM Name", name="Remote Gateway Name", method="HTTP Method", fields=[List Object], option="Option", data={Dictionary Object})
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                acct-verify	[...]
+                add-gw-route	[...]
+                add-route	[...]
+                addke1	[[...]]
+                addke2	[[...]]
+                addke3	[[...]]
+                addke4	[[...]]
+                addke5	[[...]]
+                addke6	[[...]]
+                addke7	[[...]]
+                assign-ip	[...]
+                assign-ip-from	[...]
+                authmethod	[...]
+                authmethod-remote	[...]
+                authpasswd	[[...]]
+                authusr	[...]
+                authusrgrp	[[...]]
+                auto-negotiate	[...]
+                auto-transport-threshold	[...]
+                azure-ad-autoconnect	[...]
+                backup-gateway	[[...]]
+                banner	[...]
+                cert-id-validation	[...]
+                cert-peer-username-strip	[...]
+                cert-peer-username-validation	[...]
+                cert-trust-store	[...]
+                certificate	[[...]]
+                childless-ike	[...]
+                client-auto-negotiate	[...]
+                client-keep-alive	[...]
+                client-resume	[...]
+                client-resume-interval	[...]
+                comments	[...]
+                dev-id	[...]
+                dev-id-notification	[...]
+                dhcp-ra-giaddr	[...]
+                dhcp6-ra-linkaddr	[...]
+                dhgrp	[[...]]
+                digital-signature-auth	[...]
+                distance	[...]
+                dns-mode	[...]
+                dns-suffix-search	[[...]]
+                domain	[...]
+                dpd	[...]
+                dpd-retrycount	[...]
+                dpd-retryinterval	[[...]]
+                eap	[...]
+                eap-cert-auth	[...]
+                eap-exclude-peergrp	[[...]]
+                eap-identity	[...]
+                ems-sn-check	[...]
+                enforce-unique-id	[...]
+                esn	[...]
+                exchange-fgt-device-id	[...]
+                fec-base	[...]
+                fec-codec	[...]
+                fec-egress	[...]
+                fec-health-check	[[...]]
+                fec-ingress	[...]
+                fec-mapping-profile	[[...]]
+                fec-receive-timeout	[...]
+                fec-redundant	[...]
+                fec-send-timeout	[...]
+                fgsp-sync	[...]
+                fortinet-esp	[...]
+                fragmentation	[...]
+                fragmentation-mtu	[...]
+                group-authentication	[...]
+                group-authentication-secret	[[...]]
+                ha-sync-esp-seqno	[...]
+                idle-timeout	[...]
+                idle-timeoutinterval	[...]
+                ike-version	[...]
+                inbound-dscp-copy	[...]
+                include-local-lan	[...]
+                interface	[[...]]
+                internal-domain-list	[[...]]
+                ip-delay-interval	[...]
+                ipv4-dns-server1	[...]
+                ipv4-dns-server2	[...]
+                ipv4-dns-server3	[...]
+                ipv4-end-ip	[...]
+                ipv4-exclude-range	[{
+                    end-ip	[...]
+                    id	[...]
+                    start-ip	[...]
+                }]
+                ipv4-name	[[...]]
+                ipv4-netmask	[...]
+                ipv4-split-exclude	[[...]]
+                ipv4-split-include	[[...]]
+                ipv4-start-ip	[...]
+                ipv4-wins-server1	[...]
+                ipv4-wins-server2	[...]
+                ipv6-auto-linklocal	[...]
+                ipv6-dns-server1	[...]
+                ipv6-dns-server2	[...]
+                ipv6-dns-server3	[...]
+                ipv6-end-ip	[...]
+                ipv6-exclude-range	[{
+                    end-ip	[...]
+                    id	[...]
+                    start-ip	[...]
+                }]
+                ipv6-name	[[...]]
+                ipv6-prefix	[...]
+                ipv6-split-exclude	[[...]]
+                ipv6-split-include	[[...]]
+                ipv6-start-ip	[...]
+                keepalive	[...]
+                keylife	[...]
+                kms	[[...]]
+                link-cost	[...]
+                local-gw	[...]
+                localid	[...]
+                localid-type	[...]
+                loopback-asymroute	[...]
+                mesh-selector-type	[...]
+                mode	[...]
+                mode-cfg	[...]
+                mode-cfg-allow-client-selector	[...]
+                name	[...]
+                nattraversal	[...]
+                negotiate-timeout	[...]
+                network-id	[...]
+                network-overlay	[...]
+                npu-offload	[...]
+                peer	[[...]]
+                peergrp	[[...]]
+                peerid	[...]
+                peertype	[...]
+                ppk	[...]
+                ppk-identity	[...]
+                ppk-secret	[[...]]
+                priority	[...]
+                proposal	[...]
+                psksecret	[[...]]
+                psksecret-remote	[[...]]
+                qkd	[...]
+                qkd-hybrid	[...]
+                qkd-profile	[[...]]
+                reauth	[...]
+                rekey	[...]
+                remote-gw	[...]
+                remote-gw-country	[...]
+                remote-gw-end-ip	[...]
+                remote-gw-match	[...]
+                remote-gw-start-ip	[...]
+                remote-gw-subnet	[[...]]
+                remote-gw-ztna-tags	[[...]]
+                remote-gw6-country	[...]
+                remote-gw6-end-ip	[...]
+                remote-gw6-match	[...]
+                remote-gw6-start-ip	[...]
+                remote-gw6-subnet	[...]
+                remotegw-ddns	[...]
+                rsa-signature-format	[...]
+                rsa-signature-hash-override	[...]
+                save-password	[...]
+                send-cert-chain	[...]
+                shared-idle-timeout	[...]
+                signature-hash-alg	[[...]]
+                split-include-service	[[...]]
+                suite-b	[...]
+                transit-gateway	[...]
+                transport	[...]
+                type	[...]
+                unity-support	[...]
+                usrgrp	[[...]]
+                wizard-type	[...]
+                xauthtype	[...]
+            }
+
+        """
+        compatible_versions = ["7.6"]
+        if self.db_ver in compatible_versions:
+            if self.loginstate == True:
+                if adom is not None:
+                    if name is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/obj/vpn/ipsec/phase1/{name}", session=self.session_id, verbose=1, data=data, option=option)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/obj/vpn/ipsec/phase1", session=self.session_id, verbose=1, data=data, option=option)
+                else:
+                    if name is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/global/obj/vpn/ipsec/phase1/{name}", session=self.session_id, verbose=1, data=data, option=option)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/global/obj/vpn/ipsec/phase1", session=self.session_id, verbose=1, data=data, option=option)
+                response = self._request()
+                if self.debug == True:
+                    self._debugger(fnct=self.confdb_vpn_ipsec_phase1.__name__, resp=response, mode=["std", "resp"])
+            else:
+                response = self._json_error(fnct=self.confdb_vpn_ipsec_phase1.__name__, msg=f"Login state is {self.loginstate}")
+        else:
+            response = self._json_error(fnct=self.confdb_vpn_ipsec_phase1.__name__, msg=f"Endpoint not supported in FortiManager ADOM version {str(self.db_ver)}")
+        return response
+    
+    def confdb_vpn_ipsec_kmipserver(self, adom:str=None, name:str=None, method:str="get", option:str=None, data:dict=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_vpn_ipsec_kmipserver\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/global/obj/vpn/ipsec/kmip-server*
+            */pm/config/global/obj/vpn/ipsec/kmip-server/{server}*
+            */pm/config/adom/{adom}/obj/vpn/ipsec/kmip-server*
+            */pm/config/adom/{adom}/obj/vpn/ipsec/kmip-server/{server}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *None*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone*
+        
+        Options:
+        --------\n
+            *count, scope member, datasrc, get reserved, syntax*
+
+        Fields:
+        -------\n
+            *interface, interface-select-method, name, password, server-identity-check, source-ip, ssl-min-proto-version, username, vrf-select*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_vpn_ipsec_kmipserver(adom="ADOM Name", name="Server Name", method="HTTP Method", fields=[List Object], option="Option", data={Dictionary Object})
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                interface	[[...]]
+                interface-select-method	[...]
+                name	[...]
+                password	[[...]]
+                server-identity-check	[...]
+                server-list	[{
+                    cert	[[...]]
+                    id	[...]
+                    port	[...]
+                    server	[...]
+                    status	[...]
+                }]
+                source-ip	[...]
+                ssl-min-proto-version	[...]
+                username	[...]
+                vrf-select	[...]
+            }
+
+        """
+        compatible_versions = ["7.6"]
+        if self.db_ver in compatible_versions:
+            if self.loginstate == True:
+                if adom is not None:
+                    if name is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/obj/vpn/ipsec/kmip-server/{name}", session=self.session_id, verbose=1, data=data, option=option)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/obj/vpn/ipsec/kmip-server", session=self.session_id, verbose=1, data=data, option=option)
+                else:
+                    if name is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/global/obj/vpn/ipsec/kmip-server/{name}", session=self.session_id, verbose=1, data=data, option=option)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/global/obj/vpn/ipsec/kmip-server", session=self.session_id, verbose=1, data=data, option=option)
+                response = self._request()
+                if self.debug == True:
+                    self._debugger(fnct=self.confdb_vpn_ipsec_kmipserver.__name__, resp=response, mode=["std", "resp"])
+            else:
+                response = self._json_error(fnct=self.confdb_vpn_ipsec_kmipserver.__name__, msg=f"Login state is {self.loginstate}")
+        else:
+            response = self._json_error(fnct=self.confdb_vpn_ipsec_kmipserver.__name__, msg=f"Endpoint not supported in FortiManager ADOM version {str(self.db_ver)}")
+        return response
+    
+    def confdb_vpn_qkd(self, adom:str=None, name:str=None, method:str="get", option:str=None, data:dict=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_vpn_qkd\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/global/obj/vpn/qkd*
+            */pm/config/global/obj/vpn/qkd/{qkd}*
+            */pm/config/adom/{adom}/obj/vpn/qkd*
+            */pm/config/adom/{adom}/obj/vpn/qkd/{qkd}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *None*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone*
+        
+        Options:
+        --------\n
+            *count, scope member, datasrc, get reserved, syntax*
+
+        Fields:
+        -------\n
+            *certificate, comment, id, name, peer, port, server*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_vpn_qkd(adom="ADOM Name", name="QKD Config Name", method="HTTP Method", fields=[List Object], option="Option", data={Dictionary Object})
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                certificate	[[...]]
+                comment	[...]
+                id	[...]
+                name	[...]
+                peer	[[...]]
+                port	[...]
+                server	[...]
+            }
+
+        """
+        compatible_versions = ["7.6"]
+        if self.db_ver in compatible_versions:
+            if self.loginstate == True:
+                if adom is not None:
+                    if name is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/obj/vpn/qkd/{name}", session=self.session_id, verbose=1, data=data, option=option)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/obj/vpn/qkd", session=self.session_id, verbose=1, data=data, option=option)
+                else:
+                    if name is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/global/obj/vpn/qkd/{name}", session=self.session_id, verbose=1, data=data, option=option)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/global/obj/vpn/qkd", session=self.session_id, verbose=1, data=data, option=option)
+                response = self._request()
+                if self.debug == True:
+                    self._debugger(fnct=self.confdb_vpn_qkd.__name__, resp=response, mode=["std", "resp"])
+            else:
+                response = self._json_error(fnct=self.confdb_vpn_qkd.__name__, msg=f"Login state is {self.loginstate}")
+        else:
+            response = self._json_error(fnct=self.confdb_vpn_qkd.__name__, msg=f"Endpoint not supported in FortiManager ADOM version {str(self.db_ver)}")
+        return response
+    
+    def confdb_webproxy_isolatorserver(self, adom:str=None, name:str=None, method:str="get", option:str=None, data:dict=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_webproxy_isolatorserver\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/global/obj/web-proxy/isolator-server*
+            */pm/config/global/obj/web-proxy/isolator-server/{server}*
+            */pm/config/adom/{adom}/obj/web-proxy/isolator-server*
+            */pm/config/adom/{adom}/obj/web-proxy/isolator-server/{server}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *None*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone*
+        
+        Options:
+        --------\n
+            *count, scope member, datasrc, get reserved, syntax*
+
+        Fields:
+        -------\n
+            *addr-type, comment, fqdn, interface, interface-select-method, ip, ipv6, masquerade, name, port, vrf-select*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_webproxy_isolatorserver(adom="ADOM Name", name="Server Name", method="HTTP Method", fields=[List Object], option="Option", data={Dictionary Object})
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                addr-type	[...]
+                comment	[...]
+                fqdn	[...]
+                interface	[[...]]
+                interface-select-method	[...]
+                ip	[...]
+                ipv6	[...]
+                masquerade	[...]
+                name	[...]
+                port	[...]
+                vrf-select	[...]
+            }
+
+        """
+        compatible_versions = ["7.6"]
+        if self.db_ver in compatible_versions:
+            if self.loginstate == True:
+                if adom is not None:
+                    if name is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/obj/web-proxy/isolator-server/{name}", session=self.session_id, verbose=1, data=data, option=option)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/obj/web-proxy/isolator-server", session=self.session_id, verbose=1, data=data, option=option)
+                else:
+                    if name is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/global/obj/web-proxy/isolator-server/{name}", session=self.session_id, verbose=1, data=data, option=option)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/global/obj/web-proxy/isolator-server", session=self.session_id, verbose=1, data=data, option=option)
+                response = self._request()
+                if self.debug == True:
+                    self._debugger(fnct=self.confdb_webproxy_isolatorserver.__name__, resp=response, mode=["std", "resp"])
+            else:
+                response = self._json_error(fnct=self.confdb_webproxy_isolatorserver.__name__, msg=f"Login state is {self.loginstate}")
+        else:
+            response = self._json_error(fnct=self.confdb_webproxy_isolatorserver.__name__, msg=f"Endpoint not supported in FortiManager ADOM version {str(self.db_ver)}")
+        return response
+    
+    def confdb_fmg_script(self, adom:str=None, name:str=None, method:str="get", option:str=None, data:dict=None):
+        """
+        bcfortiapi.fmg.fmgapi.confdb_fmg_script\n
+
+        API Endpoints:
+        --------------\n
+            */pm/config/global/obj/fmg/script*
+            */pm/config/global/obj/fmg/script/{script}*
+            */pm/config/adom/{adom}/obj/fmg/script*
+            */pm/config/adom/{adom}/obj/fmg/script/{script}*
+        
+        Mandatory Parameters:
+        ---------------------\n
+            *None*
+        
+        HTTP Methods:
+        -------------\n
+            *get, add, set, update, delete, clone*
+        
+        Options:
+        --------\n
+            *count, scope member, datasrc, get reserved, syntax*
+
+        Fields:
+        -------\n
+            *content, desc, filter_build, filter_device, filter_hostname, filter_ostype, filter_osver, filter_platform, filter_serial, member, name, target, type*
+
+        Examples:
+        ---------\n
+        >>> init_variable.confdb_fmg_script(adom="ADOM Name", name="Script Name", method="HTTP Method", fields=[List Object], option="Option", data={Dictionary Object})
+
+        Data Structure:
+        ---------------\n
+        >>> data = {
+                content	[...]
+                desc	[...]
+                filter_build	[...]
+                filter_device	[...]
+                filter_hostname	[...]
+                filter_ostype	[...]
+                filter_osver	[...]
+                filter_platform	[...]
+                filter_serial	[...]
+                member	[[...]]
+                name	[...]
+                schedule	[{
+                    datetime	[...]
+                    day-of-week	[...]
+                    device	[...]
+                    run-on-db	[...]
+                    timestamp	[...]
+                    type	[...]
+                    user	[...]
+                }]
+                target	[...]
+                type	[...]
+            }
+
+        """
+        compatible_versions = ["7.6"]
+        if self.db_ver in compatible_versions:
+            if self.loginstate == True:
+                if adom is not None:
+                    if name is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/obj/fmg/script/{name}", session=self.session_id, verbose=1, data=data, option=option)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/obj/fmg/script", session=self.session_id, verbose=1, data=data, option=option)
+                else:
+                    if name is not None:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/global/obj/fmg/script/{name}", session=self.session_id, verbose=1, data=data, option=option)
+                    else:
+                        self._payload_builder(method=method, endpoint=f"/pm/config/global/obj/fmg/script", session=self.session_id, verbose=1, data=data, option=option)
+                response = self._request()
+                if self.debug == True:
+                    self._debugger(fnct=self.confdb_fmg_script.__name__, resp=response, mode=["std", "resp"])
+            else:
+                response = self._json_error(fnct=self.confdb_fmg_script.__name__, msg=f"Login state is {self.loginstate}")
+        else:
+            response = self._json_error(fnct=self.confdb_fmg_script.__name__, msg=f"Endpoint not supported in FortiManager ADOM version {str(self.db_ver)}")
         return response

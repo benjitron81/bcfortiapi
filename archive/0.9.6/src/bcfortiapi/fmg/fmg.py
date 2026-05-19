@@ -1,7 +1,7 @@
 #bcfortiapi.fmg
 #API library for Fortinet FortiManager
 #Created by Benjamin Court 06-01-2026
-#Last Updated: 19-05-2026
+#Last Updated: 01-03-2026
 
 """
 bcfortiapi.fmg\n
@@ -109,7 +109,7 @@ class fmgapi:
             except:
                 return content
 
-    def _payload_builder(self, method:str=None, endpoint:str=None, data=None, session:str=None, verbose:int=None, fields:list=[], option:str=None):
+    def _payload_builder(self, method:str=None, endpoint:str=None, data:dict=None, session:str=None, verbose:int=None, fields:list=[], option:str=None):
         self.payload = {
             "id": 1,
             "method": method,
@@ -1506,7 +1506,7 @@ class fmgapi:
     #---------- Database Module Functions ----------
     #-----------------------------------------------
 
-    def dvmdb_device(self, adom:str=None, device:str=None, method:str="get", data:dict=None):
+    def dvmdb_device(self, adom:str=None, method:str="get", data:dict=None):
         """
         bcfortiapi.fmg.fmgapi.dvmdb_device\n
 
@@ -1514,8 +1514,6 @@ class fmgapi:
         --------------\n
             */dvmdb/device*
             */dvmdb/adom/{adom}/device*
-            */dvmdb/device/{device}*
-            */dvmdb/adom/{adom}/device/{device}*
         
         Mandatory Parameters:
         ---------------------\n
@@ -1527,7 +1525,7 @@ class fmgapi:
         
         Examples:
         ---------\n
-        >>> init_variable.dvmdb_device(adom="ADOM Name", device="Device Name", method="HTTP Method", data={Dictionary Object})
+        >>> init_variable.dvmdb_device(adom="ADOM Name", method="HTTP Method", data={Dictionary Object})
 
         Data Structure (7.6):
         ---------------------\n
@@ -1729,118 +1727,14 @@ class fmgapi:
         """
         if self.loginstate == True:
             if adom is not None:
-                if device is not None:
-                    self._payload_builder(method=method, endpoint=f"/dvmdb/adom/{adom}/device/{device}", session=self.session_id, verbose=1, data=data)
-                else:
-                    self._payload_builder(method=method, endpoint=f"/dvmdb/adom/{adom}/device", session=self.session_id, verbose=1, data=data)
+                self._payload_builder(method=method, endpoint=f"/dvmdb/adom/{adom}/device", session=self.session_id, verbose=1, data=data)
             else:
-                if device is not None:
-                    self._payload_builder(method=method, endpoint=f"/dvmdb/device/{device}", session=self.session_id, verbose=1, data=data)
-                else:
-                    self._payload_builder(method=method, endpoint="/dvmdb/device", session=self.session_id, verbose=1, data=data)
+                self._payload_builder(method=method, endpoint="/dvmdb/device", session=self.session_id, verbose=1, data=data)
             response = self._request()
             if self.debug == True:
                 self._debugger(fnct=self.dvmdb_device.__name__, resp=response, mode=["std", "resp"])
         else:
             response = self._json_error(fnct=self.dvmdb_device.__name__, msg=f"Login state is {self.loginstate}")
-        return response
-    
-    def dvmdb_group(self, adom:str=None, group:str=None, method:str="get", data:dict=None):
-        """
-        bcfortiapi.fmg.fmgapi.dvmdb_group\n
-
-        API Endpoints:
-        --------------\n
-            */dvmdb/group*
-            */dvmdb/adom/{adom}/group*
-            */dvmdb/group/{group}*
-            */dvmdb/adom/{adom}/group/{group}*
-        
-        Mandatory Parameters:
-        ---------------------\n
-            *None*
-        
-        HTTP Methods:
-        -------------\n
-            *get, set, add, update, delete*
-        
-        Examples:
-        ---------\n
-        >>> init_variable.dvmdb_group(adom="ADOM Name", group="Group Name", method="HTTP Method", data={Dictionary Object})
-
-        Data Structure:
-        ---------------\n
-        >>> data = {
-                cluster_type	[...]
-                desc	[...]
-                id	[...]
-                meta fields	{...}
-                name	[...]
-                os_type	[...]
-                type	[...]
-            }
-
-        """
-        if self.loginstate == True:
-            if adom is not None:
-                if group is not None:
-                    self._payload_builder(method=method, endpoint=f"/dvmdb/adom/{adom}/group/{group}", session=self.session_id, verbose=1, data=data)
-                else:
-                    self._payload_builder(method=method, endpoint=f"/dvmdb/adom/{adom}/group", session=self.session_id, verbose=1, data=data)
-            else:
-                if device is not None:
-                    self._payload_builder(method=method, endpoint=f"/dvmdb/group/{group}", session=self.session_id, verbose=1, data=data)
-                else:
-                    self._payload_builder(method=method, endpoint="/dvmdb/group", session=self.session_id, verbose=1, data=data)
-            response = self._request()
-            if self.debug == True:
-                self._debugger(fnct=self.dvmdb_group.__name__, resp=response, mode=["std", "resp"])
-        else:
-            response = self._json_error(fnct=self.dvmdb_group.__name__, msg=f"Login state is {self.loginstate}")
-        return response
-    
-    def dvmdb_group_member(self, adom:str=None, group:str=None, method:str="get", data:list=None):
-        """
-        bcfortiapi.fmg.fmgapi.dvmdb_group_member\n
-
-        API Endpoints:
-        --------------\n
-            */dvmdb/group/{group}/object member*
-            */dvmdb/adom/{adom}/group/{group}/object member*
-        
-        Mandatory Parameters:
-        ---------------------\n
-            *group*
-        
-        HTTP Methods:
-        -------------\n
-            *set, add, update, delete*
-        
-        Examples:
-        ---------\n
-        >>> init_variable.dvmdb_group_member(adom="ADOM Name", group="Group Name", method="HTTP Method", data=[List Object])
-
-        Data Structure:
-        ---------------\n
-        >>> data = [{
-                name	[...]
-                vdom	[...]
-            }]
-
-        """
-        if self.loginstate == True:
-            if group is not None:
-                if adom is not None:
-                    self._payload_builder(method=method, endpoint=f"/dvmdb/adom/{adom}/group/{group}/object member", session=self.session_id, verbose=1, data=data)
-                else:
-                    self._payload_builder(method=method, endpoint=f"/dvmdb/group/{group}/object member", session=self.session_id, verbose=1, data=data)
-                response = self._request()
-                if self.debug == True:
-                    self._debugger(fnct=self.dvmdb_group_member.__name__, resp=response, mode=["std", "resp"])
-            else:
-                response = self._json_error(fnct=self.dvmdb_group_member.__name__, msg=f"Group name is {group}")
-        else:
-            response = self._json_error(fnct=self.dvmdb_group_member.__name__, msg=f"Login state is {self.loginstate}")
         return response
     
     def dvmdb_device_replace(self, adom:str=None, device:str=None, new_serial:str=None):

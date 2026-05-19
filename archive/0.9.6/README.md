@@ -5,8 +5,8 @@ A Python library for interacting with the Fortinet FortiGate and FortiManager AP
 ## Current Status
 
 - Status: Beta
-- Latest Release: 0.9.7
-- Release Date: 19-05-2026
+- Latest Release: 0.9.6
+- Release Date: 22-03-2026
 
 ## Dependencies
 
@@ -105,11 +105,6 @@ response_variable = init_variable.dvmdb_device(adom="ADOM name", method="get")
 init_variable.logout()
 ```
 
-## Change Log 0.9.7
-
-- 19-05-2026: Added support for device group management to bcfortiapi.fmgapi
-- 19-05-2026: Updated bcfortiapi.fmgapi.dvmdb_device function to support specifying device name in query
-
 ## Change Log 0.9.6
 
 - 22-03-2026: Added support to bcfortiapi.fmgapi for FortiManager 7.6 API endpoints
@@ -122,7 +117,7 @@ init_variable.logout()
 
 ## Change Log 0.9.4
 
-- 15-02-2026: Added JSON validity check to API responses, library now returns a Python dictionary for valid JSON responses or the raw response content for non-JSON responses (such as configuration backups)
+- 15-02-2026: Added JSON validity check to API responses, library now returns a Python dictionary for valid JSON responses or the raw response content for non-JSON responses
 - 15-02-2026: Added bcfortiapi_test.py test program, available in source code under /tests
 - 15-02-2026: Updated README.md
 

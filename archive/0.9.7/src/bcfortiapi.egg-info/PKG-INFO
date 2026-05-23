@@ -1,3 +1,25 @@
+Metadata-Version: 2.4
+Name: bcfortiapi
+Version: 0.9.6
+Summary: A Python library for interacting with the Fortinet FortiGate and FortiManager APIs
+Author-email: Benjamin Court <bmcitconsulting@gmail.com>
+Maintainer-email: Benjamin Court <bmcitconsulting@gmail.com>
+License-Expression: MIT
+Project-URL: Homepage, https://github.com/benjitron81/bcfortiapi
+Project-URL: Issues, https://github.com/benjitron81/bcfortiapi/issues
+Keywords: fortinet,fortigate,fgt,fortimanager,fmg,api
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: urllib3>=2.2.1
+Requires-Dist: requests>=2.32.3
+Dynamic: license-file
+
 # bcfortiapi
 
 A Python library for interacting with the Fortinet FortiGate and FortiManager APIs
@@ -5,8 +27,8 @@ A Python library for interacting with the Fortinet FortiGate and FortiManager AP
 ## Current Status
 
 - Status: Beta
-- Latest Release: 0.9.8
-- Release Date: 23-05-2026
+- Latest Release: 0.9.6
+- Release Date: 22-03-2026
 
 ## Dependencies
 
@@ -25,27 +47,25 @@ To initialise the library within your project add the following:
 ```
 import bcfortiapi
 
-init_variable = bcfortiapi.fgtapi(fortigate="FGT IP or FQDN", port="FGT HTTPS Admin Port", authtoken="FGT API Token", version="FortiOS Version (M.m)", debug=True/False, logfile="Full path and filename for log file")
+init_variable = bcfortiapi.fgtapi(fortigate="FGT IP or FQDN", port="FGT HTTPS Admin Port", authtoken="FGT API Token", version="FortiOS Version (M.m)", debug=True/False)
 ```
 - fortigate (str) = IP address or FQDN of the target FortiGate
 - port (str) = HTTPS admin port number of the target FortiGate
 - authtoken (str) = FortiGate API administrator token (if using basic authentication, leave this field blank and use the *login* and *logout* functions instead)
 - version (str) = Major and minor FortiOS version of the target FortiGate (eg. 7.4)
 - debug (bool) = Console debug output enabled
-- logfile (str) = Full path and filename for log file (ie. c:\example directory\logfile.txt), if not provided file logging of debug output is disabled, requires console debug to be enabled
 
 **FortiManager**
 
 ```
 import bcfortiapi
 
-init_variable = bcfortiapi.fmgapi(server="FMG IP or FQDN", port="FMG HTTPS Admin Port", version="Configuration Database Version (M.m)", debug=True/False, logfile="Full path and filename for log file")
+init_variable = bcfortiapi.fmgapi(server="FMG IP or FQDN", port="FMG HTTPS Admin Port", version="Configuration Database Version (M.m)", debug=True/False)
 ```
 - server (str) = IP address or FQDN of the target FortiManager
 - port (str) = HTTPS admin port number of the target FortiManager
 - version (str) = Major and minor configuration database version of the target FortiManager (eg. 7.4)
 - debug (bool) = Console debug output enabled
-- logfile (str) = Full path and filename for log file (ie. c:\example directory\logfile.txt), if not provided file logging of debug output is disabled, requires console debug to be enabled
 
 **Tools**
 
@@ -107,15 +127,6 @@ response_variable = init_variable.dvmdb_device(adom="ADOM name", method="get")
 init_variable.logout()
 ```
 
-## Change Log 0.9.8
-
-- 23-05-2026: Added function to bcfortiapi.fgtapi and bcfortiapi.fmgapi to write debug output to a text file (filename and path specified when initialising module, requires debug mode to be enabled)
-
-## Change Log 0.9.7
-
-- 19-05-2026: Added support for device group management to bcfortiapi.fmgapi
-- 19-05-2026: Updated bcfortiapi.fmgapi.dvmdb_device function to support specifying device name in query
-
 ## Change Log 0.9.6
 
 - 22-03-2026: Added support to bcfortiapi.fmgapi for FortiManager 7.6 API endpoints
@@ -128,7 +139,7 @@ init_variable.logout()
 
 ## Change Log 0.9.4
 
-- 15-02-2026: Added JSON validity check to API responses, library now returns a Python dictionary for valid JSON responses or the raw response content for non-JSON responses (such as configuration backups)
+- 15-02-2026: Added JSON validity check to API responses, library now returns a Python dictionary for valid JSON responses or the raw response content for non-JSON responses
 - 15-02-2026: Added bcfortiapi_test.py test program, available in source code under /tests
 - 15-02-2026: Updated README.md
 

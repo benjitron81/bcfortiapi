@@ -1,6 +1,6 @@
 #bcfortiapi Test Program
 #Created by Benjamin Court 15-02-2026
-#Last Updated: 15-02-2026
+#Last Updated: 23-05-2026
 
 #Description:
 #------------
@@ -23,12 +23,12 @@
 
 import bcfortiapi
 
-test_mode = "fmg" #Set to "fgt" for FortiGate or "fmg" for FortiManager
+test_mode = "fgt" #Set to "fgt" for FortiGate or "fmg" for FortiManager
 
 fgt_target_ip = "127.0.0.1"
 fgt_target_port = "443"
 token = ""
-fgt_db_version = ""
+fgt_db_version = "7.4"
 backup_file = "c:\\fgt_test_backup.conf"
 
 fmg_target_ip = "127.0.0.1"
@@ -39,10 +39,11 @@ passwd = ""
 fmg_db_version = "7.4"
 
 debug_enabled = True
+log_file = None
 
 def fortigate_test():
     #Initialise FortiManager API library
-    fgt = bcfortiapi.fgtapi(fortigate=fgt_target_ip, port=fgt_target_port, authtoken=token, version=fgt_db_version, debug=debug_enabled)
+    fgt = bcfortiapi.fgtapi(fortigate=fgt_target_ip, port=fgt_target_port, authtoken=token, version=fgt_db_version, debug=debug_enabled, logfile=log_file)
     
     #Login
     if token is None:
@@ -94,7 +95,7 @@ def fortigate_test():
 
 def fortimanager_test():
     #Initialise FortiManager API library
-    fmg = bcfortiapi.fmgapi(server=fmg_target_ip, port=fmg_target_port, debug=debug_enabled, version=fmg_db_version)
+    fmg = bcfortiapi.fmgapi(server=fmg_target_ip, port=fmg_target_port, debug=debug_enabled, version=fmg_db_version, logfile=log_file)
 
     #Login
     loginresponse = fmg.login(username=user, password=passwd)

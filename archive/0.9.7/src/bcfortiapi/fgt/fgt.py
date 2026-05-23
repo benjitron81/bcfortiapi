@@ -1,7 +1,7 @@
 #bcfortiapi.fgt
 #API library for Fortinet FortiGate
 #Created by Benjamin Court 14-01-2026
-#Last Updated: 23-05-2026
+#Last Updated: 15-02-2026
 
 """
 bcfortiapi.fgt\n
@@ -17,14 +17,13 @@ Examples:
 >>> import bcfortiapi
 
     *Initialise instance of fmgapi within script*
->>> init_variable = bcfortiapi.fgtapi(fortigate="FGT IP or FQDN", port="FGT HTTPS Admin Port", authtoken="FGT API Token", version="FortiOS Version (M.m)", debug=True/False, logfile="Full path and filename for log file")
+>>> init_variable = bcfortiapi.fgtapi(fortigate="FGT IP or FQDN", port="FGT HTTPS Admin Port", authtoken="FGT API Token", version="FortiOS Version (M.m)", debug=True/False)
 
 Notes:
 ------\n
     *If the API response content is JSON-formatted a Python dictionary object is returned, otherwise the raw response content is returned*
     *If authtoken is supplied when initialising the fgtapi class then fgtapi.login and fgtapi.logout functions are not required*
     *Basic auth no longer allows POST, PUT or DELETE operations in FortiOS 7.4 and later, use of a REST API administrator with token is required*
-    *Logging debug output to file requires console debug mode to be enabled*
 
 """
 
@@ -61,7 +60,7 @@ class fgtapi:
     #---------- Internal Functions ----------
     #----------------------------------------
 
-    def __init__(self, fortigate:str="127.0.0.1", port:str="443", authtoken:str=None, version:str="7.4", debug:bool=False, logfile:str=None):
+    def __init__(self, fortigate:str="127.0.0.1", port:str="443", authtoken:str=None, version:str="7.4", debug:bool=False):
         self.session = requests.Session()
         self.session.verify = False
         self.base_url = f"https://{fortigate}:{port}/"
@@ -72,40 +71,10 @@ class fgtapi:
             self.loginstate = False
         self.payload = None
         self.debug = debug
-        self.logfile = logfile
         self.authtoken = authtoken
         disable_warnings(exceptions.InsecureRequestWarning)
         if self.debug == True:
             self._debugger(fnct=self.__init__.__name__, mode=["std"])
-
-    def _logwriter(self, fnct=None, resp=None, mode:list=["std"]):
-        try:
-            with open(self.logfile, "a") as file:
-                if fnct is not None:
-                    file.write(f"*** bcfortiapi.fmg.fmgapi.{str(fnct)} Debug Output ***\n")
-                    file.write("---------------------------------------------------------------------------------\n")
-                else:
-                    file.write(f"*** bcfortiapi.fmg.fmgapi Debug Output ***\n")
-                    file.write("---------------------------------------------------------------------------------\n")
-                for i in range(len(mode)):
-                    if str(mode[i]) == "std":
-                        file.write(f"Session Verification: {str(self.session.verify)}\n")
-                        file.write(f"FMG Base URL: {str(self.base_url)}\n")
-                        file.write(f"FMG Configuration Database Version: {str(self.db_ver)}\n")
-                        file.write(f"Login State: {str(self.loginstate)}\n")
-                        file.write(f"Payload: {str(self.payload)}\n")
-                        file.write("\n")
-                    if (str(mode[i]) == "resp") and (resp is not None):
-                        file.write("JSON Response\n")
-                        file.write("\n")
-                        file.write(str(resp) + "\n")
-                        file.write("\n")
-            file.close()
-        except Exception as error:
-            if self.debug == True:
-                print("[bcfortiapi]: Log write error")
-                print(error)
-                print("")
 
     def _debugger(self, fnct=None, resp=None, mode:list=["std"]):
         if fnct is not None:
@@ -127,8 +96,6 @@ class fgtapi:
                 print("")
                 print(str(resp))
                 print("")
-        if self.logfile is not None:
-            self._logwriter(fnct=fnct, resp=resp, mode=mode)
 
     def _json_error(self, fnct=None, msg:str=None):
         err = {
@@ -139,8 +106,6 @@ class fgtapi:
         }
         err = json.dumps(err)
         err_json = json.loads(err)
-        if self.debug == True:
-            self._debugger(fnct=fnct, resp=err_json, mode=["std", "resp"])
         return err_json
 
     def _json_validity_check(self, content=None):

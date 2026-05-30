@@ -1,7 +1,7 @@
 #bcfortiapi.fgt
 #API library for Fortinet FortiGate
 #Created by Benjamin Court 14-01-2026
-#Last Updated: 30-05-2026
+#Last Updated: 23-05-2026
 
 """
 bcfortiapi.fgt\n
@@ -17,15 +17,7 @@ Examples:
 >>> import bcfortiapi
 
     *Initialise instance of fmgapi within script*
->>> init_variable = bcfortiapi.fgtapi(fortigate="FGT IP or FQDN", port="FGT HTTPS Admin Port", authtoken="FGT API Token", version="FortiOS Version (M.m)", debug=True/False, logfile="Full path and filename for log file", session_options={Dictionary of optional Requests session parameters})
-
-Session Options:
-----------------
->>> session_options = {
-        "session_verify": True/False/"Path to CA certificate file, bundle or directory" (default=False),
-        "local_cert": "Path to client certificate file",
-        "proxies": {Dictionary containing proxy servers}
-    }
+>>> init_variable = bcfortiapi.fgtapi(fortigate="FGT IP or FQDN", port="FGT HTTPS Admin Port", authtoken="FGT API Token", version="FortiOS Version (M.m)", debug=True/False, logfile="Full path and filename for log file")
 
 Notes:
 ------\n
@@ -69,8 +61,9 @@ class fgtapi:
     #---------- Internal Functions ----------
     #----------------------------------------
 
-    def __init__(self, fortigate:str="127.0.0.1", port:str="443", authtoken:str=None, version:str="7.4", debug:bool=False, logfile:str=None, session_options:dict=None):
+    def __init__(self, fortigate:str="127.0.0.1", port:str="443", authtoken:str=None, version:str="7.4", debug:bool=False, logfile:str=None):
         self.session = requests.Session()
+        self.session.verify = False
         self.base_url = f"https://{fortigate}:{port}/"
         self.db_ver = version
         if authtoken is not None:
@@ -81,21 +74,7 @@ class fgtapi:
         self.debug = debug
         self.logfile = logfile
         self.authtoken = authtoken
-        self.session_options = session_options
-        if self.session_options is not None:
-            for k, v in dict(self.session_options).items():
-                if k == "session_verify":
-                    self.session.verify = v
-                    if type(v) == bool:
-                        if v == False:
-                            disable_warnings(exceptions.InsecureRequestWarning)        
-                if k == "local_cert":
-                    self.session.cert = v
-                if k == "proxies":
-                    self.session.proxies.update(v)
-        else:
-            self.session.verify = False
-            disable_warnings(exceptions.InsecureRequestWarning)
+        disable_warnings(exceptions.InsecureRequestWarning)
         if self.debug == True:
             self._debugger(fnct=self.__init__.__name__, mode=["std"])
 
@@ -114,37 +93,13 @@ class fgtapi:
                         file.write(f"FMG Base URL: {str(self.base_url)}\n")
                         file.write(f"FMG Configuration Database Version: {str(self.db_ver)}\n")
                         file.write(f"Login State: {str(self.loginstate)}\n")
-                        if "'secretkey':" in str(self.payload):
-                            start_index = str(self.payload).find("'secretkey':")
-                            redact_start = start_index + 12
-                            end_index = str(self.payload).find("}", redact_start)
-                            if (start_index != -1) and (end_index != -1):
-                                redact_resp = str(str(str(self.payload)[:redact_start]) + "********" + str(str(self.payload)[end_index:]))
-                                file.write(f"Payload: {str(redact_resp)}\n")
-                                file.write("\n")
-                            else:
-                                file.write(f"Payload: {str(self.payload)}\n")
-                                file.write("\n")
-                        else:
-                            file.write(f"Payload: {str(self.payload)}\n")
-                            file.write("\n")
+                        file.write(f"Payload: {str(self.payload)}\n")
+                        file.write("\n")
                     if (str(mode[i]) == "resp") and (resp is not None):
                         file.write("JSON Response\n")
                         file.write("\n")
-                        if "'secretkey':" in str(resp):
-                            start_index = str(resp).find("'secretkey':")
-                            redact_start = start_index + 12
-                            end_index = str(resp).find("}", redact_start)
-                            if (start_index != -1) and (end_index != -1):
-                                redact_resp = str(str(resp[:redact_start]) + "********" + str(resp[end_index:]))
-                                file.write(str(redact_resp) + "\n")
-                                file.write("\n")
-                            else:
-                                file.write(str(resp) + "\n")
-                                file.write("\n")
-                        else:
-                            file.write(str(resp) + "\n")
-                            file.write("\n")
+                        file.write(str(resp) + "\n")
+                        file.write("\n")
             file.close()
         except Exception as error:
             if self.debug == True:

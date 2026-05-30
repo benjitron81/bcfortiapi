@@ -5,8 +5,8 @@ A Python library for interacting with the Fortinet FortiGate and FortiManager AP
 ## Current Status
 
 - Status: Beta
-- Latest Release: 0.9.8
-- Release Date: 23-05-2026
+- Latest Release: 0.9.9
+- Release Date: 30-05-2026
 
 ## Dependencies
 
@@ -25,7 +25,7 @@ To initialise the library within your project add the following:
 ```
 import bcfortiapi
 
-init_variable = bcfortiapi.fgtapi(fortigate="FGT IP or FQDN", port="FGT HTTPS Admin Port", authtoken="FGT API Token", version="FortiOS Version (M.m)", debug=True/False, logfile="Full path and filename for log file")
+init_variable = bcfortiapi.fgtapi(fortigate="FGT IP or FQDN", port="FGT HTTPS Admin Port", authtoken="FGT API Token", version="FortiOS Version (M.m)", debug=True/False, logfile="Full path and filename for log file", session_options={Dictionary of optional Requests session parameters})
 ```
 - fortigate (str) = IP address or FQDN of the target FortiGate
 - port (str) = HTTPS admin port number of the target FortiGate
@@ -33,19 +33,29 @@ init_variable = bcfortiapi.fgtapi(fortigate="FGT IP or FQDN", port="FGT HTTPS Ad
 - version (str) = Major and minor FortiOS version of the target FortiGate (eg. 7.4)
 - debug (bool) = Console debug output enabled
 - logfile (str) = Full path and filename for log file (ie. c:\example directory\logfile.txt), if not provided file logging of debug output is disabled, requires console debug to be enabled
+- session_options (dict) = {
+        "session_verify": True/False/"Path to CA certificate file, bundle or directory" (default=False),
+        "local_cert": "Path to client certificate file",
+        "proxies": {Dictionary containing proxy servers - see Requests documentation for details}
+    }
 
 **FortiManager**
 
 ```
 import bcfortiapi
 
-init_variable = bcfortiapi.fmgapi(server="FMG IP or FQDN", port="FMG HTTPS Admin Port", version="Configuration Database Version (M.m)", debug=True/False, logfile="Full path and filename for log file")
+init_variable = bcfortiapi.fmgapi(server="FMG IP or FQDN", port="FMG HTTPS Admin Port", version="Configuration Database Version (M.m)", debug=True/False, logfile="Full path and filename for log file", session_options={Dictionary of optional Requests session parameters})
 ```
 - server (str) = IP address or FQDN of the target FortiManager
 - port (str) = HTTPS admin port number of the target FortiManager
 - version (str) = Major and minor configuration database version of the target FortiManager (eg. 7.4)
 - debug (bool) = Console debug output enabled
 - logfile (str) = Full path and filename for log file (ie. c:\example directory\logfile.txt), if not provided file logging of debug output is disabled, requires console debug to be enabled
+- session_options (dict) = {
+        "session_verify": True/False/"Path to CA certificate file, bundle or directory" (default=False),
+        "local_cert": "Path to client certificate file",
+        "proxies": {Dictionary containing proxy servers - see Requests documentation for details}
+    }
 
 **Tools**
 
@@ -106,6 +116,11 @@ response_variable = init_variable.dvmdb_device(adom="ADOM name", method="get")
 ```
 init_variable.logout()
 ```
+
+## Change Log 0.9.9
+
+- 30-05-2026: Session verification, client certificates and HTTP/HTTPS proxy servers can now be specified when initialising bcfortiapi.fgtapi and bcfortiapi.fmgapi
+- 30-05-2026: Updated file logging in bcfortiapi.fgtapi and bcfortiapi.fmgapi to redact passwords included within the request body
 
 ## Change Log 0.9.8
 

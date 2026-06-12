@@ -1,7 +1,7 @@
 #bcfortiapi.fmg
 #API library for Fortinet FortiManager
 #Created by Benjamin Court 06-01-2026
-#Last Updated: 12-06-2026
+#Last Updated: 30-05-2026
 
 """
 bcfortiapi.fmg\n
@@ -64,7 +64,7 @@ class fmgapi:
     #---------- Internal Functions ----------
     #----------------------------------------
 
-    def __init__(self, server:str="127.0.0.1", port:str="443", version:str="7.6", debug:bool=False, logfile:str=None, session_options:dict=None):
+    def __init__(self, server:str="127.0.0.1", port:str="443", version:str="7.4", debug:bool=False, logfile:str=None, session_options:dict=None):
         self.session = requests.Session()
         self.base_url = f"https://{server}:{port}/jsonrpc"
         self.db_ver = version
@@ -198,7 +198,7 @@ class fmgapi:
                 {
                     "url": endpoint,
                     "data": data,
-                    "fields": fields,
+                    "fields": [fields],
                     "option": option
                 }
             ],

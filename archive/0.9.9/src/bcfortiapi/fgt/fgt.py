@@ -1,7 +1,7 @@
 #bcfortiapi.fgt
 #API library for Fortinet FortiGate
 #Created by Benjamin Court 14-01-2026
-#Last Updated: 12-06-2026
+#Last Updated: 30-05-2026
 
 """
 bcfortiapi.fgt\n
@@ -69,7 +69,7 @@ class fgtapi:
     #---------- Internal Functions ----------
     #----------------------------------------
 
-    def __init__(self, fortigate:str="127.0.0.1", port:str="443", authtoken:str=None, version:str="7.6", debug:bool=False, logfile:str=None, session_options:dict=None):
+    def __init__(self, fortigate:str="127.0.0.1", port:str="443", authtoken:str=None, version:str="7.4", debug:bool=False, logfile:str=None, session_options:dict=None):
         self.session = requests.Session()
         self.base_url = f"https://{fortigate}:{port}/"
         self.db_ver = version

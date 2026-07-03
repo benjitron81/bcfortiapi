@@ -1,7 +1,7 @@
 #bcfortiapi.fmg
 #API library for Fortinet FortiManager
 #Created by Benjamin Court 06-01-2026
-#Last Updated: 03-07-2026
+#Last Updated: 12-06-2026
 
 """
 bcfortiapi.fmg\n
@@ -1587,7 +1587,7 @@ class fmgapi:
     #---------- Database Module Functions ----------
     #-----------------------------------------------
 
-    def dvmdb_device(self, adom:str=None, device:str=None, method:str="get", data:dict=None, option:str=None):
+    def dvmdb_device(self, adom:str=None, device:str=None, method:str="get", data:dict=None):
         """
         bcfortiapi.fmg.fmgapi.dvmdb_device\n
 
@@ -1606,13 +1606,9 @@ class fmgapi:
         -------------\n
             *get, set, update*
         
-        Options:
-        --------\n
-            *count, object member, syntax, chksum*
-        
         Examples:
         ---------\n
-        >>> init_variable.dvmdb_device(adom="ADOM Name", device="Device Name", method="HTTP Method", data={Dictionary Object}, option="Option")
+        >>> init_variable.dvmdb_device(adom="ADOM Name", device="Device Name", method="HTTP Method", data={Dictionary Object})
 
         Data Structure (7.6):
         ---------------------\n
@@ -1815,14 +1811,14 @@ class fmgapi:
         if self.loginstate == True:
             if adom is not None:
                 if device is not None:
-                    self._payload_builder(method=method, endpoint=f"/dvmdb/adom/{adom}/device/{device}", session=self.session_id, verbose=1, data=data, option=option)
+                    self._payload_builder(method=method, endpoint=f"/dvmdb/adom/{adom}/device/{device}", session=self.session_id, verbose=1, data=data)
                 else:
-                    self._payload_builder(method=method, endpoint=f"/dvmdb/adom/{adom}/device", session=self.session_id, verbose=1, data=data, option=option)
+                    self._payload_builder(method=method, endpoint=f"/dvmdb/adom/{adom}/device", session=self.session_id, verbose=1, data=data)
             else:
                 if device is not None:
-                    self._payload_builder(method=method, endpoint=f"/dvmdb/device/{device}", session=self.session_id, verbose=1, data=data, option=option)
+                    self._payload_builder(method=method, endpoint=f"/dvmdb/device/{device}", session=self.session_id, verbose=1, data=data)
                 else:
-                    self._payload_builder(method=method, endpoint="/dvmdb/device", session=self.session_id, verbose=1, data=data, option=option)
+                    self._payload_builder(method=method, endpoint="/dvmdb/device", session=self.session_id, verbose=1, data=data)
             response = self._request()
             if self.debug == True:
                 self._debugger(fnct=self.dvmdb_device.__name__, resp=response, mode=["std", "resp"])
@@ -1830,7 +1826,7 @@ class fmgapi:
             response = self._json_error(fnct=self.dvmdb_device.__name__, msg=f"Login state is {self.loginstate}")
         return response
     
-    def dvmdb_group(self, adom:str=None, group:str=None, method:str="get", data:dict=None, option:str=None):
+    def dvmdb_group(self, adom:str=None, group:str=None, method:str="get", data:dict=None):
         """
         bcfortiapi.fmg.fmgapi.dvmdb_group\n
 
@@ -1849,13 +1845,9 @@ class fmgapi:
         -------------\n
             *get, set, add, update, delete*
         
-        Options:
-        --------\n
-            *count, object member, syntax, chksum*
-        
         Examples:
         ---------\n
-        >>> init_variable.dvmdb_group(adom="ADOM Name", group="Group Name", method="HTTP Method", data={Dictionary Object}, option="Option")
+        >>> init_variable.dvmdb_group(adom="ADOM Name", group="Group Name", method="HTTP Method", data={Dictionary Object})
 
         Data Structure:
         ---------------\n
@@ -1873,14 +1865,14 @@ class fmgapi:
         if self.loginstate == True:
             if adom is not None:
                 if group is not None:
-                    self._payload_builder(method=method, endpoint=f"/dvmdb/adom/{adom}/group/{group}", session=self.session_id, verbose=1, data=data, option=option)
+                    self._payload_builder(method=method, endpoint=f"/dvmdb/adom/{adom}/group/{group}", session=self.session_id, verbose=1, data=data)
                 else:
-                    self._payload_builder(method=method, endpoint=f"/dvmdb/adom/{adom}/group", session=self.session_id, verbose=1, data=data, option=option)
+                    self._payload_builder(method=method, endpoint=f"/dvmdb/adom/{adom}/group", session=self.session_id, verbose=1, data=data)
             else:
                 if device is not None:
-                    self._payload_builder(method=method, endpoint=f"/dvmdb/group/{group}", session=self.session_id, verbose=1, data=data, option=option)
+                    self._payload_builder(method=method, endpoint=f"/dvmdb/group/{group}", session=self.session_id, verbose=1, data=data)
                 else:
-                    self._payload_builder(method=method, endpoint="/dvmdb/group", session=self.session_id, verbose=1, data=data, option=option)
+                    self._payload_builder(method=method, endpoint="/dvmdb/group", session=self.session_id, verbose=1, data=data)
             response = self._request()
             if self.debug == True:
                 self._debugger(fnct=self.dvmdb_group.__name__, resp=response, mode=["std", "resp"])
@@ -1970,7 +1962,7 @@ class fmgapi:
             response = self._json_error(fnct=self.dvmdb_device_replace.__name__, msg=f"Login state is {self.loginstate}")
         return response
         
-    def dvmdb_adom(self, adom:str=None, method:str="get", data:dict=None, option:str=None):
+    def dvmdb_adom(self, adom:str=None, method:str="get", data:dict=None):
         """
         bcfortiapi.fmg.fmgapi.dvmdb_adom\n
 
@@ -1987,13 +1979,9 @@ class fmgapi:
         -------------\n
             *get, add, set, update*
         
-        Options:
-        --------\n
-            *count, object member, syntax, chksum*
-        
         Examples:
         ---------\n
-        >>> init_variable.dvmdb_adom(adom="ADOM Name", method="HTTP Method", data={Dictionary Object}, option="Option")
+        >>> init_variable.dvmdb_adom(adom="ADOM Name", method="HTTP Method", data={Dictionary Object})
 
         Data Structure (7.6):
         ---------------------\n
@@ -2074,9 +2062,9 @@ class fmgapi:
         """
         if self.loginstate == True:
             if adom is not None:
-                self._payload_builder(method=method, endpoint=f"/dvmdb/adom/{adom}", session=self.session_id, verbose=1, data=data, option=option)
+                self._payload_builder(method=method, endpoint=f"/dvmdb/adom/{adom}", session=self.session_id, verbose=1, data=data)
             else:
-                self._payload_builder(method=method, endpoint="/dvmdb/adom", session=self.session_id, verbose=1, data=data, option=option)
+                self._payload_builder(method=method, endpoint="/dvmdb/adom", session=self.session_id, verbose=1, data=data)
             response = self._request()
             if self.debug == True:
                 self._debugger(fnct=self.dvmdb_adom.__name__, resp=response, mode=["std", "resp"])
@@ -2084,7 +2072,7 @@ class fmgapi:
             response = self._json_error(fnct=self.dvmdb_adom.__name__, msg=f"Login state is {self.loginstate}")
         return response
     
-    def dvmdb_script(self, adom:str=None, method:str="get", data:dict=None, option:str=None):
+    def dvmdb_script(self, adom:str=None, method:str="get", data:dict=None):
         """
         bcfortiapi.fmg.fmgapi.dvmdb_script\n
 
@@ -2102,10 +2090,6 @@ class fmgapi:
         HTTP Methods:
         -------------\n
             *get, add, set, update, exec*
-
-        Options:
-        --------\n
-            *count, syntax*
         
         Examples:
         ---------\n
@@ -2159,9 +2143,9 @@ class fmgapi:
                     self._payload_builder(method=method, endpoint="/dvmdb/script/execute", session=self.session_id, verbose=1, data=data)
             else:
                 if adom is not None:
-                    self._payload_builder(method=method, endpoint=f"/dvmdb/adom/{adom}/script", session=self.session_id, verbose=1, data=data, option=option)
+                    self._payload_builder(method=method, endpoint=f"/dvmdb/adom/{adom}/script", session=self.session_id, verbose=1, data=data)
                 else:
-                    self._payload_builder(method=method, endpoint="/dvmdb/script", session=self.session_id, verbose=1, data=data, option=option)
+                    self._payload_builder(method=method, endpoint="/dvmdb/script", session=self.session_id, verbose=1, data=data)
             response = self._request()
             if self.debug == True:
                 self._debugger(fnct=self.dvmdb_script.__name__, resp=response, mode=["std", "resp"])
@@ -2206,7 +2190,7 @@ class fmgapi:
             response = self._json_error(fnct=self.dvmdb_script_log_output.__name__, msg=f"Login state is {self.loginstate}")
         return response
     
-    def dvmdb_script_log_summary(self, adom:str=None, device:str=None, option:str=None):
+    def dvmdb_script_log_summary(self, adom:str=None, device:str=None):
         """
         bcfortiapi.fmg.fmgapi.dvmdb_script_log_summary\n
 
@@ -2221,13 +2205,9 @@ class fmgapi:
         ---------------------\n
             *None*
         
-        Options:
-        --------\n
-            *count, syntax*
-        
         Examples:
         ---------\n
-        >>> init_variable.dvmdb_script_log_summary(adom="ADOM Name", device="Device Name", option="Option")
+        >>> init_variable.dvmdb_script_log_summary(adom="ADOM Name", device="Device Name")
 
         """
         if self.loginstate == True:
@@ -2235,12 +2215,12 @@ class fmgapi:
                 if device is not None:
                     self._payload_builder(method="get", endpoint=f"/dvmdb/adom/{adom}/script/log/summary/device/{device}", session=self.session_id, verbose=1)
                 else:
-                    self._payload_builder(method="get", endpoint=f"/dvmdb/adom/{adom}/script/log/summary", session=self.session_id, verbose=1, option=option)
+                    self._payload_builder(method="get", endpoint=f"/dvmdb/adom/{adom}/script/log/summary", session=self.session_id, verbose=1)
             else:
                 if device is not None:
                     self._payload_builder(method="get", endpoint=f"/dvmdb/script/log/summary/device/{device}", session=self.session_id, verbose=1)
                 else:
-                    self._payload_builder(method="get", endpoint=f"/dvmdb/global/script/log/summary", session=self.session_id, verbose=1, option=option)
+                    self._payload_builder(method="get", endpoint=f"/dvmdb/global/script/log/summary", session=self.session_id, verbose=1)
             response = self._request()
             if self.debug == True:
                 self._debugger(fnct=self.dvmdb_script_log_summary.__name__, resp=response, mode=["std", "resp"])
@@ -2314,7 +2294,7 @@ class fmgapi:
             response = self._json_error(fnct=self.dvmdb_workspace.__name__, msg=f"Login state is {self.loginstate}")
         return response
             
-    def dvmdb_revision(self, adom:str=None, method:str="get", revision:str=None, data:dict=None, option:str=None):
+    def dvmdb_revision(self, adom:str=None, method:str="get", revision:str=None, data:dict=None):
         """
         bcfortiapi.fmg.fmgapi.dvmdb_revision\n
 
@@ -2334,14 +2314,10 @@ class fmgapi:
         HTTP Methods:
         -------------\n
             *get, add, set, update, delete, clone*
-
-        Options:
-        --------\n
-            *count, object member, syntax, chksum*
         
         Examples:
         ---------\n
-        >>> init_variable.dvmdb_revision(adom="ADOM Name", method="HTTP Method", revision="Revision Name", data={Dictionary Object}, option="Option")
+        >>> init_variable.dvmdb_revision(adom="ADOM Name", method="HTTP Method", revision="Revision Name", data={Dictionary Object})
 
         Data Structure:
         ---------------\n
@@ -2359,19 +2335,19 @@ class fmgapi:
             if adom is not None:
                 if adom == "global":
                     if revision is not None:
-                        self._payload_builder(method=method, endpoint=f"/dvmdb/global/revision/{revision}", session=self.session_id, verbose=1, data=data, option=option)
+                        self._payload_builder(method=method, endpoint=f"/dvmdb/global/revision/{revision}", session=self.session_id, verbose=1, data=data)
                     else:
-                        self._payload_builder(method=method, endpoint=f"/dvmdb/global/revision", session=self.session_id, verbose=1, data=data, option=option)
+                        self._payload_builder(method=method, endpoint=f"/dvmdb/global/revision", session=self.session_id, verbose=1, data=data)
                 else:
                     if revision is not None:
-                        self._payload_builder(method=method, endpoint=f"/dvmdb/adom/{adom}/revision/{revision}", session=self.session_id, verbose=1, data=data, option=option)
+                        self._payload_builder(method=method, endpoint=f"/dvmdb/adom/{adom}/revision/{revision}", session=self.session_id, verbose=1, data=data)
                     else:
-                        self._payload_builder(method=method, endpoint=f"/dvmdb/adom/{adom}/revision", session=self.session_id, verbose=1, data=data, option=option)
+                        self._payload_builder(method=method, endpoint=f"/dvmdb/adom/{adom}/revision", session=self.session_id, verbose=1, data=data)
             else:
                 if revision is not None:
-                    self._payload_builder(method=method, endpoint=f"/dvmdb/revision/{revision}", session=self.session_id, verbose=1, data=data, option=option)
+                    self._payload_builder(method=method, endpoint=f"/dvmdb/revision/{revision}", session=self.session_id, verbose=1, data=data)
                 else:
-                    self._payload_builder(method=method, endpoint=f"/dvmdb/revision", session=self.session_id, verbose=1, data=data, option=option)
+                    self._payload_builder(method=method, endpoint=f"/dvmdb/revision", session=self.session_id, verbose=1, data=data)
             response = self._request()
             if self.debug == True:
                 self._debugger(fnct=self.dvmdb_revision.__name__, resp=response, mode=["std", "resp"])
@@ -2379,7 +2355,7 @@ class fmgapi:
             response = self._json_error(fnct=self.dvmdb_revision.__name__, msg=f"Login state is {self.loginstate}")
         return response
 
-    def dvmdb_task(self, taskid:str=None, option:str=None):
+    def dvmdb_task(self, taskid:str=None):
         """
         bcfortiapi.fmg.fmgapi.dvmdb_task\n
 
@@ -2392,20 +2368,16 @@ class fmgapi:
         ---------------------\n
             *None*
         
-        Options:
-        --------\n
-            *count, syntax*
-        
         Examples:
         ---------\n
-        >>> init_variable.dvmdb_task(taskid="123", option="Option")
+        >>> init_variable.dvmdb_task(taskid="123")
 
         """
         if self.loginstate == True:
             if taskid is not None:
                 self._payload_builder(method="get", endpoint=f"/task/task/{taskid}", session=self.session_id, verbose=1)
             else:
-                self._payload_builder(method="get", endpoint=f"/task/task", session=self.session_id, verbose=1, option=option)
+                self._payload_builder(method="get", endpoint=f"/task/task", session=self.session_id, verbose=1)
             response = self._request()
             if self.debug == True:
                 self._debugger(fnct=self.dvmdb_task.__name__, resp=response, mode=["std", "resp"])
@@ -4964,7 +4936,7 @@ class fmgapi:
             response = self._json_error(fnct=self.confdb_authentication_rule.__name__, msg=f"Login state is {self.loginstate}")
         return response
     
-    def confdb_authentication_setting(self, adom:str=None, method:str="get", pkg:str=None, data:dict=None, option:str=None):
+    def confdb_authentication_setting(self, adom:str=None, method:str="get", pkg:str=None, data:dict=None, fields:list=None):
         """
         bcfortiapi.fmg.fmgapi.confdb_authentication_setting\n
 
@@ -4986,7 +4958,7 @@ class fmgapi:
 
         Examples:
         ---------\n
-        >>> init_variable.confdb_firewall_authentication_setting(adom="ADOM Name", method="HTTP Method", pkg="Policy Package Name", data={Dictionary Object}, option="Option")
+        >>> init_variable.confdb_firewall_authentication_setting(adom="ADOM Name", method="HTTP Method", pkg="Policy Package Name", data={Dictionary Object}, fields=[List Object])
 
         Data Structure:
         ---------------\n
@@ -5018,7 +4990,7 @@ class fmgapi:
         if self.loginstate == True:
             if adom is not None:
                 if pkg is not None:
-                    self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/authentication/setting", session=self.session_id, verbose=1, data=data, option=option)
+                    self._payload_builder(method=method, endpoint=f"/pm/config/adom/{adom}/pkg/{pkg}/authentication/setting", session=self.session_id, verbose=1, data=data, fields=fields)
                     response = self._request()
                     if self.debug == True:
                         self._debugger(fnct=self.confdb_authentication_setting.__name__, resp=response, mode=["std", "resp"])

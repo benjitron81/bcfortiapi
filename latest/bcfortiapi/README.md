@@ -5,8 +5,8 @@ A Python library for interacting with the Fortinet FortiGate and FortiManager AP
 ## Current Status
 
 - Status: Beta
-- Latest Release: 0.9.10
-- Release Date: 12-06-2026
+- Latest Release: 0.9.11
+- Release Date: 03-07-2026
 
 ## Dependencies
 
@@ -116,6 +116,10 @@ response_variable = init_variable.dvmdb_device(adom="ADOM name", method="get")
 ```
 init_variable.logout()
 ```
+
+## Change Log 0.9.11
+
+- 03-07-2026: Updated Device Manager and Task Database functions to include options in GET requests (required to retrieve some data subsets such as object members)
 
 ## Change Log 0.9.10
 

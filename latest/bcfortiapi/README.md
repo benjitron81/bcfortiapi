@@ -4,15 +4,15 @@ A Python library for interacting with the Fortinet FortiGate and FortiManager AP
 
 ## Current Status
 
-- Status: Beta
-- Latest Release: 0.9.11
-- Release Date: 03-07-2026
+- Status: Production/Stable
+- Latest Release: 1.0.0
+- Release Date: 18-07-2026
 
 ## Dependencies
 
 - Python 3: minimum supported version 3.11
-- urllib3: minimum supported version 2.2.1
-- requests: minimum supported version 2.32.3
+- urllib3: minimum supported version 2.7.0
+- requests: minimum supported version 2.34.2
 
 ## Usage Examples
 
@@ -29,12 +29,12 @@ init_variable = bcfortiapi.fgtapi(fortigate="FGT IP or FQDN", port="FGT HTTPS Ad
 ```
 - fortigate (str) = IP address or FQDN of the target FortiGate
 - port (str) = HTTPS admin port number of the target FortiGate
-- authtoken (str) = FortiGate API administrator token (if using basic authentication, leave this field blank and use the *login* and *logout* functions instead)
-- version (str) = Major and minor FortiOS version of the target FortiGate (eg. 7.4)
+- authtoken (str) = FortiGate API administrator token (if using basic authentication, ignore this field and use the *login* and *logout* functions instead)
+- version (str) = Major and minor FortiOS version of the target FortiGate (eg. 7.6)
 - debug (bool) = Console debug output enabled
 - logfile (str) = Full path and filename for log file (ie. c:\example directory\logfile.txt), if not provided file logging of debug output is disabled, requires console debug to be enabled
 - session_options (dict) = {
-        "session_verify": True/False/"Path to CA certificate file, bundle or directory" (default=False),
+        "session_verify": True/False/"Path to CA certificate file, bundle or directory" (default=True),
         "local_cert": "Path to client certificate file",
         "proxies": {Dictionary containing proxy servers - see Requests documentation for details}
     }
@@ -44,15 +44,16 @@ init_variable = bcfortiapi.fgtapi(fortigate="FGT IP or FQDN", port="FGT HTTPS Ad
 ```
 import bcfortiapi
 
-init_variable = bcfortiapi.fmgapi(server="FMG IP or FQDN", port="FMG HTTPS Admin Port", version="Configuration Database Version (M.m)", debug=True/False, logfile="Full path and filename for log file", session_options={Dictionary of optional Requests session parameters})
+init_variable = bcfortiapi.fmgapi(server="FMG IP or FQDN", port="FMG HTTPS Admin Port", authtoken="FMG API Token", version="Configuration Database Version (M.m)", debug=True/False, logfile="Full path and filename for log file", session_options={Dictionary of optional Requests session parameters})
 ```
 - server (str) = IP address or FQDN of the target FortiManager
 - port (str) = HTTPS admin port number of the target FortiManager
-- version (str) = Major and minor configuration database version of the target FortiManager (eg. 7.4)
+- authtoken (str) = FortiManager API administrator token (if using basic authentication, ignore this field and use the *login* and *logout* functions instead)
+- version (str) = Major and minor configuration database version of the target FortiManager (eg. 7.6)
 - debug (bool) = Console debug output enabled
 - logfile (str) = Full path and filename for log file (ie. c:\example directory\logfile.txt), if not provided file logging of debug output is disabled, requires console debug to be enabled
 - session_options (dict) = {
-        "session_verify": True/False/"Path to CA certificate file, bundle or directory" (default=False),
+        "session_verify": True/False/"Path to CA certificate file, bundle or directory" (default=True),
         "local_cert": "Path to client certificate file",
         "proxies": {Dictionary containing proxy servers - see Requests documentation for details}
     }
@@ -75,7 +76,7 @@ init_variable = bcfortiapi.toolbox(debug=True/False)
 init_variable.login(username="Username", password="Password")
 ```
     
-*Login and return login state (bool)*
+*Login and return login state (bool, Basic Authentication Only)*
 ```
 response_variable = init_variable.login(username="Username", password="Password")
 ```
@@ -97,12 +98,12 @@ init_variable.logout()
 
 **FortiManager**
 
-*Login*
+*Login (Basic Authentication Only)*
 ```
 init_variable.login(username="Username", password="Password")
 ```
 
-*Login and return login state (bool)*
+*Login and return login state (bool, Basic Authentication Only)*
 ```
 response_variable = init_variable.login(username="Username", password="Password")
 ```
@@ -112,10 +113,17 @@ response_variable = init_variable.login(username="Username", password="Password"
 response_variable = init_variable.dvmdb_device(adom="ADOM name", method="get")
 ```
 
-*Logout*
+*Logout (Basic Authentication Only)*
 ```
 init_variable.logout()
 ```
+
+## Change Log 1.0.0
+
+- 18-07-2026: Added support for REST API token authentication to bcfortiapi.fmgapi
+- 18-07-2026: Enabled session verification by default in bcfortiapi.fmgapi and bcfortiapi.fgtapi (can be disabled using session options if required)
+- 18-07-2026: Updated bcfortiapi_test.py test program
+- 18-07-2026: Updated README.md
 
 ## Change Log 0.9.11
 

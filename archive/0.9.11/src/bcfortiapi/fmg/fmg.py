@@ -1,7 +1,7 @@
 #bcfortiapi.fmg
 #API library for Fortinet FortiManager
 #Created by Benjamin Court 06-01-2026
-#Last Updated: 18-07-2026
+#Last Updated: 03-07-2026
 
 """
 bcfortiapi.fmg\n
@@ -17,12 +17,12 @@ Examples:
 >>> import bcfortiapi
 
     *Initialise instance of fmgapi within script*
->>> init_variable = bcfortiapi.fmgapi(server="FMG IP or FQDN", port="FMG HTTPS Admin Port", authtoken="FMG API Token", version="Configuration Database Version (M.m)", debug=True/False, logfile="Full path and filename for log file", session_options={Dictionary of optional Requests session parameters})
+>>> init_variable = bcfortiapi.fmgapi(server="FMG IP or FQDN", port="FMG HTTPS Admin Port", version="Configuration Database Version (M.m)", debug=True/False, logfile="Full path and filename for log file", session_options={Dictionary of optional Requests session parameters})
 
 Session Options:
 ----------------
 >>> session_options = {
-        "session_verify": True/False/"Path to CA certificate file, bundle or directory" (default=True),
+        "session_verify": True/False/"Path to CA certificate file, bundle or directory" (default=False),
         "local_cert": "Path to client certificate file",
         "proxies": {Dictionary containing proxy servers}
     }
@@ -46,7 +46,7 @@ class fmgapi:
     
     Examples:
     ---------\n
-        *Login (Basic Authentication Only)*
+        *Login*
     >>> init_variable.login(username="Username", password="Password")
     
         *Login and return login state (bool)*
@@ -55,7 +55,7 @@ class fmgapi:
         *Example GET*
     >>> response_variable = init_variable.dvmdb_device(adom="ADOM name", method="get")
 
-        *Logout (Basic Authentication Only)*
+        *Logout*
     >>> init_variable.logout()
 
     """
@@ -64,19 +64,15 @@ class fmgapi:
     #---------- Internal Functions ----------
     #----------------------------------------
 
-    def __init__(self, server:str="127.0.0.1", port:str="443", authtoken:str=None, version:str="7.6", debug:bool=False, logfile:str=None, session_options:dict=None):
+    def __init__(self, server:str="127.0.0.1", port:str="443", version:str="7.6", debug:bool=False, logfile:str=None, session_options:dict=None):
         self.session = requests.Session()
         self.base_url = f"https://{server}:{port}/jsonrpc"
         self.db_ver = version
-        if authtoken is not None:
-            self.loginstate = True
-        else:
-            self.loginstate = False
+        self.loginstate = False
         self.payload = {}
         self.session_id = None
         self.debug = debug
         self.logfile = logfile
-        self.authtoken = authtoken
         self.session_options = session_options
         if self.session_options is not None:
             for k, v in dict(self.session_options).items():
@@ -90,7 +86,8 @@ class fmgapi:
                 if k == "proxies":
                     self.session.proxies.update(v)
         else:
-            self.session.verify = True
+            self.session.verify = False
+            disable_warnings(exceptions.InsecureRequestWarning)
         if self.debug == True:
             self._debugger(fnct=self.__init__.__name__, mode=["std"])
 
@@ -159,7 +156,7 @@ class fmgapi:
             if str(mode[i]) == "std":
                 print(f"Session Verification: {str(self.session.verify)}")
                 print(f"FMG Base URL: {str(self.base_url)}")
-                print(f"Specified FMG Configuration Database Version: {str(self.db_ver)}")
+                print(f"FMG Configuration Database Version: {str(self.db_ver)}")
                 print(f"Login State: {str(self.loginstate)}")
                 print(f"Session ID: {str(self.session_id)}")
                 print(f"Payload: {str(self.payload)}")
@@ -212,13 +209,7 @@ class fmgapi:
             self._debugger(fnct=self._payload_builder.__name__, mode=["std"])
     
     def _request(self):
-        if self.authtoken is not None:
-            authheader = {
-                "Authorization": "Bearer " + self.authtoken
-            }
-            response = self.session.post(url=self.base_url, headers=authheader, json=self.payload)
-        else:
-            response = self.session.post(url=self.base_url, json=self.payload)
+        response = self.session.post(url=self.base_url, json=self.payload)
         resp_req = self._json_validity_check(content=response.content)
         if self.debug == True:
             self._debugger(fnct=self._request.__name__, mode=["std", "resp"])

@@ -1,15 +1,15 @@
 #bcfortiapi Test Program
 #Created by Benjamin Court 15-02-2026
-#Last Updated: 18-07-2026
+#Last Updated: 23-05-2026
 
 #Description:
 #------------
-#   FGT: Tests GET, POST, PUT and DELETE functions using webfilter profiles
-#   FMG: Tests GET, SET, ADD, DELETE and CLONE functions using webfilter profiles
+#FGT: Tests GET, POST, PUT and DELETE functions using webfilter profiles
+#FMG: Tests GET, SET, ADD, DELETE and CLONE functions using webfilter profiles
 
 #Requirements:
 #-------------
-#   Set up the following webfilter profiles on the target FortiGate or FortiManager:
+#Set up the following webfilter profiles on the target FortiGate or FortiManager:
 #   testprofile1 - set comment to "To be modified"
 #   testprofile2 = set comment to "To be deleted"
 
@@ -27,28 +27,23 @@ test_mode = "fgt" #Set to "fgt" for FortiGate or "fmg" for FortiManager
 
 fgt_target_ip = "127.0.0.1"
 fgt_target_port = "443"
-fgt_db_version = "7.6"
+token = ""
+fgt_db_version = "7.4"
 backup_file = "c:\\fgt_test_backup.conf"
 
 fmg_target_ip = "127.0.0.1"
 fmg_target_port = "443"
-fmg_db_version = "7.6"
 target_adom = None
-
-token = None
 user = ""
 passwd = ""
-
-options = {
-    "session_verify": False
-}
+fmg_db_version = "7.4"
 
 debug_enabled = True
 log_file = None
 
 def fortigate_test():
     #Initialise FortiManager API library
-    fgt = bcfortiapi.fgtapi(fortigate=fgt_target_ip, port=fgt_target_port, authtoken=token, version=fgt_db_version, debug=debug_enabled, logfile=log_file, session_options=options)
+    fgt = bcfortiapi.fgtapi(fortigate=fgt_target_ip, port=fgt_target_port, authtoken=token, version=fgt_db_version, debug=debug_enabled, logfile=log_file)
     
     #Login
     if token is None:
@@ -92,9 +87,7 @@ def fortigate_test():
             file.write(str(backup, "utf-8"))
         file.close()
 
-        #Logout
-        if token is None:
-            fgt.logout()
+        fgt.logout()
 
     else:
         print("ERR: Login failed")
@@ -102,13 +95,10 @@ def fortigate_test():
 
 def fortimanager_test():
     #Initialise FortiManager API library
-    fmg = bcfortiapi.fmgapi(server=fmg_target_ip, port=fmg_target_port, authtoken=token, debug=debug_enabled, version=fmg_db_version, logfile=log_file, session_options=options)
+    fmg = bcfortiapi.fmgapi(server=fmg_target_ip, port=fmg_target_port, debug=debug_enabled, version=fmg_db_version, logfile=log_file)
 
     #Login
-    if token is None:
-        loginresponse = fmg.login(username=user, password=passwd)
-    else:
-        loginresponse = True
+    loginresponse = fmg.login(username=user, password=passwd)
     if loginresponse == True:
 
         #If ADOM specified, check if workspace mode enabled
@@ -172,8 +162,7 @@ def fortimanager_test():
             fmg.dvmdb_workspace(adom=target_adom, action="unlock")
 
         #Logout
-        if token is None:
-            fmg.logout()
+        fmg.logout()
 
     else:
         print("ERR: Login failed")

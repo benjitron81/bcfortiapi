@@ -1,7 +1,7 @@
 #bcfortiapi.fgt
 #API library for Fortinet FortiGate
 #Created by Benjamin Court 14-01-2026
-#Last Updated: 18-06-2026
+#Last Updated: 12-06-2026
 
 """
 bcfortiapi.fgt\n
@@ -22,7 +22,7 @@ Examples:
 Session Options:
 ----------------
 >>> session_options = {
-        "session_verify": True/False/"Path to CA certificate file, bundle or directory" (default=True),
+        "session_verify": True/False/"Path to CA certificate file, bundle or directory" (default=False),
         "local_cert": "Path to client certificate file",
         "proxies": {Dictionary containing proxy servers}
     }
@@ -94,7 +94,8 @@ class fgtapi:
                 if k == "proxies":
                     self.session.proxies.update(v)
         else:
-            self.session.verify = True
+            self.session.verify = False
+            disable_warnings(exceptions.InsecureRequestWarning)
         if self.debug == True:
             self._debugger(fnct=self.__init__.__name__, mode=["std"])
 
